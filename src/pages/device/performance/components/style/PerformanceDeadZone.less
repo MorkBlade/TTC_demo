@@ -1,0 +1,84 @@
+.device-performance-page {
+  &__dead-zone {
+    .dz-slider-box {
+      margin-bottom: 32px;
+    }
+
+    p {
+      color: rgb(252 252 252 / 100%);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0;
+      text-align: left;
+      vertical-align: middle;
+    }
+  }
+
+  .trigger-slider {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    &__text {
+      flex: 1;
+      width: 100px;
+      color: rgb(252 252 252);
+
+      :deep(.t-input-number) {
+        &.t-size-s {
+          width: 180px;
+        }
+
+        & .t-input-number__decrease .t-icon,
+        & .t-input-number__increase .t-icon {
+          color: #fff;
+        }
+
+        &.t-is-disabled .t-input-number__decrease .t-icon,
+        &.t-is-disabled .t-input-number__increase .t-icon {
+          color: rgb(0 0 0 / 60%);
+        }
+      }
+    }
+  }
+
+  :deep(.t-slider__container) {
+    display: block;
+    width: auto;
+  }
+
+  :deep(.t-slider) {
+    position: relative;
+    width: 330px;
+    height: 10px;
+    padding: 0;
+  }
+
+  :deep(.t-slider__track) {
+    height: 10px;
+    background: var(--td-brand-color);
+    border-radius: 7px;
+  }
+
+  :deep(.t-slider__rail) {
+    height: 10px;
+    background: rgb(53 53 53 / 100%);
+    border-radius: 7px;
+  }
+
+  :deep(.t-slider__button) {
+    background-color: var(--td-brand-color);
+    border: 3px solid #fff;
+  }
+
+  :deep(.t-slider__button-wrapper) {
+    z-index: 100;
+  }
+
+  :deep(.t-tooltip) {
+    border-radius: 10px;
+  }
+}

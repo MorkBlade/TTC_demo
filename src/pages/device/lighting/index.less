@@ -1,0 +1,30 @@
+.device-lighting {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &-head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    .device-config-header();
+  }
+
+  &-title {
+    margin-right: 20px;
+  }
+
+  &-body {
+    position: relative;
+    flex: 1;
+    padding: 20px 50px 0;
+    overflow: hidden auto;
+
+    &__empty {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

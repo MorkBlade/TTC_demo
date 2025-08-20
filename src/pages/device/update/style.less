@@ -1,0 +1,516 @@
+.update-container {
+  padding: 32px;
+  color: #fff;
+
+  .update-header {
+    margin-bottom: 40px;
+    padding: 24px;
+    background: linear-gradient(45deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 5%));
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+
+    .version-info {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 32px;
+
+      .t-icon {
+        padding: 12px;
+        color: #4a8eff;
+        background: rgb(74 142 255 / 10%);
+        border-radius: 16px;
+      }
+
+      .version-details {
+        flex: 1;
+
+        h2 {
+          margin: 0 0 12px;
+          color: rgb(255 255 255 / 95%);
+          font-weight: 600;
+          font-size: 20px;
+        }
+
+        p {
+          margin: 4px 0;
+          color: rgb(255 255 255 / 60%);
+          font-size: 14px;
+        }
+      }
+    }
+
+    .update-steps {
+      display: flex;
+      gap: 24px;
+      align-items: stretch;
+      margin-top: 32px;
+
+      .step {
+        flex: 1;
+        margin-bottom: 16px;
+        padding: 16px;
+        border: 1px solid var(--td-component-border);
+        border-radius: var(--td-radius-medium);
+        transition: all 0.3s ease;
+
+        &.active {
+          background: rgb(255 255 255 / 3%);
+          border-color: rgb(255 255 255 / 12%);
+        }
+
+        &.done {
+          .step-number {
+            background: #52c41a;
+            border-color: rgb(82 196 26 / 20%);
+          }
+        }
+
+        &.disabled {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        .step-header {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          margin-bottom: 16px;
+
+          .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: white;
+            background-color: var(--td-brand-color);
+            border-radius: 50%;
+          }
+
+          .step-title {
+            color: rgb(255 255 255 / 90%);
+            font-weight: 500;
+            font-size: 15px;
+          }
+        }
+
+        .step-tips {
+          margin-bottom: 16px;
+          padding: 12px;
+          background: rgb(255 255 255 / 2%);
+          border-radius: 8px;
+
+          .tip-item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 6px 0;
+            color: rgb(255 255 255 / 60%);
+            font-size: 13px;
+
+            .t-icon {
+              color: #4a8eff;
+              font-size: 14px;
+            }
+
+            & + .tip-item {
+              margin-top: 4px;
+            }
+          }
+        }
+
+        .step-action {
+          position: relative;
+
+          :deep(.t-upload__trigger) {
+            width: 100%;
+          }
+
+          & .upload-ways {
+            display: flex;
+            align-items: center;
+
+            :deep(.t-radio) {
+              color: #fff;
+
+              &__label {
+                color: #fff;
+              }
+            }
+          }
+
+          .upload-trigger {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-top: 10px;
+            padding: 16px;
+            background: rgb(255 255 255 / 3%);
+            border: 1px solid rgb(255 255 255 / 8%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            &:hover {
+              background: rgb(255 255 255 / 5%);
+              border-color: rgb(255 255 255 / 12%);
+            }
+
+            &.has-file {
+              background: rgb(74 142 255 / 5%);
+              border-color: rgb(74 142 255 / 15%);
+
+              .upload-icon {
+                color: #52c41a;
+                background: rgb(82 196 26 / 10%);
+              }
+            }
+
+            &.disabled {
+              opacity: 0.5;
+              pointer-events: none;
+            }
+
+            .upload-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              color: #4a8eff;
+              background: rgb(74 142 255 / 10%);
+              border-radius: 10px;
+
+              .t-icon {
+                font-size: 20px;
+              }
+            }
+
+            .upload-info {
+              flex: 1;
+
+              .secondary-text {
+                margin-top: 4px;
+                color: rgb(255 255 255 / 50%);
+                font-size: 13px;
+              }
+            }
+
+            .upload-action {
+              .t-button {
+                height: 32px;
+                padding: 0 16px;
+                color: rgb(255 255 255 / 90%);
+                font-size: 13px;
+                background: transparent;
+                border-color: rgb(255 255 255 / 20%);
+
+                &:hover {
+                  background: rgb(255 255 255 / 5%);
+                  border-color: rgb(255 255 255 / 30%);
+                }
+              }
+            }
+          }
+
+          .update-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 80px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+            background: linear-gradient(45deg, #4a8eff, #2d6aff);
+            border: none;
+            border-radius: 10px;
+            transition: all 0.2s;
+
+            .button-content {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              align-items: center;
+              position: relative;
+              z-index: 20;
+
+              .t-icon {
+                font-size: 22px;
+              }
+
+              span {
+                font-size: 14px;
+              }
+            }
+
+            &:hover:not(:disabled) {
+              background: linear-gradient(45deg, #2d6aff, #1d4aff);
+              transform: translateY(-1px);
+            }
+
+            &:disabled {
+              background: linear-gradient(45deg, #808080, #666);
+              cursor: not-allowed;
+              opacity: 0.5;
+            }
+          }
+
+          .primary-text {
+            max-width: 220px;
+            color: rgb(255 255 255 / 90%);
+            font-weight: 500;
+            font-size: 14px;
+            display: -webkit-box; /* 必需：将对象作为弹性伸缩盒子模型显示 */
+            -webkit-box-orient: vertical; /* 必需：设置或检索伸缩盒对象的子元素的排列方式 */
+            -webkit-line-clamp: 1; /* 设置行数，这里是两行 */
+            overflow: hidden; /* 隐藏超出部分 */
+            text-overflow: ellipsis; /* 当文本溢出时显示省略符号 */
+            white-space: normal; /* 允许文本换行 */
+          }
+
+          .online-update {
+            width: 100%;
+            height: 82px;
+            margin-top: 10px;
+            padding: 16px;
+            box-sizing: border-box;
+            background: rgb(255 255 255 / 3%);
+            border: 1px solid rgb(255 255 255 / 8%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+
+            &:hover {
+              background: rgb(255 255 255 / 5%);
+              border-color: rgb(255 255 255 / 12%);
+            }
+
+            .upload-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              color: #4a8eff;
+              background: rgb(74 142 255 / 10%);
+              border-radius: 10px;
+
+              .t-icon {
+                font-size: 20px;
+              }
+            }
+
+            &.has-file {
+              background: rgb(74 142 255 / 5%);
+              border-color: rgb(74 142 255 / 15%);
+
+              .upload-icon {
+                color: rgb(43 164 113);
+                background: rgb(47 62 50);
+              }
+            }
+          }
+
+          :deep(.t-input) {
+            background: rgb(255 255 255 / 3%);
+            border: 1px solid rgb(255 255 255 / 8%);
+
+            > .t-input__inner {
+              color: rgb(255 255 255 / 90%);
+              font-weight: 500;
+              font-size: 14px;
+            }
+
+            & .t-fake-arrow {
+              color: rgb(255 255 255 / 90%);
+            }
+
+            &.t-input--focused {
+              box-shadow: none;
+            }
+          }
+        }
+
+        .progress-box {
+          padding: 20px;
+          background: rgb(255 255 255 / 2%);
+          border: 1px solid rgb(255 255 255 / 8%);
+          border-radius: 12px;
+          transition: all 0.3s ease;
+
+          &.active {
+            background: rgb(255 255 255 / 3%);
+            border-color: rgb(255 255 255 / 12%);
+          }
+
+          .progress-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+
+            .progress-text {
+              color: rgb(255 255 255 / 90%);
+              font-weight: 500;
+              font-size: 14px;
+            }
+
+            .progress-value {
+              color: rgb(255 255 255 / 60%);
+              font-size: 13px;
+              font-family: monospace;
+            }
+          }
+
+          :deep(.t-progress) {
+            .t-progress__inner {
+              height: 8px;
+              overflow: hidden;
+              border-radius: 4px;
+            }
+
+            .t-progress__bar {
+              transition: all 0.3s ease;
+            }
+          }
+
+          .progress-info {
+            margin-top: 12px;
+            color: rgb(255 255 255 / 50%);
+            font-size: 13px;
+            text-align: center;
+          }
+        }
+      }
+
+      .step-divider {
+        width: 1px;
+        margin: 0 8px;
+        background: rgb(255 255 255 / 8%);
+      }
+    }
+  }
+
+  .update-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .tip-item {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      background: rgb(255 255 255 / 2%);
+      border: 1px solid rgb(255 255 255 / 5%);
+      border-radius: 12px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgb(255 255 255 / 3%);
+        transform: translateX(4px);
+      }
+
+      .tip-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        color: #4a8eff;
+        background: rgb(74 142 255 / 10%);
+        border-radius: 10px;
+
+        .t-icon {
+          font-size: 20px;
+        }
+      }
+
+      .tip-content {
+        flex: 1;
+
+        .tip-title {
+          margin-bottom: 4px;
+          color: rgb(255 255 255 / 90%);
+          font-weight: 500;
+          font-size: 15px;
+        }
+
+        .tip-desc {
+          color: rgb(255 255 255 / 50%);
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .shadow {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background-color: rgb(0 0 0 / 50%);
+  }
+
+  &-list {
+    margin: 32px 0 24px;
+    padding: 24px;
+    background: linear-gradient(45deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 5%));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 新增：自定义灯光休眠时间选择栏样式 */
+  .sleep-delay-setting {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    box-sizing: border-box;
+    margin-right: 40px;
+
+    .sleep-delay-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgb(255 255 255 / 90%);
+      font-weight: 500;
+      font-size: 16px;
+
+      .t-icon {
+        color: #4a8eff;
+        font-size: 28px;
+        background: rgb(74 142 255 / 10%);
+        border-radius: 8px;
+        padding: 6px;
+      }
+    }
+
+    .sleep-delay-select {
+      flex: 1;
+      min-width: 200px;
+
+      :deep(.t-select) {
+        background: rgb(255 255 255 / 3%);
+        border: 1px solid rgb(255 255 255 / 8%);
+        border-radius: 8px;
+        color: #222;
+        font-size: 14px;
+
+        .t-input__inner {
+          color: #222;
+        }
+
+        .t-fake-arrow {
+          color: #222;
+        }
+      }
+    }
+  }
+
+  /* 新增结束 */
+}

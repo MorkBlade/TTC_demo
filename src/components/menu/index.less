@@ -1,0 +1,66 @@
+.menu-container {
+  box-sizing: border-box;
+
+  & > h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  & .menu-item {
+    height: 40px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgb(255 255 255 / 5%);
+    position: relative;
+
+    &:hover:not(.disabled) {
+      background: linear-gradient(90deg, var(--td-brand-color) 0%, rgb(161 10 10 / 0%) 100%);
+      opacity: 0.8;
+      transform: translateX(5px);
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      background: rgb(255 255 255 / 2%);
+
+      &:hover {
+        background: rgb(255 255 255 / 2%);
+        opacity: 0.3;
+        transform: none;
+      }
+    }
+
+    &.actived {
+      background: linear-gradient(90deg, var(--td-brand-color) 0%, rgb(161 10 10 / 0%) 100%);
+      opacity: 0.8;
+    }
+
+    > i {
+      margin-right: 20px;
+    }
+
+    span {
+      position: relative;
+    }
+
+    .update-dot {
+      position: absolute;
+      top: -4px;
+      right: -12px;
+      width: 10px;
+      height: 10px;
+      background-color: #ff4d4f;
+      border-radius: 50%;
+    }
+  }
+}

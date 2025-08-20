@@ -1,0 +1,118 @@
+{
+  // 标记这是根配置文件，ESLint 将停止在父级目录中查找其他配置文件
+  "root": true,
+  // 继承的配置集
+  "extends": [
+    "plugin:@typescript-eslint/recommended", // TypeScript ESLint 推荐规则
+    "eslint-config-airbnb-base", // Airbnb 基础 JavaScript 风格指南
+    "@vue/typescript/recommended", // Vue TypeScript 推荐规则
+    "plugin:vue/vue3-recommended", // Vue 3 推荐规则
+    "plugin:vue-scoped-css/base", // Vue 作用域 CSS 基础规则
+    "plugin:prettier/recommended", // Prettier 推荐规则，用于代码格式化
+  ],
+  "env": {
+    "browser": true, // 浏览器环境
+    "node": true, // Node.js 环境
+    "jest": true, // Jest 测试环境
+    "es6": true, // ES6 语法支持
+  },
+  "globals": {
+    "defineProps": "readonly",
+    "defineEmits": "readonly",
+  },
+  "plugins": ["vue", "@typescript-eslint"],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser", // 使用 TypeScript 解析器
+    "sourceType": "module", // 使用 ES 模块
+    "allowImportExportEverywhere": true, // 允许在任何位置使用 import/export
+    "ecmaFeatures": {
+      "jsx": true, // 启用 JSX 支持
+    },
+  },
+  // 导入解析配置
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"], // 导入文件扩展名
+  },
+  // 规则配置
+  "rules": {
+    "no-console": "off", // 允许使用 console
+    "no-continue": "off", // 允许使用 continue
+    "no-restricted-syntax": "off", // 关闭语法限制
+    "no-plusplus": "off", // 允许使用 ++ 和 --
+    "no-param-reassign": "off", // 允许修改函数参数
+    "no-shadow": "off", // 允许变量名与外部作用域变量重名
+    "guard-for-in": "off", // 不强制要求 for-in 循环中使用 hasOwnProperty
+
+    "import/extensions": "off", // 不强制要求文件扩展名
+    "import/no-unresolved": "off", // 不强制要求导入的模块必须存在
+    "import/no-extraneous-dependencies": "off", // 不强制要求导入的包必须在 dependencies 中
+    "import/prefer-default-export": "off", // 不强制要求使用默认导出
+    "import/first": "off", // 不强制要求 import 语句在文件顶部
+    "@typescript-eslint/no-explicit-any": "off", // 允许使用 any 类型
+    "@typescript-eslint/explicit-module-boundary-types": "off", // 不强制要求导出函数和类的公共类方法的显式返回和参数类型
+    "vue/first-attribute-linebreak": 0, // 不强制要求属性换行
+
+    // 未使用变量的规则配置
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_", // 忽略以下划线开头的参数
+        "varsIgnorePattern": "^_", // 忽略以下划线开头的变量
+      },
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_", // 忽略以下划线开头的参数
+        "varsIgnorePattern": "^_", // 忽略以下划线开头的变量
+      },
+    ],
+    "no-use-before-define": "off", // 允许在定义前使用变量
+    "@typescript-eslint/no-use-before-define": "off", // 不强制要求在定义前使用变量
+    "@typescript-eslint/ban-ts-comment": "off", // 允许使用 @ts- 注释
+    "@typescript-eslint/ban-types": "off", // 允许使用被禁用的类型
+    "class-methods-use-this": "off", // 因为AxiosCancel必须实例化而能静态化所以加的规则，如果有办法解决可以取消
+    "no-bitwise": "off",
+  },
+  // 针对特定文件的规则覆盖
+  "overrides": [
+    {
+      "files": ["*.vue"], // 覆盖 Vue 文件的规则
+      "rules": {
+        "vue/component-name-in-template-casing": [2, "kebab-case"], // 强制组件名称在模板中使用 kebab-case 命名
+        "vue/require-default-prop": 0, // 允许组件属性没有默认值
+        "vue/multi-word-component-names": 0, // 允许组件名称使用多个单词
+        "vue/no-reserved-props": 0, // 允许使用保留的属性
+        "vue/no-v-html": 0, // 允许使用 v-html
+        "vue-scoped-css/enforce-style-type": ["error", { "allows": ["scoped"] }], // 强制使用 scoped 样式
+      },
+    },
+    {
+      "files": ["*.ts", "*.tsx"], // https://github.com/typescript-eslint eslint-recommended
+      "rules": {
+        // 关闭一些与 TypeScript 冲突的规则
+        "constructor-super": "off", // ts(2335) & ts(2377)
+        "getter-return": "off", // ts(2378)
+        "no-const-assign": "off", // ts(2588)
+        "no-dupe-args": "off", // ts(2300)
+        "no-dupe-class-members": "off", // ts(2393) & ts(2300)
+        "no-dupe-keys": "off", // ts(1117)
+        "no-func-assign": "off", // ts(2539)
+        "no-import-assign": "off", // ts(2539) & ts(2540)
+        "no-new-symbol": "off", // ts(2588)
+        "no-obj-calls": "off", // ts(2349)
+        "no-redeclare": "off", // ts(2451)
+        "no-setter-return": "off", // ts(2408)
+        "no-this-before-super": "off", // ts(2376)
+        "no-undef": "off", // ts(2304)
+        "no-unreachable": "off", // ts(7027)
+        "no-unsafe-negation": "off", // ts(2365) & ts(2360) & ts(2358)
+        "no-var": "error", // 禁止使用 var
+        "prefer-const": "error", // 优先使用const
+        "prefer-rest-params": "error", // 优先使用剩余参数
+        "prefer-spread": "error", // 优先使用展开运算符
+        "valid-typeof": "off", // ts(2367)
+      },
+    },
+  ],
+}

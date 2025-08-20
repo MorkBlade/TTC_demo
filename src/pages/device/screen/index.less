@@ -1,0 +1,335 @@
+.tab-content {
+  margin-top: 20px;
+  color: #ffffff;
+  margin-left: 20px;
+}
+
+h3,
+h4 {
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #e0e0e0;
+}
+
+.image-settings {
+  max-width: 1200px;
+  color: #e0e0e0;
+}
+
+.gifNum {
+    color: #e0e0e0;
+}
+
+.gif-upload-section {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.gif-uploader {
+  margin-top: 10px;
+}
+
+.selected-file {
+  margin-top: 10px;
+  color: #a0cfff;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-text {
+  margin-top: 10px;
+  color: #e0e0e0;
+}
+
+/* 主布局 - 左右两栏 */
+.main-edit-layout {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.left-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 230px;
+  max-width: 300px;
+}
+
+.frame-preview-container {
+  padding: 20px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  // max-width: 600px;
+  margin: 0 auto;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+}
+
+.selected-frame-preview {
+  // width: 350px;
+  // height: 220px;
+  object-fit: contain;
+  border: 1px solid #555555;
+  border-radius: 4px;
+}
+
+/* 时间轴样式 */
+.frames-timeline {
+  padding: 15px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: rgba(30, 30, 30, 0.6);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.timeline-container {
+  position: relative;
+  padding: 10px 0;
+}
+
+.frames-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #409eff #555555;
+}
+
+.frames-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.frames-scroll-container::-webkit-scrollbar-track {
+  background: #333333;
+  border-radius: 4px;
+}
+
+.frames-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #409eff;
+  border-radius: 4px;
+}
+
+.timeline-frame-item {
+  flex: 0 0 auto;
+  width: 100px;
+  border: 2px solid #555555;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+.upload-tips {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.timeline-frame-item:hover {
+  border-color: #409eff;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 12px 0 rgba(64, 158, 255, 0.3);
+}
+
+.timeline-frame-item.selected {
+  border-color: #409eff;
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.6);
+}
+
+.timeline-frame-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.timeline-frame-image {
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+  background-color: rgba(50, 50, 50, 0.5);
+}
+
+.frame-number {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 4px;
+  font-size: 12px;
+  color: #e0e0e0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 右侧更新框样式 */
+.update-container {
+  padding: 20px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 100%;
+}
+
+.update-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: calc(100% - 40px);
+}
+
+.update-progress-container {
+  background-color: rgba(30, 30, 30, 0.6);
+  border-radius: 4px;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-info {
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.progress-percent {
+  font-size: 13px;
+  color: #a0cfff;
+  font-weight: 500;
+}
+
+.custom-progress {
+  margin: 5px 0;
+}
+
+:deep(.el-progress-bar__inner) {
+  transition: width 0.3s ease;
+}
+
+:deep(.el-progress-bar__outer) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.frames-to-update {
+  background-color: rgba(30, 30, 30, 0.6);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 5px;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.update-frames-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.frame-id-item {
+  background-color: rgba(64, 158, 255, 0.2);
+  border: 1px solid rgba(64, 158, 255, 0.4);
+  border-radius: 4px;
+  padding: 4px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #a0cfff;
+}
+
+.update-button {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  margin-top: auto;
+}
+
+.help-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #a0cfff;
+  text-align: center;
+}
+
+.image-uploader {
+  border: 1px dashed #555555;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.image-uploader:hover {
+  border-color: #409eff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.upload-icon {
+  font-size: 28px;
+  color: #a0cfff;
+}
+
+.upload-text {
+  color: #e0e0e0;
+  margin-top: 10px;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+:deep(.t-upload__flow) {
+  display: none !important;
+}
+:deep(.t-upload__dragger) {
+  display: none !important;
+}
+:deep(.t-upload__card) {
+  display: none !important;
+}
+:deep(.t-upload__single-display-text) {
+  display: none !important;
+}
+:deep(.t-radio__label){
+  color: #e0e0e0!important;
+}

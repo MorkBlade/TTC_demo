@@ -1,0 +1,63 @@
+.draggable {
+  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+
+  /* 使 div 的宽度随内容自动调整 */
+  min-width: 25px;
+  height: 50px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  color: rgb(252 252 252 / 100%);
+  font-weight: 700;
+  font-size: 12px;
+  background-color: rgb(41 42 46 / 100%);
+  border: 1px solid rgb(112 112 112 / 100%);
+  border-radius: 4px;
+  cursor: grab;
+  opacity: 1;
+  position: relative;
+
+  > p {
+    width: 100%;
+    white-space: pre-wrap;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .macro-length {
+    line-height: 1;
+    box-sizing: border-box;
+    padding: 2px 3px;
+    background-color: #0052d9;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.draggable_hold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 使 div 的宽度随内容自动调整 */
+  min-width: 50px;
+
+  /* 可选：为 div 添加一些内边距 */
+  height: 50px;
+  margin: 10px;
+
+  /* 设置 div 的最小宽度 */
+  padding: 5px;
+  background-color: rgb(255 221 193);
+  border: 2px rgb(255 115 0) solid;
+  border-radius: 16px;
+}
+
+.active {
+  border-color: #0052d9;
+}
