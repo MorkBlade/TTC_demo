@@ -1,65 +1,73 @@
 <template>
   <div class="device-performance-page__dead-zone">
-    <div class="dz-slider-box">
-      <p>{{ t('messages.initialDeadZone') }}:</p>
-      <img src="" alt="" />
-      <div class="trigger-slider">
-        <t-slider
-          v-model="deadZoneDown"
-          :show-tooltip="true"
-          :disabled="!slideable"
-          :min="deadZoneOption.min"
-          :max="deadZoneOption.max"
-          :step="deadZoneOption.step"
-          :tooltip-props="{ placement: 'bottom', content: deadZoneDown.toFixed(2) + 'mm' }"
-          @change-end="updatePressDeadZone"
-        />
-        <!-- <div class="trigger-slider__text">
-          <t-input-number
-            v-if="showDeadZoneDownInput"
-            :value="deadZoneDown"
-            size="small"
-            :decimal-places="3"
+    <div class="dz-switch">
+      <p>死区设置:</p>
+      <t-switch v-model="deadSwitch" :disabled="!slideable" size="medium" @change="onChangeDead" />
+    </div>
+    <div class="dz-slider-warp" v-if="deadSwitch">
+      <div class="dz-slider-box">
+        <p>{{ t('messages.initialDeadZone') }}:</p>
+        <img src="" alt="" />
+        <div class="trigger-slider">
+          <t-slider
+            class="slider_rail"
+            v-model="deadZoneDown"
+            :show-tooltip="true"
+            :disabled="!slideable"
             :min="deadZoneOption.min"
             :max="deadZoneOption.max"
             :step="deadZoneOption.step"
-            :disabled="!slideable"
-            :format="(value) => `${value} mm`"
-            @change="updatePressDeadZone"
-            @blur="updatePressDzBlur"
+            :tooltip-props="{ placement: 'bottom', content: deadZoneDown.toFixed(2) + 'mm' }"
+            @change-end="updatePressDeadZone"
           />
-        </div> -->
+          <!-- <div class="trigger-slider__text">
+            <t-input-number
+              v-if="showDeadZoneDownInput"
+              :value="deadZoneDown"
+              size="small"
+              :decimal-places="3"
+              :min="deadZoneOption.min"
+              :max="deadZoneOption.max"
+              :step="deadZoneOption.step"
+              :disabled="!slideable"
+              :format="(value) => `${value} mm`"
+              @change="updatePressDeadZone"
+              @blur="updatePressDzBlur"
+            />
+          </div> -->
+        </div>
       </div>
-    </div>
-    <div class="dz-slider-box">
-      <p>{{ t('messages.bottomDeadZone') }}:</p>
-      <img src="" alt="" />
-      <div class="trigger-slider">
-        <t-slider
-          v-model="deadZoneUp"
-          :show-tooltip="true"
-          :disabled="!slideable"
-          :min="deadZoneUpOption.min"
-          :max="deadZoneUpOption.max"
-          :step="deadZoneUpOption.step"
-          :tooltip-props="{ placement: 'bottom', content: deadZoneUp.toFixed(2) + 'mm' }"
-          @change-end="updateReleaseDeadZone"
-        />
-        <!-- <div class="trigger-slider__text">
-          <t-input-number
-            v-if="showDeadZoneUpInput"
-            :value="deadZoneUp"
-            size="small"
-            :decimal-places="3"
+      <div class="dz-slider-box">
+        <p>{{ t('messages.bottomDeadZone') }}:</p>
+        <img src="" alt="" />
+        <div class="trigger-slider">
+          <t-slider
+            class="slider_rail"
+            v-model="deadZoneUp"
+            :show-tooltip="true"
+            :disabled="!slideable"
             :min="deadZoneUpOption.min"
             :max="deadZoneUpOption.max"
             :step="deadZoneUpOption.step"
-            :disabled="!slideable"
-            :format="(value) => `${value} mm`"
-            @change="updateReleaseDeadZone"
-            @blur="updateReleaseDzBlur"
+            :tooltip-props="{ placement: 'bottom', content: deadZoneUp.toFixed(2) + 'mm' }"
+            @change-end="updateReleaseDeadZone"
           />
-        </div> -->
+          <!-- <div class="trigger-slider__text">
+            <t-input-number
+              v-if="showDeadZoneUpInput"
+              :value="deadZoneUp"
+              size="small"
+              :decimal-places="3"
+              :min="deadZoneUpOption.min"
+              :max="deadZoneUpOption.max"
+              :step="deadZoneUpOption.step"
+              :disabled="!slideable"
+              :format="(value) => `${value} mm`"
+              @change="updateReleaseDeadZone"
+              @blur="updateReleaseDzBlur"
+            />
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -77,6 +85,7 @@ const { activeKeys } = storeToRefs(keyboardStore);
 
 const deadZoneDown = ref(0);
 const deadZoneUp = ref(0);
+const deadSwitch = ref(false);
 
 const showDeadZoneUpInput = ref(true);
 const showDeadZoneDownInput = ref(true);
@@ -125,6 +134,11 @@ const updatePressDeadZone = async (value) => {
   if (value > deadZoneOption.value.max) return;
   deadZoneDown.value = value;
   await updatePressDz();
+};
+
+const onChangeDead = async (value) => {
+  deadSwitch.value = value;
+  console.log(value);
 };
 
 const updatePressDzBlur = async (value) => {
@@ -192,6 +206,13 @@ watch(
 );
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import './style/PerformanceDeadZone.less';
+.slider_rail {
+  .t-slider {
+    .t-slider__rail {
+      background-image: url('@/assets/images/dead_progress_bg.svg') !important;
+    }
+  }
+}
 </style>

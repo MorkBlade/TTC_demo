@@ -7,38 +7,38 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    justify-content: center;
+    //justify-content: center;
     margin-bottom: 20px;
   }
 
   &-title {
-    min-width: 120px;
-    padding: 0 10px;
-    height: 35px;
-    margin-top: 27px;
-    margin-right: 20px;
-    color: rgb(252 252 252 / 100%);
-    font-weight: 700;
+    width: 150px;
+    height: 60px;
     font-size: 14px;
-    line-height: 35px;
-    letter-spacing: 0;
-    text-align: center;
-    background: rgb(41 42 46 / 100%);
-    border-radius: 18px;
+    background-image: url('@/assets/images/unselect.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(0 82 217 / 10%);
+      background-image: url('@/assets/images/select_hover.png');
     }
 
     &.is-active {
-      background-color: var(--td-brand-color);
+      //background-color: var(--td-brand-color);
+      background-image: url(@/assets/images/mysetting_bg.png);
     }
     &.is-disabled {
       opacity: 0.5;
-      cursor: not-allowed!important;
+      cursor: not-allowed !important;
     }
-    &.is-disabled:hover{
+    &.is-disabled:hover {
       background: rgb(41 42 46 / 100%);
     }
   }

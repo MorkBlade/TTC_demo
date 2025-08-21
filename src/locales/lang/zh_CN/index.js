@@ -9,10 +9,10 @@ export default {
     newCalibration: '新校准',
     screen: '我的屏幕',
     // 性能页面新增
-    triggerSetting: '触发设置',
+    triggerSetting: '机械模式',
     deadZoneSetting: '死区设置',
     axisSettingTab: '轴体切换',
-    calibrationSetting: '校准设置',
+    calibrationSetting: '按键校准',
     rapidTriggerRT: '快速触发 (RT)',
     triggerTravelSetting: '触发键程设置',
     firstTriggerTravel: '首次触发行程',

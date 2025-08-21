@@ -1,10 +1,30 @@
 <template>
-  <div class="calibration-mode">
-    <div class="calibration-mode-header">
-      <h3>{{ t('messages.keyboardAdjusting') }}</h3>
-      <t-switch v-model="enabled" @change="handleEnabledChange" />
+  <div class="calibration-mode-box">
+    <div class="left-box">
+      <div style="width: 50%">
+        <p>1.按下需要校准的按键；</p>
+        <img :src="KCbg" alt="" style="margin-left: 50px" />
+      </div>
+      <div style="width: 50%">
+        <p>2.长按保持。等待校准；</p>
+        <img :src="checkBtn" alt="" style="margin-left: 50px" />
+      </div>
+      <div style="width: 100%">
+        <p>3.查看校准结果。</p>
+        <div style="display: flex; justify-content: space-around">
+          <img :src="UnBtn" alt="" />
+          <img :src="SucBtn" alt="" />
+          <img :src="ErroBtn" alt="" draggable="false" />
+        </div>
+      </div>
     </div>
-    <div ref="chartRef" class="chart-container"></div>
+    <div class="calibration-mode">
+      <div class="calibration-mode-header">
+        <h3>{{ t('messages.keyboardAdjusting') }}</h3>
+        <t-switch v-model="enabled" @change="handleEnabledChange" />
+      </div>
+      <div ref="chartRef" class="chart-container"></div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -17,6 +37,12 @@ import echarts from '@/config/echarts/index';
 import { t } from '@/locales';
 import { usePerformanceStore } from '@/store';
 import emitter from '@/utils/app-emitter';
+
+const KCbg = new URL('@/assets/images/keyboard_calibration_bg.svg', import.meta.url).href;
+const checkBtn = new URL('@/assets/images/check_btn.svg', import.meta.url).href;
+const UnBtn = new URL('@/assets/images/un_btn.svg', import.meta.url).href;
+const SucBtn = new URL('@/assets/images/success_btn.svg', import.meta.url).href;
+const ErroBtn = new URL('@/assets/images/error_btn.svg', import.meta.url).href;
 
 const performanceStore = usePerformanceStore();
 const enabled = ref(false);

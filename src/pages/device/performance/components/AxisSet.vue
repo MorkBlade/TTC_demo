@@ -15,19 +15,30 @@
       <div class="switch-item-box">
         <h3>当前已选：</h3>
         <span class="select-switch-num">1个按键</span>
-        <div class="switch-content-box" style="border-right: 1px solid #444444">
-          <div v-for="(item, index) in axisList" :key="item.axis_id" class="switch-item" @click="selectAxis(index, item)">
+        <div class="switch-content-box">
+          <div
+            v-for="(item, index) in axisList"
+            :key="item.axis_id"
+            class="switch-item"
+            @click="selectAxis(index, item)"
+          >
             <div :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
             <p style="font-size: 16px">{{ item.axis_name }}</p>
             <span class="switch-button" :selected-id="item.axis_id">替换轴体</span>
           </div>
         </div>
       </div>
+      <div class="line"></div>
       <div class="switch-item-box">
         <h3>轴体列表:</h3>
         <span class="select-switch-num">已绑定类型：TTC万磁王、万磁王RGB、天王轴</span>
         <div class="switch-content-box">
-          <div v-for="(item, index) in axisList" :key="item.axis_id" class="switch-item" @click="selectAxis(index, item)">
+          <div
+            v-for="(item, index) in axisList"
+            :key="item.axis_id"
+            class="switch-item"
+            @click="selectAxis(index, item)"
+          >
             <div :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
             <p style="font-size: 16px">{{ item.axis_name }}</p>
             <span class="switch-button" :selected-id="item.axis_id">替换轴体</span>
@@ -114,7 +125,7 @@ const axisList = computed(() => {
     return ite.brand === currentFactory.value;
   });
 });
-console.log(axisList)
+console.log(axisList);
 const selectAxis = async (index, item) => {
   currentAxis.value = index;
 
@@ -179,7 +190,7 @@ const selectAxis = async (index, item) => {
   display: flex;
   height: 100%;
   overflow: hidden;
-  width: 70%;
+  width: 100%;
 
   & .axis-item {
     width: 86px;
@@ -306,24 +317,21 @@ const selectAxis = async (index, item) => {
     background: var(--td-bg-color-component);
   }
   .switch-item-box {
-    width: 48%;
+    width: 46%;
     .switch-content-box {
       display: flex;
       flex-wrap: wrap;
-      padding-right: 50px;
       margin-top: 10px;
       justify-content: space-between;
       .switch-item {
-        width: 42%;
+        width: 43%;
         display: flex;
         align-items: center;
         background-image: url('@/assets/images/axis_switch_bg.svg');
         background-size: cover;
         background-repeat: no-repeat;
         margin: 15px 0;
-        padding: 10px;
-        height: 30px;
-        background-size: contain;
+        padding: 5px 10px;
         cursor: pointer;
         &:hover {
           background-image: url('@/assets/images/select_axis_switch.svg');
@@ -337,21 +345,21 @@ const selectAxis = async (index, item) => {
           border-radius: 10px;
           margin-left: auto;
         }
-        .line {
-          width: 2px;
-          display: block;
-          display: block;
-          height: 100%;
-        }
         div {
           font-weight: bold;
           font-size: 10px;
-          margin: 6px 8px;
+          //margin: 6px 5px;
+          margin: 3px 10px 3px 0;
           padding: 0 5px;
           color: #000;
         }
       }
     }
+  }
+  .line {
+    width: 1px;
+    background-color: #444444;
+    height: 90%;
   }
 }
 </style>

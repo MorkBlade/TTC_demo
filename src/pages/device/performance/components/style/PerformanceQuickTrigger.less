@@ -1,0 +1,55 @@
+.device-performance-quick {
+  &__trigger {
+    width: 100%;
+    display: flex;
+    color: #fff;
+    font-weight: bold;
+    justify-content: space-between;
+  }
+
+  :deep(.t-switch.t-size-l) {
+    width: 60px;
+    height: 26px;
+  }
+
+  :deep(.t-switch.t-is-checked) {
+    background-color: var(--td-brand-color);
+  }
+
+  :deep(.t-slider__container) {
+    display: block;
+    width: auto;
+  }
+
+  :deep(.t-slider) {
+    position: relative;
+    width: 330px;
+    height: 10px;
+    padding: 0;
+  }
+
+  :deep(.t-slider__track) {
+    height: 10px;
+    background: var(--td-brand-color);
+    border-radius: 7px;
+  }
+
+  :deep(.t-slider__rail) {
+    height: 10px;
+    background-image: url('@/assets/images/dead_progress_bg.svg') !important;
+    border-radius: 7px;
+  }
+
+  :deep(.t-slider__button) {
+    background-color: var(--td-brand-color);
+    border: 3px solid #fff;
+  }
+
+  :deep(.t-slider__button-wrapper) {
+    z-index: 100;
+  }
+
+  :deep(.t-tooltip) {
+    border-radius: 10px;
+  }
+}
