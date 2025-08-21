@@ -222,7 +222,7 @@ export default {
     multiLangSwitchen_US: '语言已切换为英文',
     multiLangSwitchFail: '语言切换失败',
     menuTitle: '键盘配置',
-    customKey: '自定义按键',
+    customKey: '按键分配',
     lighting: '灯光设置',
     macro: '宏设置',
     performance: '性能设置',
