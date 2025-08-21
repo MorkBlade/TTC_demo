@@ -1,13 +1,13 @@
 <template>
   <div class="device-info">
     <img src="@/assets/images/logo.png" alt="" />
-    <div class="device-info-detail">
+    <!-- <div class="device-info-detail">
       <span>{{ device?.productName || '' }}</span>
       &nbsp;
       <icon-font name="keyboard" />
       <span>{{ connectDeviceStatus ? t('messages.deviceConnected') : t('messages.deviceDisconnected') }}</span>
       <p>sn: {{ info?.sn || '' }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -23,9 +23,9 @@ const { device, connectDeviceStatus, info } = storeToRefs(deviceStore);
 <style lang="less" scoped>
 .device-info {
   margin-top: 15px;
-  margin-bottom: 25px;
+  //margin-bottom: 25px;
   box-sizing: border-box;
-  text-align: center;
+  //text-align: center;
   border-radius: 8px;
   background-color: transparent;
 
