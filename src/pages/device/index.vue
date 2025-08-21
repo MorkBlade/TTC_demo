@@ -7,13 +7,17 @@
       <source src="@/assets/video/earth.webm" type="video/webm" />
     </video>
     <t-layout>
-      <t-aside style="flex-shrink: 0">
+      <device-info></device-info>
+      <t-header class="header" style="position: absolute; left: 30%; top: 20px;">
+        <header-menu></header-menu>
+      </t-header>
+      <!-- <t-aside style="flex-shrink: 0">
         <device-info></device-info>
         <config></config>
         <t-header class="header">
           <header-menu></header-menu>
         </t-header>
-      </t-aside>
+      </t-aside> -->
       <t-layout>
         <template v-if="isRender">
           <keyboard v-show="hasKeyboard" :props-visible="hasKeyboard"></keyboard>

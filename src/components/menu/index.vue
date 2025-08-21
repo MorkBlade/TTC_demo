@@ -1,6 +1,6 @@
 <template>
   <div class="menu-container">
-    <h4>{{ t('messages.menuTitle') }}</h4>
+    <!-- <h4>{{ t('messages.menuTitle') }}</h4> -->
     <div
       v-for="menu in Menu"
       :key="menu.key"
@@ -11,7 +11,7 @@
       }"
       @click="handleMenuClick(menu.key)"
     >
-      <icon-font :name="menu.icon" />
+      <!-- <icon-font :name="menu.icon" /> -->
       <span>
         {{ t('messages.' + menu.key) }}
         <span v-if="menu.key === 'update' && hasNewVersion" class="update-dot"></span>
