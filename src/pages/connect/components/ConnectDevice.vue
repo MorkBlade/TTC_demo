@@ -1,7 +1,7 @@
 <template>
   <section class="connect-device">
     <div class="section-content">
-      <h1 class="section-title">{{ t('messages.connectWelcome') }}</h1>
+      <h1 class="section-title">{{ t('messages.connectTitle') }}</h1>
       <p class="section-description">{{ t('messages.connectDesc') }}</p>
       <div class="connect-device__compatibility">
         <div class="connect-device__compatibility-item">
@@ -42,15 +42,17 @@ const handleDeviceStoreClick = async (): Promise<void> => {
 
 <style scoped lang="less">
 .connect-device {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   object-fit: contain; // 添加这行
-  // background-image: url('https://img.js.design/assets/img/61ba1844013f7917dd644b09.png');
+  background-image: url('@/assets/images/背景.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-clip: padding-box; // 控制背景的裁剪区域
   background-origin: padding-box; // 控制背景的起始位置
 

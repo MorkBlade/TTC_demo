@@ -1,6 +1,8 @@
 export default {
   lang: '中文',
   messages: {
+    // 连接页面
+    connectTitle: '欢迎来到 MORK BLADE',
     uncalibrated: '未校准',
     calibrated: '已校准',
     newCalibration: '新校准',

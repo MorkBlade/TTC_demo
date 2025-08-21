@@ -4,7 +4,7 @@
       <multi-language />
     </div>
     <video class="video-background" autoplay loop muted playsinline preload="auto" @error="handleVideoError">
-      <source src="@/assets/video/earth.webm" type="video/webm" />
+      <source src="@/assets/images/背景.svg" type="video/webm" />
     </video>
     <t-layout>
       <t-aside style="flex-shrink: 0">
