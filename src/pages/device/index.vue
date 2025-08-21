@@ -3,16 +3,13 @@
     <div class="multi-language-float">
       <multi-language />
     </div>
-    <video class="video-background" autoplay loop muted playsinline preload="auto" @error="handleVideoError">
-      <source src="@/assets/images/背景.svg" type="video/webm" />
-    </video>
     <t-layout>
       <device-info></device-info>
       <t-header class="header" style="position: absolute; left: 30%">
         <header-menu></header-menu>
       </t-header>
       <!-- <t-aside style="flex-shrink: 0">
-        <device-info></device-info>
+        <device-info></device-info> 
         <config></config>
         <t-header class="header">
           <header-menu></header-menu>
@@ -26,7 +23,8 @@
           </device-keyboard-decorative-lighting>
           <t-content class="content">
             <template v-if="active === 'customKey'">
-              <custom-key></custom-key>
+              <!-- <custom-key></custom-key> -->
+              <key-allocation></key-allocation>
             </template>
             <template v-if="active === 'lighting'">
               <lighting />
@@ -82,7 +80,9 @@ import { EVENT } from '@/store/modules/device';
 import { useKeyboardStore, useGlobalStore, useLightingStore, usePerformanceStore, useDeviceStore } from '@/store';
 import Lighting from './lighting/index.vue';
 import Keyboard from './keyboards/keyboard/index.vue';
-import customKey from './custom-key/index.vue';
+// import customKey from './custom-key/index.vue';
+// 导入按键分配组件
+import KeyAllocation from '@/pages/device/key-allocation/index.vue';
 import DeviceInfo from './components/DeviceInfo.vue';
 import HeaderMenu from '@/components/menu/index.vue';
 import Performance from './performance/index.vue';
@@ -284,9 +284,6 @@ onUnmounted(() => {
   configStore.activeMenu = 'performance';
   // debouncedHandler.cancel(); // 取消未执行的防抖函数
 });
-const handleVideoError = (e: MouseEvent) => {
-  console.error('视频加载失败:', e);
-};
 </script>
 
 <style lang="less" scoped>
