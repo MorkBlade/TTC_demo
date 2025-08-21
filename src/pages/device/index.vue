@@ -8,7 +8,7 @@
     </video>
     <t-layout>
       <device-info></device-info>
-      <t-header class="header" style="position: absolute; left: 30%; top: 20px;">
+      <t-header class="header" style="position: absolute; left: 30%; top: 20px">
         <header-menu></header-menu>
       </t-header>
       <!-- <t-aside style="flex-shrink: 0">
@@ -90,7 +90,6 @@ import macro from './macro/index.vue';
 // import Calibration from './calibration/index.vue';
 import highLevelKey from './high-level-key/index.vue';
 import DeviceConfigUpdate from './update/index.vue';
-import Config from './components/Config.vue';
 import screen from './screen/index.vue';
 import DeviceConfig from './config/index.vue';
 import DeviceKeyboardDecorativeLighting from './keyboards/decorative-lighting/index.vue';

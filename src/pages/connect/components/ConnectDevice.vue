@@ -1,26 +1,38 @@
 <template>
   <section class="connect-device">
     <div class="section-content">
-      <h1 class="section-title">{{ t('messages.connectTitle') }}</h1>
+      <h3 class="section-title">{{ t('messages.connectTitle') }}</h3>
       <p class="section-description">{{ t('messages.connectDesc') }}</p>
-      <div class="connect-device__compatibility">
-        <div class="connect-device__compatibility-item">
-          <t-icon name="desktop" size="20" />
-          <span>{{ t('messages.connectTip1') }}</span>
-          <span>{{ t('messages.connectTip2') }}</span>
-          <span>{{ t('messages.connectTip3') }}</span>
-        </div>
+      <div class="keyboard-img">
+        <img :src="keyboardImg" alt="键盘" />
       </div>
+      <div class="tip">{{ t('messages.connectBtnTip') }}</div>
       <button type="button" class="connect-device__button" @click="handleDeviceStoreClick">
         <strong>{{ t('messages.connectBtn') }}</strong>
-        <div class="connect-device__container-stars">
-          <div class="connect-device__stars"></div>
-        </div>
-        <div class="connect-device__glow">
-          <div class="connect-device__circle"></div>
-          <div class="connect-device__circle"></div>
-        </div>
       </button>
+      <div class="info">
+        <div class="info-item">
+          <div class="icon"></div>
+          <div class="text">
+            <div class="title">查看使用说明书</div>
+            <div class="desc">查看指导手册，了解操作方法。</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="icon"></div>
+          <div class="text">
+            <div class="title">访问我们的社群</div>
+            <div class="desc">与其他用户互动交流、获取支持及技巧。</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="icon"></div>
+          <div class="text">
+            <div class="title">访问我们的官网</div>
+            <div class="desc">获取最新产品动态与权威服务信息。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -33,6 +45,8 @@ import { t } from '@/locales';
 const router: Router = useRouter();
 const deviceStore = useDeviceStore();
 
+const keyboardImg = new URL('@/assets/images/keyboard.svg', import.meta.url).href;
+
 // 连接按钮点击事件
 const handleDeviceStoreClick = async (): Promise<void> => {
   const data: boolean = await deviceStore.connectDevice();
@@ -42,6 +56,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
 
 <style scoped lang="less">
 .connect-device {
+  padding-top: 139px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -57,7 +72,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
   background-origin: padding-box; // 控制背景的起始位置
 
   & .section-content {
-    margin-top: 200px;
+    margin-top: 139px;
     margin-bottom: 255px;
     position: relative;
     z-index: 1;
@@ -67,16 +82,14 @@ const handleDeviceStoreClick = async (): Promise<void> => {
 
     & .section-title {
       margin-bottom: 2rem;
-      font-weight: 800;
-      font-size: 8vw;
+      font-weight: 700;
+      font-size: 3vw;
       line-height: 1.1;
       letter-spacing: -2px;
-      text-transform: uppercase;
+      color: #fff;
       background: var(--gradient);
       background-size: 300%;
       background-clip: text;
-      animation: gradient 8s linear infinite;
-      -webkit-text-fill-color: transparent;
     }
 
     & .section-description {
@@ -85,48 +98,54 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     }
 
     & .section-description {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       color: white;
       font-size: 1.2rem;
       line-height: 1.6;
       opacity: 0.8;
     }
+
+    & .keyboard-img {
+      margin-top: 2rem;
+      width: 100%;
+      height: 386px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    & .tip {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #525252;
+      opacity: 0.8;
+    }
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  &__button {
+  & .connect-device__button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20rem;
-    height: 4rem;
-    margin: 100px auto 0;
+    width: 140px;
+    height: 50px;
+    margin: 24px auto 0;
     overflow: hidden;
-    background-image:
-      linear-gradient(#212121, #212121), linear-gradient(137.48deg, #ffdb3b 10%, #fe53bb 45%, #8f51ea 67%, #04f 87%);
-    background-size: 300% 300%;
-    background-clip: content-box, border-box;
-    background-origin: border-box;
-    border: double 4px transparent;
-    border-radius: 5rem;
+    background-image: url('@/assets/images/btn_active.svg');
+    background-size: 100% 100%; // 修改为完全覆盖按钮区域
+    background-position: center;
+    background-repeat: no-repeat;
+    border: solid 4px transparent;
     cursor: pointer;
-    backdrop-filter: blur(1rem);
-    transition: 0.5s;
-    animation: gradient301 5s ease infinite;
+    background-color: transparent !important;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin-bottom: 108px;
 
     .connect-device__container-stars {
       position: absolute;
@@ -142,175 +161,50 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     strong {
       z-index: 2;
       color: #fff;
-      font-size: 20px;
-      letter-spacing: 5px;
-      text-shadow: 0 0 4px white;
+      font-size: 14px;
+      letter-spacing: 2px;
+      // text-shadow: 0 0 4px white;
     }
-
-    .connect-device__glow {
-      position: absolute;
-      display: flex;
-      width: 12rem;
-    }
-
-    .connect-device__circle {
-      z-index: -1;
-      width: 100%;
-      height: 30px;
-      filter: blur(2rem);
-      animation: pulse3011 4s infinite;
-    }
-
-    .connect-device__circle:nth-of-type(1) {
-      background: rgb(254 83 186 / 63.6%);
-    }
-
-    .connect-device__circle:nth-of-type(2) {
-      background: rgb(142 81 234 / 70.4%);
-    }
-
-    &:hover .connect-device__container-stars {
-      z-index: 1;
-      background-color: #212121;
-    }
-
     &:hover {
-      transform: scale(1.1);
-    }
-
-    &:active {
-      background-clip: content-box, border-box;
-      background-origin: border-box;
-      border: double 4px #fe53bb;
-      animation: none;
-    }
-
-    &:active .connect-device__circle {
-      background: #fe53bb;
-    }
-
-    .connect-device__stars {
-      position: relative;
-      width: 200rem;
-      height: 200rem;
-      background: transparent;
-    }
-
-    .connect-device__stars::after {
-      position: absolute;
-      top: -10rem;
-      left: -100rem;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(#fff 1px, transparent 1%);
-      background-size: 50px 50px;
-      animation: animstarrotate 90s linear infinite;
-      content: '';
-    }
-
-    .connect-device__stars::before {
-      position: absolute;
-      top: 0;
-      left: -50%;
-      width: 170%;
-      height: 500%;
-      background-image: radial-gradient(#fff 1px, transparent 1%);
-      background-size: 50px 50px;
-      opacity: 0.5;
-      animation: animstar 60s linear infinite;
-      content: '';
-    }
-
-    @keyframes animstar {
-      from {
-        transform: translateY(0);
-      }
-
-      to {
-        transform: translateY(-135rem);
-      }
-    }
-
-    @keyframes animstarrotate {
-      from {
-        transform: rotate(360deg);
-      }
-
-      to {
-        transform: rotate(0);
-      }
-    }
-
-    @keyframes gradient301 {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    @keyframes pulse3011 {
-      0% {
-        box-shadow: 0 0 0 0 rgb(0 0 0 / 70%);
-        transform: scale(0.75);
-      }
-
-      70% {
-        box-shadow: 0 0 0 10px rgb(0 0 0 / 0%);
-        transform: scale(1);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgb(0 0 0 / 0%);
-        transform: scale(0.75);
-      }
+      background-size: 100% 100%;
+      transform: scale(1.05);
+      transition: all 0.3s ease;
     }
   }
 
-  &__compatibility {
+  & .info {
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 32px;
-    animation: slide-in-bec76fb2 0.8s ease-out 0.3s backwards;
-
-    &-item {
+    width: 85%;
+    height: 100px;
+    margin: 0 auto;
+    .info-item {
+      width: 360px;
+      height: 80px;
       display: flex;
-      gap: 8px;
-      align-items: center;
       justify-content: center;
-      color: rgb(255 255 255 / 80%);
-      font-size: 16px;
-
-      .t-icon {
+      align-items: center;
+      gap: 12px;
+      background-image: url('@/assets/images/info_bg.svg');
+      background-size: 100% 100%;
+      cursor: pointer;
+      .icon {
+        width: 36px;
+        height: 36px;
+        background-image: url('@/assets/images/what.svg');
+        background-size: 100% 100%;
+      }
+      .text {
         color: #fff;
+        .title {
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 20px;
+          color: #fff;
+        }
       }
     }
   }
-
-  @keyframes slide-in {
-    from {
-      transform: translateX(-20px);
-      opacity: 0;
-    }
-
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-}
-
-.connect-footer {
-  padding: 1rem;
-  color: #fff;
-  text-align: center;
 }
 </style>
