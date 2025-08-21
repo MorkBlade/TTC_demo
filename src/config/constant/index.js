@@ -1,8 +1,8 @@
 export const APP_MENU = [
   { key: 'performance', icon: 'adjustment', text: '性能设置' },
-  { key: 'lighting', icon: 'lightbulb', text: '灯光设置' },
   { key: 'customKey', icon: 'keyboard', text: '自定义按键' },
   // { key: 'highLevelKey', icon: 'grid-view', text: '高级键设置' },
+  { key: 'lighting', icon: 'lightbulb', text: '灯光设置' },
   // { key: 'macro', icon: 'git-pull-request', text: '宏设置' },
   // { key: 'checkKey', icon: 'chart-line', text: '键盘校准' },
   { key: 'config', icon: 'setting-1', text: '我的配置' },

@@ -67,13 +67,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 32px;
+      //margin-bottom: 32px;
     }
 
     .rt-slider-box {
       display: flex;
       flex-direction: column;
       gap: 32px;
+
+      .rt-slider {
+        margin: 10px 0;
+      }
     }
   }
 
@@ -83,7 +87,7 @@
     gap: 20px;
     align-items: center;
     justify-content: space-between;
-    margin-top: 8px;
+    margin-top: 10px;
 
     &__text {
       flex: 1;
@@ -131,6 +135,7 @@
       letter-spacing: 0;
       text-align: left;
       vertical-align: middle;
+      margin-top: 10px;
     }
 
     span {
@@ -154,26 +159,43 @@
 
   :deep(.t-slider) {
     position: relative;
-    width: 330px;
+    width: 357px;
     height: 10px;
     padding: 0;
   }
 
   :deep(.t-slider__track) {
     height: 10px;
-    background: var(--td-brand-color);
-    border-radius: 7px;
+    background-image: url('@/assets/images/progress_v2.svg') !important;
+    background-size: cover;
+    // background: var(--td-brand-color);
+    border-radius: 0;
+    margin-left: 8px;
   }
 
   :deep(.t-slider__rail) {
-    height: 10px;
-    background: rgb(53 53 53 / 100%);
-    border-radius: 7px;
+    height: 46px;
+    background-image: url('@/assets/images/progress_bg.svg') !important;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-radius: 0;
+    background-repeat: no-repeat;
+    //border-radius: 7px;
   }
 
   :deep(.t-slider__button) {
-    background-color: var(--td-brand-color);
-    border: 3px solid #fff;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 0;
+    background-image: url('@/assets/images/progress_touch.svg') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    //background: transparent;
+    background-color: transparent;
+    //border: 3px solid #fff;
   }
 
   :deep(.t-slider__button-wrapper) {

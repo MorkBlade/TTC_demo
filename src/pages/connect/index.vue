@@ -1,24 +1,27 @@
 <template>
   <div class="connect-page">
     <div class="multi-language-float">
+      <img :src="logoUrl" alt="logo_ttc" />
       <multi-language />
     </div>
-    <nav-bar-logo />
+    <!-- <nav-bar-logo /> -->
     <connect-device></connect-device>
     <!-- <app-pcb></app-pcb>
     <app-partners></app-partners> -->
-    <div class="connect-footer">
+    <!-- <div class="connect-footer">
       <span>Copyright © 2025 SparkLinkPlayJoy</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
 defineOptions({ name: 'ConnectIndex' });
 
-import NavBarLogo from './components/NavBarLogo.vue';
+// import NavBarLogo from './components/NavBarLogo.vue';
 import ConnectDevice from './components/ConnectDevice.vue';
 import MultiLanguage from '@/pages/device/components/multi-language.vue';
+
+const logoUrl = new URL('@/assets/images/logo_ttc.svg', import.meta.url).href;
 </script>
 
 <style scoped lang="less">
@@ -30,11 +33,26 @@ import MultiLanguage from '@/pages/device/components/multi-language.vue';
 }
 .connect-page {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
+.logo {
+  // display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  img {
+    max-width: 200px;
+    height: auto;
+  }
+}
+
 .multi-language-float {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   position: absolute;
-  top: 22px;
-  right: 12px;
-  z-index: 99999;
+  padding: 10px 20px;
 }
 </style>

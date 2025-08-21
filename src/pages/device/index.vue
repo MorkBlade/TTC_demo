@@ -4,7 +4,7 @@
       <multi-language />
     </div>
     <video class="video-background" autoplay loop muted playsinline preload="auto" @error="handleVideoError">
-      <source src="@/assets/video/earth.webm" type="video/webm" />
+      <source src="@/assets/images/背景.svg" type="video/webm" />
     </video>
     <t-layout>
       <device-info></device-info>
@@ -90,7 +90,6 @@ import macro from './macro/index.vue';
 // import Calibration from './calibration/index.vue';
 import highLevelKey from './high-level-key/index.vue';
 import DeviceConfigUpdate from './update/index.vue';
-import Config from './components/Config.vue';
 import screen from './screen/index.vue';
 import DeviceConfig from './config/index.vue';
 import DeviceKeyboardDecorativeLighting from './keyboards/decorative-lighting/index.vue';

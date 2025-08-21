@@ -18,7 +18,7 @@
           @keydown.prevent
           @change-end="updateNormalTouch"
         />
-        <div class="trigger-slider__text">
+        <!-- <div class="trigger-slider__text">
           <t-input-number
             v-if="showSingleTouchTravelInput"
             :value="singleTouchTravel"
@@ -32,7 +32,7 @@
             @change="updateNormalTouch"
             @blur="updateNormalBlur"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div v-else class="rt-slider-box">
@@ -49,7 +49,7 @@
             :tooltip-props="{ placement: 'bottom', content: rtFirstTouchTravel + 'mm' }"
             @change-end="updateRtFirstTouch"
           />
-          <div class="trigger-slider__text">
+          <!-- <div class="trigger-slider__text">
             <t-input-number
               v-if="showRtFirstTouchTravelInput"
               :value="rtFirstTouchTravel"
@@ -63,7 +63,7 @@
               @change="updateRtFirstTouch"
               @blur="updateRtFirstBlur"
             />
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="rt-slider">
@@ -79,7 +79,7 @@
             :tooltip-props="{ placement: 'bottom', content: rtKeyDownTravel + 'mm' }"
             @change-end="updateRtPressTouch"
           />
-          <div class="trigger-slider__text">
+          <!-- <div class="trigger-slider__text">
             <t-input-number
               v-if="showRtKeyDownTravelInput"
               :value="rtKeyDownTravel"
@@ -93,7 +93,7 @@
               @change="updateRtPressTouch"
               @blur="updateRtPressBlur"
             />
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="rt-slider">
@@ -109,7 +109,7 @@
             :tooltip-props="{ placement: 'bottom', content: rtKeyUpTravel + 'mm' }"
             @change-end="updateRtReleaseTouch"
           />
-          <div class="trigger-slider__text">
+          <!-- <div class="trigger-slider__text">
             <t-input-number
               v-if="showRtKeyUpTravelInput"
               :value="rtKeyUpTravel"
@@ -123,7 +123,7 @@
               @change="updateRtReleaseTouch"
               @blur="updateRtReleaseBlur"
             />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="device-performance-page__axis">
-    <div class="device-performance-page__axis-left">
+    <!-- <div class="device-performance-page__axis-left">
       <div
         v-for="(item, index) in getCurrentAxisGroup"
         :key="index"
@@ -10,8 +10,10 @@
       >
         {{ item.name }}
       </div>
-    </div>
+    </div> -->
     <div class="device-performance-page__axis-right">
+      <h3>当前已选：</h3>
+      <span>1个按键</span>
       <div v-for="(item, index) in axisList" :key="item.axis_id" class="axis-item" @click="selectAxis(index, item)">
         <div :class="[{ 'axis-item-active': currentAxis === index }]">
           <div>
@@ -38,7 +40,7 @@ const { keyboardLayout, activeKeys } = storeToRefs(keyboardStore);
 const { getCurrentAxisGroup, isAxisStatus } = storeToRefs(performanceStore);
 
 const currentAxis = ref(0);
-const currentFactory = ref('GATERON');
+const currentFactory = ref('TTC');
 const axisObj = computed(() => {
   const { axisList } = performanceStore;
 
@@ -92,7 +94,7 @@ const axisList = computed(() => {
     return ite.brand === currentFactory.value;
   });
 });
-
+console.log(axisList)
 const selectAxis = async (index, item) => {
   currentAxis.value = index;
 

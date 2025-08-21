@@ -1,6 +1,9 @@
 export default {
   lang: '中文',
   messages: {
+    // 连接页面
+    connectTitle: '欢迎来到 MORK BLADE',
+    connectBtnTip: '请接入键盘并点击下方按钮授权网页链接设备',
     uncalibrated: '未校准',
     calibrated: '已校准',
     newCalibration: '新校准',
@@ -8,7 +11,7 @@ export default {
     // 性能页面新增
     triggerSetting: '触发设置',
     deadZoneSetting: '死区设置',
-    axisSettingTab: '轴体设置',
+    axisSettingTab: '轴体切换',
     calibrationSetting: '校准设置',
     rapidTriggerRT: '快速触发 (RT)',
     triggerTravelSetting: '触发键程设置',
@@ -248,11 +251,11 @@ export default {
     sleep_120min: '120分钟',
     sleep_never: '永不休眠',
     connectWelcome: 'Welcome',
-    connectDesc: '一键连接，开启您的星闪键盘体验',
+    connectDesc: '在这里您可以迅速配置您的设备，尝试一些与众不同的设定，并按您的喜好个性化定制您的设备。',
     connectTip1: '温馨提示：推荐使用 Chrome 浏览器访问，以获得最佳体验',
     connectTip2: '适配 Mac OS/Windows/Linux 等主流操作系统',
     connectTip3: '支持 Google Chrome、Microsoft Edge 等浏览器访问',
-    connectBtn: '立即连接',
+    connectBtn: '授权链接',
     navLogo: '星闪悦动',
     navOldDriver: '旧版本驱动',
     navDelayTool: '延时测试工具',

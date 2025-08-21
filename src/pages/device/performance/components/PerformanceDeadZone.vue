@@ -14,7 +14,7 @@
           :tooltip-props="{ placement: 'bottom', content: deadZoneDown.toFixed(2) + 'mm' }"
           @change-end="updatePressDeadZone"
         />
-        <div class="trigger-slider__text">
+        <!-- <div class="trigger-slider__text">
           <t-input-number
             v-if="showDeadZoneDownInput"
             :value="deadZoneDown"
@@ -28,7 +28,7 @@
             @change="updatePressDeadZone"
             @blur="updatePressDzBlur"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="dz-slider-box">
@@ -45,7 +45,7 @@
           :tooltip-props="{ placement: 'bottom', content: deadZoneUp.toFixed(2) + 'mm' }"
           @change-end="updateReleaseDeadZone"
         />
-        <div class="trigger-slider__text">
+        <!-- <div class="trigger-slider__text">
           <t-input-number
             v-if="showDeadZoneUpInput"
             :value="deadZoneUp"
@@ -59,7 +59,7 @@
             @change="updateReleaseDeadZone"
             @blur="updateReleaseDzBlur"
           />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
