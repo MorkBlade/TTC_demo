@@ -12,9 +12,29 @@
       </div>
     </div> -->
     <div class="device-performance-page__axis-right">
-      <h3>当前已选：</h3>
-      <span>1个按键</span>
-      <div v-for="(item, index) in axisList" :key="item.axis_id" class="axis-item" @click="selectAxis(index, item)">
+      <div class="switch-item-box">
+        <h3>当前已选：</h3>
+        <span class="select-switch-num">1个按键</span>
+        <div class="switch-content-box" style="border-right: 1px solid #444444">
+          <div v-for="(item, index) in axisList" :key="item.axis_id" class="switch-item" @click="selectAxis(index, item)">
+            <div :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
+            <p style="font-size: 16px">{{ item.axis_name }}</p>
+            <span class="switch-button" :selected-id="item.axis_id">替换轴体</span>
+          </div>
+        </div>
+      </div>
+      <div class="switch-item-box">
+        <h3>轴体列表:</h3>
+        <span class="select-switch-num">已绑定类型：TTC万磁王、万磁王RGB、天王轴</span>
+        <div class="switch-content-box">
+          <div v-for="(item, index) in axisList" :key="item.axis_id" class="switch-item" @click="selectAxis(index, item)">
+            <div :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
+            <p style="font-size: 16px">{{ item.axis_name }}</p>
+            <span class="switch-button" :selected-id="item.axis_id">替换轴体</span>
+          </div>
+        </div>
+      </div>
+      <!-- <div v-for="(item, index) in axisList" :key="item.axis_id" class="axis-item" @click="selectAxis(index, item)">
         <div :class="[{ 'axis-item-active': currentAxis === index }]">
           <div>
             <img src="https://img.js.design/assets/img/67d3e811791458ad149d2f28.png#39501edbb12f7ad56b8e4bdef3fab17b" />
@@ -22,7 +42,7 @@
         </div>
         <p :style="{ color: item.axis_color, marginTop: '8px' }">{{ item.axis_name }}</p>
         <p :style="{ color: item.axis_color, marginTop: '8px' }">({{ item.drive_range || item.axis_range_max }}mm)</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -264,8 +284,17 @@ const selectAxis = async (index, item) => {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden auto;
-  padding: 0 10px;
+  justify-content: space-between;
+  //padding: 0 10px;
+  color: #fff;
+  font-weight: bold;
+  h3 {
+    font-size: 14px;
+  }
+  .select-switch-num {
+    color: #00c3ff;
+    font-size: 12px;
+  }
   // 好看的滚动条
   &::-webkit-scrollbar {
     width: 4px;
@@ -275,6 +304,54 @@ const selectAxis = async (index, item) => {
   &::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background: var(--td-bg-color-component);
+  }
+  .switch-item-box {
+    width: 48%;
+    .switch-content-box {
+      display: flex;
+      flex-wrap: wrap;
+      padding-right: 50px;
+      margin-top: 10px;
+      justify-content: space-between;
+      .switch-item {
+        width: 42%;
+        display: flex;
+        align-items: center;
+        background-image: url('@/assets/images/axis_switch_bg.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 15px 0;
+        padding: 10px;
+        height: 30px;
+        background-size: contain;
+        cursor: pointer;
+        &:hover {
+          background-image: url('@/assets/images/select_axis_switch.svg');
+        }
+        .switch-button {
+          color: #fff;
+          font-size: 9px;
+          font-weight: bold;
+          padding: 0 12px;
+          background-color: #232121;
+          border-radius: 10px;
+          margin-left: auto;
+        }
+        .line {
+          width: 2px;
+          display: block;
+          display: block;
+          height: 100%;
+        }
+        div {
+          font-weight: bold;
+          font-size: 10px;
+          margin: 6px 8px;
+          padding: 0 5px;
+          color: #000;
+        }
+      }
+    }
   }
 }
 </style>
