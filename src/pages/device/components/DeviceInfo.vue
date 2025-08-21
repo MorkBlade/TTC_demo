@@ -1,6 +1,6 @@
 <template>
   <div class="device-info">
-    <img src="@/assets/images/logo.png" alt="" />
+    <img src="@/assets/images/logo1.png" alt="" />
     <!-- <div class="device-info-detail">
       <span>{{ device?.productName || '' }}</span>
       &nbsp;
@@ -22,17 +22,19 @@ const { device, connectDeviceStatus, info } = storeToRefs(deviceStore);
 
 <style lang="less" scoped>
 .device-info {
-  margin-top: 15px;
+  height: 53px;
+  overflow: hidden;
+  //margin-top: 15px;
   //margin-bottom: 25px;
-  box-sizing: border-box;
+  //box-sizing: border-box;
   //text-align: center;
-  border-radius: 8px;
-  background-color: transparent;
+  //border-radius: 8px;
+  background-color: #262626;
 
   & > img {
     width: 100px;
-    height: 50px;
-    margin-bottom: 20px;
+    //height: 50px;
+    margin: 2px 0 0 35px;
   }
 
   &-detail {

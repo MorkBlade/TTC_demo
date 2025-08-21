@@ -11,7 +11,7 @@ export default {
     // 性能页面新增
     triggerSetting: '触发设置',
     deadZoneSetting: '死区设置',
-    axisSettingTab: '轴体设置',
+    axisSettingTab: '轴体切换',
     calibrationSetting: '校准设置',
     rapidTriggerRT: '快速触发 (RT)',
     triggerTravelSetting: '触发键程设置',
@@ -225,7 +225,7 @@ export default {
     multiLangSwitchen_US: '语言已切换为英文',
     multiLangSwitchFail: '语言切换失败',
     menuTitle: '键盘配置',
-    customKey: '自定义按键',
+    customKey: '按键分配',
     lighting: '灯光设置',
     macro: '宏设置',
     performance: '性能设置',

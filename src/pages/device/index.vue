@@ -5,7 +5,7 @@
     </div>
     <t-layout>
       <device-info></device-info>
-      <t-header class="header" style="position: absolute; left: 30%; top: 20px">
+      <t-header class="header" style="position: absolute; left: 30%">
         <header-menu></header-menu>
       </t-header>
       <!-- <t-aside style="flex-shrink: 0">
