@@ -12,7 +12,6 @@
 import { ref } from 'vue';
 import StandardKey from './standard/index.vue';
 import AdvancedKey from './advanced/index.vue';
-// import TabsL2 from './components/Tabs-L2.vue';
 import Tabs from './components/Tabs.vue';
 
 const menu = ['标准按键', '高级按键'];

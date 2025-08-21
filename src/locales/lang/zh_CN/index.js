@@ -2,7 +2,7 @@ export default {
   lang: '中文',
   messages: {
     // 连接页面
-    connectTitle: '欢迎来到 MORK BLADE',
+    connectTitle: '欢迎来到 TTC HUB',
     connectBtnTip: '请接入键盘并点击下方按钮授权网页链接设备',
     uncalibrated: '未校准',
     calibrated: '已校准',
@@ -52,13 +52,14 @@ export default {
     customKeyFn: 'FN',
     isExistAdanceKey: '该键已绑定高级键，请重新选择',
     // 高级键页面
-    highKeyMenuSocd: '设定优先 (SOCD)',
-    highKeyMenuDks: '动态键程 (DKS)',
-    highKeyMenuMpt: '多段触发 (MPT)',
+    activedHighKey: '已激活高级键',
+    highKeyMenuSocd: '优先设定(SOCD)',
+    highKeyMenuDks: '动态键程(DKS)',
+    highKeyMenuMpt: '多点触发(MPT)',
     highKeyMenuMt: '双效点击 (MT)',
-    highKeyMenuTgl: '火力开关 (TGL)',
+    highKeyMenuTgl: '切换开关(TGL)',
     highKeyMenuEnd: '松开触发 (END)',
-    highKeyMenuRs: '迅洁 (RS)',
+    highKeyMenuRs: '键程优先(RS)',
     highKeyBind: '绑定按键',
     highKeyConfirm: '确定',
     highKeyDelete: '删除',

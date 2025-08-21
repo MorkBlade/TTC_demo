@@ -93,7 +93,6 @@ const matchKeyHeight = (keyValue) => {
 
 <style lang="less" scoped>
 .draggable {
-  display: inline-flex;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,9 +106,9 @@ const matchKeyHeight = (keyValue) => {
   color: rgb(252 252 252 / 100%);
   font-weight: 700;
   font-size: 12px;
-  background-color: rgb(41 42 46 / 100%);
-  border: 1px solid rgb(112 112 112 / 100%);
-  border-radius: 4px;
+  background-color: #383838;
+  border: 2px solid #616161;
+  border-radius: 10px;
   cursor: grab;
   opacity: 1;
 

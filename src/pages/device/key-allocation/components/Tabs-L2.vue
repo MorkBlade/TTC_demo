@@ -2,13 +2,13 @@
   <div class="tabs-container">
     <div class="top-menu">
       <div
-        v-for="(item, idx) in tabMenu"
-        :key="idx"
+        v-for="item in tabMenu"
+        :key="item.value"
         class="tab-menu-item"
-        :class="idx === tabItem ? 'is-active' : ''"
-        @click="changeTabMenu(idx)"
+        :class="item.value === tabItem ? 'is-active' : ''"
+        @click="changeTabMenu(item.value)"
       >
-        {{ item }}
+        {{ item.label }}
       </div>
     </div>
   </div>
@@ -19,15 +19,20 @@ import { ref } from 'vue';
 
 defineProps({
   tabMenu: {
-    type: Array,
-    default: () => [],
+    type: Array as PropType<Array<{ label: string; value: number }>>,
+    default: () => [
+      {
+        label: String,
+        value: Number,
+      },
+    ],
   },
 });
 const tabItem = ref(0);
 const emits = defineEmits(['change']);
-const changeTabMenu = (idx) => {
-  tabItem.value = idx;
-  emits('change', idx);
+const changeTabMenu = (val: number) => {
+  tabItem.value = val;
+  emits('change', val);
 };
 </script>
 
@@ -41,7 +46,7 @@ const changeTabMenu = (idx) => {
     gap: 20px;
 
     .tab-menu-item {
-      width: 95px;
+      width: auto;
       display: flex;
       padding: 10px 16px;
       justify-content: center;
@@ -51,6 +56,7 @@ const changeTabMenu = (idx) => {
       background: #383838;
       border: 2px solid #616161;
       cursor: pointer;
+      white-space: nowrap;
 
       &:hover {
         color: #09fbd3;
