@@ -1,16 +1,17 @@
 <template>
   <div class="device-performance-page">
+    <div v-if="tabNum === 1"></div>
     <performance-quick-trigger v-if="tabNum === 0" />
-    <performance-dead-zone v-if="tabNum === 2" />
+    <!-- <performance-dead-zone v-if="tabNum === 2" /> -->
     <axis-set v-if="tabNum === 3" />
-    <calibration-mode v-if="tabNum === 4" />
+    <performance-calibration-mode v-if="tabNum === 4" />
   </div>
 </template>
 
 <script setup>
 defineOptions({ name: 'DevicePerformanceForm' });
 
-import CalibrationMode from './CalibrationMode.vue';
+import PerformanceCalibrationMode from './PerformanceCalibrationMode.vue';
 import PerformanceQuickTrigger from './PerformanceQuickTrigger.vue';
 import PerformanceDeadZone from './PerformanceDeadZone.vue';
 import AxisSet from './AxisSet.vue';

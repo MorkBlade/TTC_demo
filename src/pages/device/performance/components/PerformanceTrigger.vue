@@ -4,9 +4,12 @@
       <p>{{ t('messages.rapidTriggerRT') }}:</p>
       <t-switch v-model="rtSwitch" :disabled="!slideable" size="medium" @change="onChangeRT" />
     </div>
-    <div v-if="!rtSwitch">
+    <span style="font-size: 0.75rem; color: #808080; display: block; margin-bottom: 20px"
+      >在行程中任意位置动态识别按下与抬起动作，极大提升响应速度，又简称RT。</span
+    >
+    <!-- <div v-if="!rtSwitch">
       <p>{{ t('messages.triggerTravelSetting') }}:</p>
-      <div class="trigger-slider">
+      <div class="trigger-slider trigger_slider_rail">
         <t-slider
           v-model="singleTouchTravel"
           :show-tooltip="true"
@@ -18,7 +21,7 @@
           @keydown.prevent
           @change-end="updateNormalTouch"
         />
-        <!-- <div class="trigger-slider__text">
+        <div class="trigger-slider__text">
           <t-input-number
             v-if="showSingleTouchTravelInput"
             :value="singleTouchTravel"
@@ -32,13 +35,13 @@
             @change="updateNormalTouch"
             @blur="updateNormalBlur"
           />
-        </div> -->
+        </div>
       </div>
-    </div>
-    <div v-else class="rt-slider-box">
-      <div class="rt-slider">
+    </div> -->
+    <div v-if="rtSwitch" class="rt-slider-box">
+      <!-- <div class="rt-slider">
         <p>{{ t('messages.firstTriggerTravel') }}:</p>
-        <div class="trigger-slider">
+        <div class="trigger-slider trigger_slider_rail">
           <t-slider
             v-model="rtFirstTouchTravel"
             :show-tooltip="true"
@@ -49,7 +52,7 @@
             :tooltip-props="{ placement: 'bottom', content: rtFirstTouchTravel + 'mm' }"
             @change-end="updateRtFirstTouch"
           />
-          <!-- <div class="trigger-slider__text">
+          <div class="trigger-slider__text">
             <t-input-number
               v-if="showRtFirstTouchTravelInput"
               :value="rtFirstTouchTravel"
@@ -63,12 +66,12 @@
               @change="updateRtFirstTouch"
               @blur="updateRtFirstBlur"
             />
-          </div> -->
+          </div>
         </div>
-      </div>
+      </div> -->
       <div class="rt-slider">
-        <p>{{ t('messages.pressTrigger') }}:</p>
-        <div class="trigger-slider">
+        <p style="font-size: 0.75rem">{{ t('messages.pressTrigger') }}:</p>
+        <div class="trigger-slider trigger_slider_rail">
           <t-slider
             v-model="rtKeyDownTravel"
             :show-tooltip="true"
@@ -97,8 +100,8 @@
         </div>
       </div>
       <div class="rt-slider">
-        <p>{{ t('messages.releaseReset') }}:</p>
-        <div class="trigger-slider">
+        <p style="font-size: 0.75rem">{{ t('messages.releaseReset') }}:</p>
+        <div class="trigger-slider trigger_slider_rail">
           <t-slider
             v-model="rtKeyUpTravel"
             :show-tooltip="true"
@@ -126,6 +129,10 @@
           </div> -->
         </div>
       </div>
+      <div class="switch-box">
+        <p>连续快速触发:</p>
+        <t-switch v-model="continuousRTSwitch" :disabled="!slideable" size="medium" @change="onChangeRT" />
+      </div>
     </div>
   </div>
 </template>
@@ -143,6 +150,8 @@ const { keyboardLayout } = storeToRefs(keyboardStore);
 const { activeKeys } = storeToRefs(keyboardStore);
 
 const rtSwitch = ref(false);
+const continuousRTSwitch = ref(false);
+
 const singleTouchTravel = ref(0);
 const rtFirstTouchTravel = ref(0);
 const rtKeyDownTravel = ref(0);
@@ -481,6 +490,31 @@ watch(
 );
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import './style/PerformanceTrigger.less';
+.trigger_slider_rail {
+  .t-slider {
+    padding-left: 5px;
+    background-image: url('@/assets/images/progress_bg.svg') !important;
+    background-repeat: no-repeat;
+    width: 362px;
+    height: 30px;
+    position: relative;
+    .t-slider__rail {
+      width: 345px;
+      position: absolute;
+      left: 8px;
+    }
+    .t-slider__track {
+      background-image: url('@/assets/images/progress_v2.svg') !important;
+      height: 7px;
+    }
+    .t-slider__button {
+      background-size: 10px;
+    }
+    .t-slider__button-wrapper {
+      left: 5%;
+    }
+  }
+}
 </style>

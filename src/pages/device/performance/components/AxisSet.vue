@@ -74,7 +74,6 @@ const currentAxis = ref(0);
 const currentFactory = ref('TTC');
 const axisObj = computed(() => {
   const { axisList } = performanceStore;
-
   return axisList.reduce((acc, item) => {
     const id = item.aixsDetail[0].axis_id;
     acc[id] = item;
@@ -108,7 +107,6 @@ watch(
     // 获取当前轴品牌和轴列表
     const targetAxis = isAxisStatus.value === 'v2' ? axisObj.value[axisConfig] : performanceStore.axisList[axisConfig];
     currentFactory.value = targetAxis.brand;
-
     // 筛选并查找索引
     const brandAxes = performanceStore.axisList.filter((item) => item.brand === currentFactory.value);
 
@@ -125,7 +123,7 @@ const axisList = computed(() => {
     return ite.brand === currentFactory.value;
   });
 });
-console.log(axisList);
+console.log('打印', isAxisStatus.value);
 const selectAxis = async (index, item) => {
   currentAxis.value = index;
 

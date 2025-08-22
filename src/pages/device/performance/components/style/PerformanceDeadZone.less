@@ -1,28 +1,33 @@
 .device-performance-page {
   &__dead-zone {
-    min-width: 400px;
+    min-width: 360px;
     .dz-switch {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
       margin-bottom: 10px;
-      .slider_rail {
-        background-image: url('@/assets/images/dead_progress_bg.svg') !important;
+      .set-switch {
+        display: flex;
+        justify-content: space-between;
       }
+      span {
+        color: #808080;
+        font-size: 12px;
+      }
+      /* .slider_rail {
+        background-image: url('@/assets/images/dead_progress_bg.svg') !important;
+      } */
     }
     .dz-slider-warp {
       display: flex;
       justify-content: space-between;
       .dz-slider-box {
-        width: 160px;
-        overflow: hidden;
+        width: 42%;
         height: 100px;
       }
 
       p {
         color: rgb(252 252 252 / 100%);
         font-weight: 700;
-        font-size: 14px;
+        font-size: 12px;
         letter-spacing: 0;
         text-align: left;
         vertical-align: middle;
@@ -72,8 +77,8 @@
   }
 
   :deep(.t-slider__track) {
-    height: 10px;
-    background: var(--td-brand-color);
+    //height: 10px;
+    //background: var(--td-brand-color);
     border-radius: 7px;
   }
 
