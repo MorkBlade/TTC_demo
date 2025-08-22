@@ -1,13 +1,7 @@
 <template>
   <div class="actived-key">
-    <div ref="addNewRef" class="add-new" @click="addNew">
+    <div ref="addNewRef" class="add-new" @click="activeAddNew">
       <div class="add-new-title">+ 新建高级键</div>
-      <div v-if="isShowAddMenu" class="add-menu" ref="addMenuRef">
-        <div v-for="item in addMenuItems" :key="item.title" class="add-menu-item" @click="toAdd(item.value)">
-          <div class="title">{{ item.title }}</div>
-          <div class="desc">{{ item.desc }}</div>
-        </div>
-      </div>
     </div>
     <div v-for="(item, index) in advancedData" :key="index" class="actived-key-item">
       <template v-if="TYPE_MAPPING[item.advancedType] === 'socd' && item.socd">
@@ -111,15 +105,12 @@ import { keyboardMap } from '@/config/byte-to-key/keyboard-map';
 import CustomDropdown from '@/components/CustomDropdown.vue';
 
 // const { advancedItems } = useSetAdvanced();
-const emit = defineEmits(['toAdd', 'edit']);
+const emit = defineEmits(['toAdd', 'edit', 'activeAddNew']);
 const { advancedData } = defineProps({
   title: {
     type: String,
   },
   advancedData: {
-    type: Array as PropType<any[]>,
-  },
-  addMenuItems: {
     type: Array as PropType<any[]>,
   },
 });
@@ -170,13 +161,8 @@ const clickHandler = (option, item) => {
   emit('edit', { option, item });
 };
 
-const addNew = () => {
-  isShowAddMenu.value = true;
-};
-
-const toAdd = (value: string) => {
-  emit('toAdd', value);
-  isShowAddMenu.value = false; // 选择后关闭菜单
+const activeAddNew = (data) => {
+  emit('activeAddNew', data);
 };
 
 // 点击外部区域关闭菜单
@@ -206,12 +192,34 @@ onUnmounted(() => {
 
 <style scoped lang="less">
 .actived-key {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
+  width: 270px;
+  height: 340px;
   margin-top: 28px;
-  overflow: visible; /* 确保子元素的菜单不被裁剪 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style: none;
+  padding: 0;
+
+  /* 美化滚动条 */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 3px;
+    /* 设置滚动条距离右侧边距,避免圆角溢出 */
+    margin-right: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #383838;
+    border-radius: 3px;
+    /* 设置轨道距离右侧边距,避免圆角溢出 */
+    margin-right: 4px;
+  }
+
   .add-new,
   .actived-key-item {
     position: relative;
@@ -226,15 +234,20 @@ onUnmounted(() => {
     justify-content: center;
     color: #fff;
     cursor: pointer;
-    overflow: visible; /* 确保菜单不被裁剪 */
+    overflow: visible;
+    margin-bottom: 16px;
+    z-index: 1;
+
     &:hover {
       color: #0de7c4;
       background-image: url('@/assets/images/advancedKeyBottomFrame_hover.svg');
     }
   }
+
   .actived-key-item {
     display: flex;
     padding: 10px;
+
     .advanced-name {
       width: 40px;
       height: 40px;
@@ -245,13 +258,11 @@ onUnmounted(() => {
       justify-content: center;
       color: #fff;
       text-align: center;
-      // padding: 5px;
-      // font-size: 14px;
-      // letter-spacing: 2px;
       word-break: break-all;
       overflow-wrap: break-word;
       line-height: 16px;
     }
+
     .content {
       flex: 1;
       height: 100%;
@@ -259,10 +270,12 @@ onUnmounted(() => {
       flex-direction: column;
       justify-content: center;
       margin-left: 10px;
+
       .desc {
         color: #8b8b8b;
       }
     }
+
     .edit-icon {
       width: 24px;
       height: 24px;
@@ -272,6 +285,7 @@ onUnmounted(() => {
       background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
+
       .edit-button {
         min-width: unset;
         width: 24px;
@@ -294,10 +308,10 @@ onUnmounted(() => {
 .add-menu {
   position: absolute;
   z-index: 9999;
-  bottom: 80px;
-  left: 0;
-  width: 330px;
-  max-height: 335px;
+  bottom: 70px;
+  left: -10px;
+  width: 280px;
+  max-height: 300px;
   background-color: #383838;
   border: 1px solid #616161;
   border-radius: 16px;

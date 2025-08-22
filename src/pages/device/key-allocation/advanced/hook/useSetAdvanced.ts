@@ -3,9 +3,11 @@ import { useKeyboardStore } from '@/store';
 const keyboardStore = useKeyboardStore();
 
 const useSetAdvanced = () => {
+  const childRef: Ref<{ reset: () => void }> = useTemplateRef('childRef');
+
+  // 获取所有高级键
   const advancedItems = computed(() => {
     const value = [];
-    // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx');
     // if (hasAdvancedData.value) {
     const keyboards = keyboardStore.keyboardLayout;
     if (Array.isArray(keyboards)) {
@@ -40,12 +42,19 @@ const useSetAdvanced = () => {
       });
     }
     // }
-    // console.log('advancedItems', value);
     return value;
   });
 
+  // 重置默认值
+  const resetDefaultValue = () => {
+    if (childRef?.value && typeof childRef.value.reset === 'function') {
+      childRef.value.reset();
+    }
+  };
+
   return {
     advancedItems,
+    resetDefaultValue,
   };
 };
 
