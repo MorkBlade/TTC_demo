@@ -1,73 +1,52 @@
 <template>
-  <div class="calibration-mode-box">
-    <div class="left-box">
-      <div style="width: 50%">
-        <p>1.按下需要校准的按键；</p>
-        <img :src="KCbg" alt="" style="margin-left: 50px" />
-      </div>
-      <div style="width: 50%">
-        <p>2.长按保持。等待校准；</p>
-        <img :src="checkBtn" alt="" style="margin-left: 50px" />
-      </div>
-      <div style="width: 100%">
-        <p>3.查看校准结果。</p>
-        <div style="display: flex; justify-content: space-around">
-          <img :src="UnBtn" alt="" />
-          <img :src="SucBtn" alt="" />
-          <img :src="ErroBtn" alt="" draggable="false" />
-        </div>
-      </div>
-    </div>
-    <div class="calibration-mode">
-      <div class="calibration-mode-header">
-        <h3>{{ t('messages.keyboardAdjusting') }}</h3>
-        <t-switch v-model="enabled" @change="handleEnabledChange" />
-      </div>
-      <div ref="chartRef" class="chart-container"></div>
+  <div class="calibration-mode">
+    <div ref="chartRef" class="chart-container"></div>
+    <img :src="echartsBg" alt="" />
+    <div class="calibration-nums">
+      <span>0.0</span>
+      <span>1.0</span>
+      <span>2.0</span>
+      <span>3.0</span>
+      <span>4.0</span>
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script setup>
 defineOptions({ name: 'DeviceCalibrationMode' });
 
-import { onMounted, onUnmounted, ref } from 'vue';
-import { NotifyPlugin } from 'tdesign-vue-next';
-
-import echarts from '@/config/echarts/index';
-import { t } from '@/locales';
-import { usePerformanceStore } from '@/store';
 import emitter from '@/utils/app-emitter';
-
-const KCbg = new URL('@/assets/images/keyboard_calibration_bg.svg', import.meta.url).href;
-const checkBtn = new URL('@/assets/images/check_btn.svg', import.meta.url).href;
-const UnBtn = new URL('@/assets/images/un_btn.svg', import.meta.url).href;
-const SucBtn = new URL('@/assets/images/success_btn.svg', import.meta.url).href;
-const ErroBtn = new URL('@/assets/images/error_btn.svg', import.meta.url).href;
+import echarts from '@/config/echarts/index.ts';
+import { scaleValue } from '@/utils/responsive.ts';
+import { useKeyboardStore, usePerformanceStore } from '@/store';
 
 const performanceStore = usePerformanceStore();
+const keyboardStore = useKeyboardStore();
+const { isStart } = defineProps({
+  isStart: { type: Boolean, default: false },
+});
+const echartsBg = new URL('@/assets/images/echarts_bg.svg', import.meta.url).href;
 const enabled = ref(false);
-
+const isVersion2 = ref(localStorage.getItem('keyboardVersion') === 'v2');
 const chartRef = ref(null);
-const chartInstance = ref<any>(null);
-const notification = ref(null);
-
-const isCalibrating = ref(false);
-let calibrationTimer: number | null = null;
-
-const chartData = ref<[number, number][]>([]);
+const chartInstance = ref(null);
+const keyPressTestCount = ref(0);
 const count = ref(0);
-const isCalibratingSuccessTip = ref(false);
-
 const option = {
-  animation: false,
-  tooltip: { trigger: 'none' },
-  grid: { left: 30, right: 30, top: 40, bottom: 40, containLabel: true },
+  tooltip: {},
+  grid: {
+    left: scaleValue(15),
+    right: scaleValue(15),
+    top: scaleValue(10),
+    bottom: scaleValue(10),
+    containLabel: true,
+  },
   xAxis: {
     type: 'value',
     min: 0,
     max: 200,
-    axisLabel: { show: false },
-    axisLine: { lineStyle: { color: '#666' } },
+    axisLabel: { show: false }, // 隐藏刻度
+    axisTick: { show: false }, // 隐藏刻度线
+    axisLine: { show: false }, // 隐藏轴线
     splitLine: { show: false },
   },
   yAxis: {
@@ -75,158 +54,154 @@ const option = {
     min: 0,
     max: 4,
     interval: 0.5,
-    axisLabel: { formatter: '{value} mm', color: '#999' },
-    axisLine: { lineStyle: { color: '#666' } },
+    inverse: true, // 实现从顶部往下绘制
+    axisLabel: { formatter: '{value}' },
+    axisLabel: { show: false }, // 隐藏刻度
+    axisTick: { show: false }, // 隐藏刻度线
+    axisLine: { show: false }, // 隐藏轴线
     splitLine: { show: false },
-  },
+  }, // 每个刻度为1000
   series: [
     {
-      name: t('messages.realTimeTravel'),
+      name: '实时行程',
       type: 'line',
       showSymbol: false,
-      smooth: 0.3,
-      animation: true,
-      progressive: 300,
-      progressiveThreshold: 400,
-      lineStyle: { width: 2, color: '#409EFF' },
-      areaStyle: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: 'rgba(64,158,255,0.2)' },
-            { offset: 1, color: 'rgba(64,158,255,0)' },
-          ],
-        },
-      },
       data: [],
+      lineStyle: {
+        color: 'rgb(145, 188, 0)', // 线条颜色，这里设置为绿色
+        width: 2, // 线条宽度
+        type: 'solid', // 线条类型：'solid'|'dashed'|'dotted'
+      },
+      areaStyle: {
+        // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+          {
+            offset: 0,
+            color: 'rgba(145, 188, 0, 0.3)', // 渐变起始颜色，半透明绿色
+          },
+          {
+            offset: 1,
+            color: 'rgba(0, 255, 0, 0)', // 渐变结束颜色，完全透明
+          },
+        ]),
+      },
     },
-  ],
+  ], // 隐藏数据点的圆圈
 };
 
 onMounted(() => {
-  window.addEventListener('beforeunload', handleBeforeUnload);
-
   if (chartRef.value) {
     chartInstance.value = echarts.init(chartRef.value);
     chartInstance.value.setOption(option);
   }
-
-  window.onresize = () => {
-    console.log('window.onresize');
-    if (chartInstance.value) {
-      chartInstance.value.setOption(option);
-      chartInstance.value?.resize();
-    }
-  };
 });
 
-const handleEnabledChange = async (value: boolean) => {
-  if (notification.value) {
-    NotifyPlugin.close(notification.value);
-    notification.value = null;
+emitter.on('versionChange', (flag) => {
+  if (flag) {
+    setTimeout(() => {
+      isVersion2.value = localStorage.getItem('keyboardVersion') === 'v2';
+    }, 240);
   }
-  emitter.on('isCalibration', (data) => {
-    if (!data && value) {
-      // MessagePlugin.success('校准成功');
-      isCalibratingSuccessTip.value = true;
-    } else {
-      isCalibratingSuccessTip.value = false;
-    }
-  });
+});
 
-  emitter.emit('isCalibrationing', value);
-
+const handleEnabledChange = async (value) => {
   if (value) {
-    notification.value = NotifyPlugin('info', { title: t('messages.startCalibration') });
-
-    try {
-      await performanceStore.calibrationStart();
-      chartData.value = [];
-      count.value = 0;
-      isCalibrating.value = true;
-      startCalibrationLoop();
-    } catch (err) {
-      console.error('校准开始失败:', err);
-      isCalibrating.value = false;
-    }
+    isVersion2.value ? performanceStore.calibrationStartV2() : performanceStore.calibrationStart();
   } else {
-    await stopCalibrationLoop();
-    if (isCalibratingSuccessTip.value) {
-      notification.value = NotifyPlugin('success', { title: t('messages.calibrationComplete') });
-    }
+    performanceStore.isTravelTest = false;
+    isVersion2.value ? performanceStore.calibrationEndV2() : performanceStore.calibrationEnd();
   }
+  // emitter.emit('calibration-mode', { value });
+  keyPressTestCount.value++;
 };
 
-const startCalibrationLoop = () => {
-  const loop = async () => {
-    if (!isCalibrating.value) return;
+watch(
+  () => isStart,
+  (newVal) => {
+    if (newVal) {
+      handleEnabledChange(newVal);
+    }
+  },
+  // { immediate: true },
+);
 
-    try {
-      const { max } = await performanceStore.getRm6X21Calibration();
-      option.series[0].data.push([count.value, max]);
+// TODO 偶现无法进入校准模式/卡死
+watch(keyPressTestCount, async () => {
+  if (isStart) {
+    let mmBuff = 0;
+    if (isVersion2.value) {
+      performanceStore.isTravelTest = true;
+      const { max } = await performanceStore.getRm6X21CalibrationV2(keyboardStore.keyboards);
+      mmBuff = max;
+    } else {
+      const { max } = await performanceStore.getRm6X21Calibration(keyboardStore.keyboards);
+      mmBuff = max;
+    }
+    option.series[0].data.push([count.value, mmBuff]);
 
-      if (count.value > 200) {
-        option.xAxis.max = count.value;
-        option.xAxis.min = count.value - 200;
-      }
-
-      count.value++;
-
-      if (option.series[0].data.length > 200) {
-        option.series[0].data.shift();
-      }
-      if (chartInstance.value) {
-        chartInstance.value.setOption(option);
-      }
-    } catch (err) {
-      console.warn('获取校准数据失败:', err);
+    if (count.value > 200) {
+      // x轴范围向右移动
+      option.xAxis.max = count.value;
+      option.xAxis.min = count.value - 200;
     }
 
-    calibrationTimer = window.setTimeout(loop, 10);
-  };
+    count.value++;
 
-  loop();
-};
-
-const stopCalibrationLoop = async () => {
-  if (calibrationTimer !== null) {
-    clearTimeout(calibrationTimer);
-    calibrationTimer = null;
-  }
-
-  if (isCalibrating.value) {
-    try {
-      await performanceStore.calibrationEnd();
-      // 清空图表数据
-      option.series[0].data = [];
-      count.value = 0;
-      option.xAxis.min = 0;
-      option.xAxis.max = 200;
-      if (chartInstance.value) {
-        chartInstance.value.setOption(option);
-      }
-    } catch (err) {
-      console.warn('校准结束失败:', err);
+    if (option.series[0].data.length > 200) {
+      option.series[0].data.shift(); // 移除数组中的第一个元素
     }
+    if (chartInstance.value) {
+      chartInstance.value.setOption(option);
+    }
+    keyPressTestCount.value++;
   }
-
-  isCalibrating.value = false;
-};
-
-const handleBeforeUnload = () => {
-  stopCalibrationLoop();
-};
+});
 
 onUnmounted(() => {
-  stopCalibrationLoop();
-  window.removeEventListener('beforeunload', handleBeforeUnload);
+  enabled.value = false;
+  if (isStart) {
+    isVersion2.value ? performanceStore.calibrationEndV2() : performanceStore.calibrationEnd();
+  }
 });
 </script>
 
-<style lang="less" scoped>
-@import './style/CalibrationMode.less';
+<style scoped lang="less">
+.calibration-mode {
+  position: relative;
+
+  &-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .chart-container {
+    width: 895px;
+    height: 260px;
+    position: absolute;
+    z-index: 1;
+    margin: 38px 0 0 80px;
+  }
+
+  img {
+    width: 1000px;
+    object-fit: fill;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  .calibration-nums {
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 26px;
+    font-size: 16px;
+    color: #a19595;
+    font-family: 'CN Regular';
+    position: absolute;
+    top: 35px;
+    left: 60px;
+  }
+}
 </style>

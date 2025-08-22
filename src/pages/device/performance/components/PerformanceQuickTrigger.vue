@@ -1,12 +1,15 @@
 <template>
   <div class="device-performance-quick__trigger">
-    <div>触发效果演示</div>
+    <div>
+      <travelTestCard />
+    </div>
     <performance-dead-zone />
     <performance-trigger />
   </div>
 </template>
 
 <script setup>
+import travelTestCard from './travel-test-card.vue';
 import PerformanceDeadZone from './PerformanceDeadZone.vue';
 import PerformanceTrigger from './PerformanceTrigger.vue';
 </script>

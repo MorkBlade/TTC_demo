@@ -12,19 +12,19 @@
       <div
         class="device-performance-title"
         :data-id="1"
-        :class="{ 'is-active': performanceTab === 1, 'is-disabled': isCalibrating }"
-        @click="!isCalibrating && onChangeTab(1)"
+        :class="{ 'is-active': performanceTab === 2, 'is-disabled': isCalibrating }"
+        @click="!isCalibrating && onChangeTab(2)"
       >
-        快速触发
+        机械模式
       </div>
-      <div
+      <!-- <div
         class="device-performance-title"
         :data-id="2"
         :class="{ 'is-active': performanceTab === 2, 'is-disabled': isCalibrating }"
         @click="!isCalibrating && onChangeTab(2)"
       >
         {{ t('messages.deadZoneSetting') }}
-      </div>
+      </div> -->
       <div
         class="device-performance-title"
         :data-id="3"
