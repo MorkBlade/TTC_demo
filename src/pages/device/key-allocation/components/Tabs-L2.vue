@@ -15,11 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-defineProps({
+const props = defineProps({
   tabMenu: {
-    type: Array as PropType<Array<{ label: string; value: number }>>,
+    type: Array as PropType<Array<{ label: string; value: number | string }>>,
     default: () => [
       {
         label: String,
@@ -27,10 +27,23 @@ defineProps({
       },
     ],
   },
+  modelValue: {
+    type: [Number, String] as PropType<number | string>,
+    default: 0,
+  },
 });
-const tabItem = ref(0);
+const tabItem = ref<number | string>(props.modelValue);
 const emits = defineEmits(['change']);
-const changeTabMenu = (val: number) => {
+
+// 监听外部传入的modelValue变化
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    tabItem.value = newVal;
+  },
+);
+
+const changeTabMenu = (val: number | string) => {
   tabItem.value = val;
   emits('change', val);
 };

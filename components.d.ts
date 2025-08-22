@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CustomDropdown: typeof import('./src/components/CustomDropdown.vue')['default']
     DelaySlider: typeof import('./src/components/delay-slider/index.vue')['default']
     FluidCursor: typeof import('./src/components/FluidCursor.vue')['default']
     Key: typeof import('./src/components/key/index.vue')['default']
@@ -22,6 +23,7 @@ declare module 'vue' {
     TConfigProvider: typeof import('tdesign-vue-next')['ConfigProvider']
     TContent: typeof import('tdesign-vue-next')['Content']
     TDialog: typeof import('tdesign-vue-next')['Dialog']
+    TDropdown: typeof import('tdesign-vue-next')['Dropdown']
     THeader: typeof import('tdesign-vue-next')['Header']
     TIcon: typeof import('tdesign-vue-next')['Icon']
     TInput: typeof import('tdesign-vue-next')['Input']
