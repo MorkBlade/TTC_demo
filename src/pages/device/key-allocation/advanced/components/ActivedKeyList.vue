@@ -192,11 +192,11 @@ onUnmounted(() => {
 
 <style scoped lang="less">
 .actived-key {
-  width: 270px;
+  width: 300px;
   height: 340px;
   margin-top: 28px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   list-style: none;
   padding: 0;
 
@@ -236,7 +236,6 @@ onUnmounted(() => {
     cursor: pointer;
     overflow: visible;
     margin-bottom: 16px;
-    z-index: 1;
 
     &:hover {
       color: #0de7c4;

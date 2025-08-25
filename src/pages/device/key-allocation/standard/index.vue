@@ -70,7 +70,7 @@
       </div>
       <div v-if="checkedTab === 1" class="device-custom-key__body-multimedia device-custom-key">
         <key
-          v-for="item in keyboardMapByType.media"
+          v-for="item in lights"
           :key="item"
           style="margin-right: 5px"
           :active="selectKey === item"
@@ -79,7 +79,7 @@
       </div>
       <div v-if="checkedTab === 2" class="device-custom-key__body-light">
         <key
-          v-for="item in lights"
+          v-for="item in keyboardMapByType.media"
           :key="item"
           style="margin-right: 5px"
           :active="selectKey === item"
@@ -178,13 +178,13 @@ const menu = [
     value: 1,
   },
   {
-    label: '鼠标按键',
+    label: '多媒体',
     value: 2,
   },
-  {
-    label: '宏按键',
-    value: 4,
-  },
+  // {
+  //   label: '宏按键',
+  //   value: 4,
+  // },
 ];
 
 onMounted(async () => {

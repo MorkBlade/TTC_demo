@@ -264,6 +264,7 @@ export const useHigherKeyStore = defineStore('highLevelKey', {
 
     // 删掉高级键
     async deleteHighLevelKey(params: DeleteHighLevelKeyParams) {
+      console.log('deleteHighLevelKey', params);
       const { row, col } = params;
       const keyboardStore = useKeyboardStore();
       const { keyboardLayout } = storeToRefs(keyboardStore);

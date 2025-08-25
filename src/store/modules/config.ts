@@ -18,6 +18,7 @@ export const useConfigStore = defineStore('config', {
       this.activeMenu = menu;
       this.disableConfig = false;
       emitter.emit('menu-click', { value: this.activeMenu });
+      console.log('setActiveMenu', menu);
     },
     // 设置禁用的菜单
     setDisabledMenu(menu: string[]) {
