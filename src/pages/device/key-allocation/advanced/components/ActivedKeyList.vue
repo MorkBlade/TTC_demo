@@ -7,7 +7,9 @@
       <template v-if="TYPE_MAPPING[item.advancedType] === 'socd' && item.socd">
         <div class="advanced-name">SO<br />CD</div>
         <div class="content">
-          <div class="title">{{ keyboardMap[item.keyValue].name }}</div>
+          <div class="title">
+            {{ keyboardMap[item.socd.socd.kcs[0]].name }} + {{ keyboardMap[item.socd.socd.kcs[1]].name }}
+          </div>
           <div class="desc">
             {{
               '优先设定(' +

@@ -64,16 +64,9 @@
       </div>
     </div>
   </div>
-  <!-- <delaySlider
-    v-model:is-show="isShow"
-    :max="50"
-    :title="t('messages.socdDelay')"
-    :delay="socdInfo.delay"
-    @change-delay="handleSocdDelay"
-  >
-  </delaySlider> -->
 </template>
 <script setup>
+import { MessagePlugin } from 'tdesign-vue-next';
 import { keyboardMap } from '@/config/byte-to-key/keyboard-map';
 import { SOCD_MODES } from '@/constants/higherKey';
 import { useHigherKeyStore, useKeyboardStore } from '@/store';
@@ -109,12 +102,10 @@ const singleTouchTravel = computed({
 const keyIndex = ref([-1, -1]);
 
 const keyText = computed(() => {
-  console.log('keyText', socdInfo.value);
   return [keyboardMap[socdInfo.value.kcs[0]]?.name || '', keyboardMap[socdInfo.value.kcs[1]]?.name || ''];
 });
 
 const changeMode = (mode) => {
-  console.log('changeMode', mode);
   socdInfo.value.mode = mode;
 };
 
@@ -127,9 +118,16 @@ const onMouseLe = (idx) => {
 };
 
 const handleKeydrop = (idx) => {
-  filterAdvancedKey(keyboardStore.keyboardLayout, keyboardStore.selectKey.keycode);
+  const unBinding = filterAdvancedKey(keyboardStore.keyboardLayout, keyboardStore.selectKey.keycode);
+  if (unBinding) {
+    MessagePlugin.error('该键已绑定高级键，请重新选择');
+    return;
+  }
   const keyVal = keyboardStore.selectKey.keycode;
   socdInfo.value.kcs[idx] = keyVal;
+  console.log('keyboardStore.selectKey', keyboardStore.selectKey);
+  const key = { row: keyboardStore.selectKey.row, col: keyboardStore.selectKey.col };
+  keyboardStore.handleSelectKeyClick(key, 'single');
 };
 
 const handleSocdDelay = (delay) => {
@@ -163,7 +161,7 @@ const reset = () => {
     { row: 0, col: 0 },
     { row: 0, col: 0 },
   ];
-  socdInfo.value.key = [0, 0];
+  socdInfo.value.kcs = [0, 0];
   socdInfo.value.type = 0;
   socdInfo.value.mode = 0;
   keyIndex.value = [-1, -1];

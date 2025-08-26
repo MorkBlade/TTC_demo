@@ -13,7 +13,9 @@
       <template v-if="TYPE_MAPPING[item.advancedType] === 'socd' && item.socd">
         <div class="advanced-name">SO<br />CD</div>
         <div class="content">
-          <div class="title">{{ keyboardMap[item.keyValue].name }}</div>
+          <div class="title">
+            {{ keyboardMap[item.socd.socd.kcs[0]].name }} + {{ keyboardMap[item.socd.socd.kcs[1]].name }}
+          </div>
           <div class="desc">
             {{
               '优先设定(' +
@@ -165,6 +167,8 @@ const addNewRef = ref(null);
 const addMenuRef = ref(null);
 
 const clickHandler = (option, item) => {
+  console.log('dropdown option:', option); // 下拉菜单选项
+  console.log('advanced key item:', item); // 高级键数据
   emit('edit', { option, item });
 };
 

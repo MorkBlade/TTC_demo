@@ -22,7 +22,7 @@ const { device, connectDeviceStatus, info } = storeToRefs(deviceStore);
 
 <style lang="less" scoped>
 .device-info {
-  height: 53px;
+  min-height: 53px;
   overflow: hidden;
   //margin-top: 15px;
   //margin-bottom: 25px;

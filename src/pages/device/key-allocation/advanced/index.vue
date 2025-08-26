@@ -26,22 +26,22 @@
           <div class="desc">{{ addMenuItems.find((item) => item.value === tabItem)?.desc }}</div>
         </div>
         <template v-if="tabItem === 'socd' && isEdit">
-          <socd v-model:socd-info="socdInfo" ref="childRef" />
+          <socd ref="childRef" v-model:socd-info="socdInfo" />
         </template>
         <template v-else-if="tabItem === 'dks' && isEdit">
-          <dks v-model:dks-info="dksInfo" ref="childRef" />
+          <dks ref="childRef" v-model:dks-info="dksInfo" />
         </template>
         <template v-else-if="tabItem === 'mpt' && isEdit">
-          <mpt v-model:mpt-info="mptInfo" ref="childRef" />
+          <mpt ref="childRef" v-model:mpt-info="mptInfo" />
         </template>
         <template v-else-if="tabItem === 'mt' && isEdit">
-          <mt v-model:mt-info="mtInfo" ref="childRef" />
+          <mt ref="childRef" v-model:mt-info="mtInfo" />
         </template>
         <template v-else-if="tabItem === 'tgl' && isEdit">
-          <tgl v-model:tgl-info="tglInfo" ref="childRef" />
+          <tgl ref="childRef" v-model:tgl-info="tglInfo" />
         </template>
         <template v-else-if="tabItem === 'end' && isEdit">
-          <end v-model:end-info="endInfo" ref="childRef" />
+          <end ref="childRef" v-model:end-info="endInfo" />
         </template>
       </div>
       <!-- 按键区 -->
@@ -96,10 +96,10 @@ const advancedKeyMenu = computed(() => [
   { label: t('messages.activedHighKey'), value: 0 },
   { label: t('messages.highKeyMenuSocd'), value: 'socd' },
   { label: t('messages.highKeyMenuDks'), value: 'dks' },
-  { label: t('messages.highKeyMenuMpt'), value: 'mpt' },
-  { label: t('messages.highKeyMenuMt'), value: 'mt' },
-  { label: t('messages.highKeyMenuTgl'), value: 'tgl' },
-  { label: t('messages.highKeyMenuEnd'), value: 'end' },
+  // { label: t('messages.highKeyMenuMpt'), value: 'mpt' },
+  // { label: t('messages.highKeyMenuMt'), value: 'mt' },
+  // { label: t('messages.highKeyMenuTgl'), value: 'tgl' },
+  // { label: t('messages.highKeyMenuEnd'), value: 'end' },
 ]);
 
 const addMenuItems = [
@@ -153,7 +153,6 @@ emitter.on('key-click', (data: { row: number; col: number }) => {
   let hasHighLevelKey = null;
   // newVal.forEach((item) => {
   // 判断是不是高级键
-  console.log('tabItem', tabItem.value);
   if (keyItem !== null) hasHighLevelKey = keyItem.advancedKeys;
   keycodes.push(keycode);
   if (tabItem.value === 'socd' || tabItem.value === 'rs') {
@@ -170,6 +169,7 @@ emitter.on('key-click', (data: { row: number; col: number }) => {
   if (hasHighLevelKey !== null && hasHighLevelKey.advancedType !== '') {
     const { advancedType } = hasHighLevelKey;
     const type = TYPE_MAPPING[advancedType];
+    console.log('type', type);
     tabItem.value = type;
     emitter.emit('highLevelKey-change', { value: type });
     keyboardStore.activeKeys.push(`${row}-${col}`);
@@ -298,6 +298,11 @@ const tabItem: Ref<string | number> = ref(0);
 const onChangeTab = (val: number | string) => {
   isEdit.value = false;
   tabItem.value = val;
+  socdKeycodes.length = 0;
+  activeKeys.value.length = 0;
+  Object.assign(socdInfo, { pos: [0, 0], kcs: [0, 0], type: 0, mode: 0, delay: 0 });
+  Object.assign(rsInfo, { kcs: [0, 0], delay: 0 });
+  emitter.emit('highLevelKey-change', { value: val });
 };
 
 const toAdd = (value: string) => {
@@ -309,8 +314,13 @@ const edit = (value: { option: any; item: any }) => {
   console.log('edit', value);
   const { option, item } = value;
   if (option.value === 3) {
-    // TODO 删除
-    deleteHighLevelKey({ row: item.row, col: item.col });
+    // 判断是否是SOCD
+    if (item.advancedType === 6) {
+      deleteHighLevelKey({ row: item.row, col: item.col });
+      deleteHighLevelKey({ row: item.socd.socd.row2, col: item.socd.socd.col2 });
+    } else {
+      deleteHighLevelKey({ row: item.row, col: item.col });
+    }
     resetDefaultValue();
     // showMessage('删除成功!');
     MessagePlugin.success('删除成功');
@@ -327,11 +337,12 @@ const activeKeys = computed(() => {
 });
 // 保存事件
 const handleSaveBIndKeyClick = () => {
-  console.log('activeKeys', activeKeys.value);
   if (activeKeys.value.length === 0) return;
   handleDialoConfirm();
 };
 const handleCancelClick = () => {
+  keyboardStore.cancelSelectKey();
+  resetDefaultValue();
   isEdit.value = false;
 };
 </script>

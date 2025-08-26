@@ -15,6 +15,7 @@
     background-clip: padding-box;
     border-color: rgb(0 0 0 / 100%);
     cursor: pointer;
+    margin: -4px;
   }
 
   &-labels {
@@ -23,6 +24,8 @@
     justify-content: center;
     color: var(--key-font-color);
     font-size: 12px;
+    font-weight: 700;
+    font-size: bold;
     cursor: pointer;
 
     .key-icon {
@@ -42,7 +45,7 @@
       // transform: scale(0.98);
     }
     .key-border2-cover {
-      border-color:#292a2e;
+      border-color: #292a2e;
       // transform: scale(0.995);
     }
     .key-top {
@@ -52,10 +55,12 @@
 
   &-border {
     z-index: 100;
-    background-color: rgb(41 42 46 / 100%);
-    border-color: rgb(112 112 112 / 100%) !important;
+    background-color: #383838;
+    border-color: #616161 !important;
     border-style: solid;
     transition: transform 0.2s ease;
+    border-width: 2px !important;
+    border-radius: 10px;
   }
 
   &-custom {
@@ -65,18 +70,16 @@
     letter-spacing: 0;
     text-align: center;
 
-
     &-right {
       position: absolute;
       top: 3px;
       right: 3px;
       color: red;
-      background-color:red;
-      border-radius:50%;
-      width:8px;
+      background-color: red;
+      border-radius: 50%;
+      width: 8px;
       height: 8px;
     }
-
   }
 
   &-travel {
@@ -176,7 +179,7 @@
 .key.active {
   .key-border {
     // border-color: red var(--td-brand-color);
-    border-color: var(--td-brand-color) !important;
+    border-color: #09fbd3 !important;
     border-width: 2px !important;
   }
 }

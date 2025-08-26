@@ -1,12 +1,13 @@
 .dks-container {
+  padding: 0 40px;
   position: relative;
   display: flex;
   flex-direction: column;
-
+  // margin-top: 0px;
   .title-box {
     position: absolute;
     top: 40px;
-    left: 152px;
+    left: 114px;
     z-index: 10;
 
     > div {
@@ -17,14 +18,14 @@
       }
 
       div + div {
-        margin-left: 50px;
+        margin-left: 25px;
       }
     }
 
     h3 {
       color: rgb(252 252 252 / 100%);
       font-weight: 700;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 14.06px;
       letter-spacing: 0;
       text-align: center;
@@ -39,17 +40,49 @@
       letter-spacing: 0;
       text-align: center;
       cursor: pointer;
-      text-decoration-line: underline;
+      // text-decoration-line: underline;
     }
-
+    &.key-config {
+      left: 45px;
+      margin-top: 30px;
+      h3 {
+        font-size: 14px;
+      }
+    }
     &.key-up {
-      left: 324px;
+      left: 240px;
+    }
+    .press-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      .icon {
+        background-image: url('@/assets/images/dks_down.svg');
+        background-repeat: no-repeat;
+        width: 10px;
+        height: 10px;
+      }
+      .icon-up {
+        background-image: url('@/assets/images/dks_up.svg');
+      }
+      .icon-down {
+        background-image: url('@/assets/images/dks_down.svg');
+      }
+      .icon-down-top {
+        background-image: url('@/assets/images/dks_down_top.svg');
+      }
+      .icon-up-top {
+        background-image: url('@/assets/images/dks_up_top.svg');
+      }
     }
   }
 
   .dks-btn-box {
     display: grid;
-    gap: 10px;
+    gap: 6px;
+    margin-top: 15px;
     align-content: space-evenly;
   }
 
@@ -61,14 +94,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      height: 50px;
+      width: 42px;
+      height: 42px;
       color: rgb(252 252 252 / 100%);
       font-weight: 700;
       font-size: 12px;
       letter-spacing: 0;
-      background: rgb(41 42 46 / 100%);
-      border: 1px dashed rgb(87 87 87 / 100%);
+      background: #373737;
+      border: 1px solid #525252;
       border-radius: 4px;
       cursor: pointer;
 
@@ -82,31 +115,34 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 50px;
-      height: 50px;
+      width: 42px;
+      height: 42px;
       cursor: pointer;
       transition: all 0.1s;
-      border: 1px dashed rgb(87 87 87 / 100%);
+      border: 1px dashed #09fbd3;
       border-radius: 4px;
     }
 
     &-del:hover {
-      border-color: rgb(252 252 252 / 100%);
+      border-color: #09fbd3;
       border-style: solid;
     }
   }
 
   .dks-container-box {
     display: grid;
-    gap: 10px;
-    margin-left: 50px;
+    gap: 16px;
+    margin-left: 18px;
+    margin-top: 18px;
   }
 
   .out-box {
     display: flex;
     place-items: center center;
-    height: 50px;
-
+    width: 260px;
+    height: 30px;
+    border: 1px solid rgb(87 87 87 / 100%);
+    padding: 0 24px;
     &-item {
       display: flex;
       place-items: center center;
@@ -115,48 +151,52 @@
   }
 
   .round {
-    width: 20px;
-    height: 20px;
-    background-color: antiquewhite;
-    border-radius: 10px;
+    width: 16px;
+    height: 16px;
+    // background-color: antiquewhite;
+    background-image: url('@/assets/images/dks_item.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    // border-radius: 10px;
   }
 
   .round-clicked {
-    width: 20px;
-    height: 20px;
-    background-color: chocolate;
-    border-radius: 10px;
+    width: 16px;
+    height: 16px;
+    background-image: url('@/assets/images/dks_item_actived.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .line {
-    width: 25px;
-    height: 2px;
-    background-color: antiquewhite;
+    width: 50px;
+    height: 16px;
+    // background-color: antiquewhite;
   }
 
   .line-clicked {
-    width: 25px;
-    height: 2px;
-    background-color: chocolate;
+    width: 50px;
+    height: 16px;
+    background-color: #09fbd3;
   }
 
-  .square {
-    width: 20px;
-    height: 20px;
-    background-color: antiquewhite;
-    border-radius: 3px;
-  }
+  // .square {
+  //   width: 20px;
+  //   height: 20px;
+  //   background-color: antiquewhite;
+  //   border-radius: 3px;
+  // }
 
-  .square-clicked {
-    width: 20px;
-    height: 20px;
-    background-color: chocolate;
-    border-radius: 3px;
-  }
+  // .square-clicked {
+  //   width: 20px;
+  //   height: 20px;
+  //   background-color: chocolate;
+  //   border-radius: 3px;
+  // }
 }
 
 .dks-config-container {
   display: flex;
   margin-top: 80px;
-  margin-left: 60px;
+  // margin-left: 60px;
 }

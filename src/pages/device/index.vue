@@ -1,7 +1,7 @@
 <template>
   <div class="device-page">
     <div class="multi-language-float">
-      <multi-language />
+      <!-- <multi-language /> -->
     </div>
     <t-layout>
       <device-info></device-info>
@@ -9,7 +9,7 @@
         <header-menu></header-menu>
       </t-header>
       <!-- <t-aside style="flex-shrink: 0">
-        <device-info></device-info> 
+        <device-info></device-info>
         <config></config>
         <t-header class="header">
           <header-menu></header-menu>

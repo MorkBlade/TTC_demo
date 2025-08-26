@@ -69,7 +69,7 @@
         <div class="select-btn" @click="onCheckKey('reverse')">{{ t('messages.keyboardSelectReverse') }}</div>
         <div class="select-btn" @click="onCheckKey('cancel')">{{ t('messages.keyboardSelectCancel') }}</div>
       </div>
-      <div
+      <!-- <div
         v-if="['customKey', 'highLevelKey', 'macro', 'performance'].includes(currentPageName)"
         class="device-keyboard-container__tip"
       >
@@ -92,7 +92,7 @@
         </p>
         <p v-show="currentPageName === 'customKey'">{{ t('messages.keyboardCustomTip') }}</p>
         <p v-show="currentPageName === 'macro'">{{ t('messages.keyboardMacroTip') }}</p>
-      </div>
+      </div> -->
     </div>
     <t-dialog
       v-model:visible="visible"
@@ -187,7 +187,10 @@ const handleKeyClick = async (row: number, col: number): Promise<void> => {
   // 当前类型
   if (currentPageName.value === 'highLevelKey' || currentPageName.value === 'customKey') {
     // 单选
-    if (currentPageName.value === 'highLevelKey' && multipleHighLevelKey.includes(highLevelKey.value)) {
+    if (
+      (currentPageName.value === 'highLevelKey' || currentPageName.value === 'customKey') &&
+      multipleHighLevelKey.includes(highLevelKey.value)
+    ) {
       handleHighLevelKeyChange({ row, col });
     } else {
       keyboardStore.handleSelectKeyClick({ row, col }, 'single');

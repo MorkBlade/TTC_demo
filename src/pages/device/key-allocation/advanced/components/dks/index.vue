@@ -1,25 +1,32 @@
 <template>
   <div class="dks-container">
     <!-- <div class="left-config"> -->
+    <div class="title-box key-config">
+      <h3>键程</h3>
+    </div>
     <div class="title-box key-press">
-      <h3>{{ t('messages.dksPress') }}</h3>
+      <h3>按下</h3>
       <div :style="{ display: 'flex' }">
-        <div>
-          <p @click="setTravelDialog = true">{{ parseFloat(db).toFixed(2) + 'mm' }}</p>
+        <div class="press-box">
+          <p @click="setTravelDialog = true">0.01mm</p>
+          <div class="icon icon-down"></div>
         </div>
-        <div>
-          <p @click="setTravelDialog2 = true">{{ parseFloat(db2).toFixed(2) + 'mm' }}</p>
+        <div class="press-box">
+          <p @click="setTravelDialog2 = true">3.30mm</p>
+          <div class="icon icon-down-top"></div>
         </div>
       </div>
     </div>
     <div class="title-box key-up">
-      <h3>{{ t('messages.dksRelease') }}</h3>
+      <h3>抬起</h3>
       <div :style="{ display: 'flex' }">
-        <div>
-          <p @click="setTravelDialog2 = true">{{ parseFloat(db2).toFixed(2) + 'mm' }}</p>
+        <div class="press-box">
+          <p @click="setTravelDialog2 = true">0.01mm</p>
+          <div class="icon icon-up"></div>
         </div>
-        <div>
-          <p @click="setTravelDialog = true">{{ parseFloat(db).toFixed(2) + 'mm' }}</p>
+        <div class="press-box">
+          <p @click="setTravelDialog = true">3.30mm</p>
+          <div class="icon icon-up-top"></div>
         </div>
       </div>
     </div>
@@ -46,9 +53,8 @@
       </div>
       <div class="dks-container-box">
         <div v-for="(layer, layerIndex) in 4" :key="layerIndex" class="out-box">
-          <div v-for="(item, itemIndex) in 7" :key="itemIndex" class="out-box-item">
+          <div v-for="(item, itemIndex) in 4" :key="itemIndex" class="out-box-item">
             <div
-              v-if="itemIndex % 2 === 0"
               :class="{
                 round: !clickData[layerIndex][itemIndex],
                 'round-clicked': clickData[layerIndex][itemIndex],
@@ -56,15 +62,7 @@
               @click="roundClicked(layerIndex, itemIndex)"
             ></div>
             <div
-              v-else
-              :class="{
-                square: !clickData[layerIndex][itemIndex],
-                'square-clicked': clickData[layerIndex][itemIndex],
-              }"
-              @click="roundClicked(layerIndex, itemIndex)"
-            ></div>
-            <div
-              v-if="itemIndex < 6"
+              v-if="itemIndex < 3"
               :class="{
                 line: !clickData[layerIndex][itemIndex] || !clickData[layerIndex][itemIndex + 1],
                 'line-clicked': clickData[layerIndex][itemIndex] && clickData[layerIndex][itemIndex + 1],
@@ -128,15 +126,15 @@ const currentKeys = reactive({ 0: null, 1: null, 2: null, 3: null });
 const delKeyShow = reactive([false, false, false, false]);
 
 const clickData = reactive([
-  [false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
 ]);
 
-const db = computed(() => dksInfo.value.db);
+// const db = computed(() => dksInfo.value.db);
 
-const db2 = computed(() => dksInfo.value.db2);
+// const db2 = computed(() => dksInfo.value.db2);
 
 const keyText = computed(() => {
   return [
@@ -148,26 +146,17 @@ const keyText = computed(() => {
 });
 
 const parse8BitToBooleans = (num) => {
-  const result = [false, false, false, false, false, false, false];
+  const result = [false, false, false, false];
   const bits = new Array(8);
 
   for (let i = 0; i < 8; i++) {
     // eslint-disable-next-line no-bitwise
     bits[i] = !!(num & (1 << i));
   }
-  // eslint-disable-next-line prefer-destructuring
-  result[0] = bits[0];
-  // eslint-disable-next-line prefer-destructuring
-  result[1] = bits[1];
-  // eslint-disable-next-line prefer-destructuring
-  result[2] = bits[2];
-  result[3] = bits[3] && bits[4];
-  // eslint-disable-next-line prefer-destructuring
-  result[4] = bits[5];
-  // eslint-disable-next-line prefer-destructuring
-  result[5] = bits[6];
-  // eslint-disable-next-line prefer-destructuring
-  result[6] = bits[7];
+  // 只保留4个round的状态
+  for (let i = 0; i < 4; i++) {
+    result[i] = bits[i];
+  }
 
   return result;
 };
@@ -176,6 +165,7 @@ const clickDataTranfromTrps = () => {
   let buf = 0;
   for (let i = 0; i < 4; i++) {
     buf = 0;
+    // 只处理4个round的状态
     if (clickData[i][0] === true) {
       buf |= 1 << 0;
     }
@@ -187,16 +177,6 @@ const clickDataTranfromTrps = () => {
     }
     if (clickData[i][3] === true) {
       buf |= 1 << 3;
-      buf |= 1 << 4;
-    }
-    if (clickData[i][4] === true) {
-      buf |= 1 << 5;
-    }
-    if (clickData[i][5] === true) {
-      buf |= 1 << 6;
-    }
-    if (clickData[i][6] === true) {
-      buf |= 1 << 7;
     }
     dksInfo.value.trps[i] = buf;
   }
@@ -275,7 +255,7 @@ const reset = () => {
     isDragStates[i] = false;
     currentKeys[i] = null;
     delKeyShow[i] = false;
-    clickData[i] = [false, false, false, false, false, false, false];
+    clickData[i] = [false, false, false, false];
   }
 
   // 重置宽度

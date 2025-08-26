@@ -257,7 +257,6 @@ export const useKeyboardStore = defineStore('keyboard', {
     handleSelectKeyClick(position: KeyPosition, type: 'single' | 'multiple' = 'multiple'): void {
       const keyId = `${position.row}-${position.col}`;
       const isKeySelected = this.activeKeys.includes(keyId);
-
       if (type === 'single') {
         this.activeKeys = isKeySelected ? [] : [keyId];
       } else if (type === 'multiple') {

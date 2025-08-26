@@ -1,3 +1,4 @@
+import { MessagePlugin } from 'tdesign-vue-next';
 import { useKeyboardStore } from '@/store';
 import { t } from '@/locales';
 
@@ -47,6 +48,10 @@ const useSetAdvanced = () => {
               // console.log('current key is advanced:>>>>>>>>>>', col);
               // 只收集advancedKeys下不为null的属性
               const { advancedKeys } = col;
+              // 暂时收集所有项目，包括SOCD类型，后续统一处理去重
+              // if (advancedKeys.advancedType === 6) {
+              //   continue;
+              // }
               const filtered = {};
               Object.keys(advancedKeys).forEach((k) => {
                 if (advancedKeys[k] !== null) {
@@ -64,8 +69,30 @@ const useSetAdvanced = () => {
         }
       });
     }
+
+    // 处理SOCD类型的去重逻辑
+    const socdItems = [];
+    const socdKeysSet = new Set();
+
+    value.forEach((item) => {
+      if (item.advancedType === 6 && item.socd && item.socd.socd && item.socd.socd.kcs) {
+        const { kcs } = item.socd.socd;
+        // 创建排序后的键组合作为唯一标识
+        const sortedKeys = [...kcs].sort((a, b) => a - b).join('-');
+
+        if (!socdKeysSet.has(sortedKeys)) {
+          socdKeysSet.add(sortedKeys);
+          socdItems.push(item);
+        }
+      }
+    });
+
+    // 合并非SOCD项目和去重后的SOCD项目
+    const nonSocdItems = value.filter((item) => item.advancedType !== 6);
+    const finalValue = [...nonSocdItems, ...socdItems];
+
     // }
-    return value;
+    return finalValue;
   });
 
   // 重置默认值
@@ -75,6 +102,7 @@ const useSetAdvanced = () => {
     }
   };
 
+  // 保持
   const handleDialoConfirm = async () => {
     try {
       const res = await childRef.value?.save();
@@ -92,6 +120,11 @@ const useSetAdvanced = () => {
     }
   };
 
+  // 选择 键
+  const handleSelectKeyClick = (key: { row: number; col: number }) => {
+    keyboardStore.handleSelectKeyClick(key, 'single');
+  };
+
   return {
     childRef,
     socdInfo,
@@ -104,6 +137,7 @@ const useSetAdvanced = () => {
     advancedItems,
     resetDefaultValue,
     handleDialoConfirm,
+    handleSelectKeyClick,
   };
 };
 
