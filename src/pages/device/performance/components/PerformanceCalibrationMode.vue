@@ -1,5 +1,5 @@
 <template>
-  <div class="calibration-mode-box">
+  <div class="calibration-mode-box fade-in">
     <div class="calibration-mode-title">
       <div>
         <span>校准说明</span>

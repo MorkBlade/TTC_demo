@@ -1,5 +1,5 @@
 <template>
-  <div class="device-performance-quick__trigger">
+  <div class="device-performance-quick__trigger fade-in">
     <travelTestCard />
     <performance-dead-zone />
     <performance-trigger />

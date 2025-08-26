@@ -500,6 +500,7 @@ watch(
     padding-left: 5px;
     background-image: url('@/assets/images/progress_bg.svg') !important;
     background-repeat: no-repeat;
+    background-size: cover;
     width: 362px;
     height: 30px;
     position: relative;
@@ -510,6 +511,7 @@ watch(
     }
     .t-slider__track {
       background-image: url('@/assets/images/progress_v2.svg') !important;
+      background-size: cover;
       height: 7px;
     }
     .t-slider__button {

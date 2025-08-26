@@ -181,6 +181,21 @@ export const usePerformanceStore = defineStore('performance', {
       }
       return result;
     },
+    async getRm6X21Travel(keyboards, isVersion2) {
+      if (isVersion2) {
+        let max = 0;
+        for (let i = 0; i < keyboards.length; i++) {
+          const route = await services.getRouteV2({ row: i });
+          const curMax = Math.max(...route[0].data);
+          if (curMax > max) max = curMax;
+        }
+        return { max: max / 1000 };
+      } else {
+        const result = await services.getRm6X21Travel();
+        const { max, press } = this.getMaxPressTravel(result.status, result.travels);
+        return { max, press };
+      }
+    },
 
     async getRm6X21Calibration(): Promise<{ max: number }> {
       if (!this.isCalibrating) return { max: 0 }; // 如果不在校准状态，直接返回

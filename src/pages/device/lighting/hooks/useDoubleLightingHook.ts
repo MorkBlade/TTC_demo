@@ -17,7 +17,7 @@ export function useDoubleLightingHook() {
       downLightingSwitch=true； upLightingSwitch=true， 传参为3 'Open'
     */
     let keyCode: 'Open' | 'Close' | 'OpenUp' | 'OpenDown' = 'Open';
-
+    console.log('upOpen', upOpen.value, 'downOpen', downOpen.value);
     if (flag) {
       if (lightingLinkState.value) {
         downOpen.value = upOpen.value;
