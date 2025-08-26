@@ -24,15 +24,15 @@
       <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 0 }" @click="onChangeTab(0)">
         按键灯效
       </div>
-      <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 1 }" @click="onChangeTab(1)">
+      <!-- <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 1 }" @click="onChangeTab(1)">
         自定义灯效
       </div>
       <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 2 }" @click="onChangeTab(2)">
         高级设置
-      </div>
+      </div> -->
     </div>
     <!-- 灯光 -->
-    <div class="lighting-container" v-if="nowTab != 2">
+    <div class="lighting-container fade-in" v-if="nowTab != 2">
       <!-- 基础配置 -->
       <div class="lighting-container__setting">
         <p style="margin-bottom: 30px">灯效设定:</p>
@@ -55,13 +55,6 @@
             :input-number-props="false"
             @change="handleLuminanceChange"
           />
-          <!-- <input
-            :value="light.luminance"
-            type="number"
-            :min="0"
-            :max="100"
-            @change="(e: Event) => handleLuminanceChange(Number((e.target as HTMLInputElement).value))"
-          /> -->
         </div>
         <p style="font-size: 16px">{{ t('messages.lightingSpeed') }}：</p>
         <div class="setting-speed">
@@ -72,13 +65,6 @@
             :input-number-props="false"
             @change="handleSpeedChange"
           />
-          <!-- <input
-            :value="light.speed"
-            type="number"
-            :min="0"
-            :max="100"
-            @change="(e: Event) => handleSpeedChange(Number((e.target as HTMLInputElement).value))"
-          /> -->
         </div>
         <!-- <p style="margin-top: 30px">{{ t('messages.lightingColor') }}</p>
         <div class="color-choose">
@@ -107,6 +93,7 @@
           </template>
         </div> -->
       </div>
+      <div class="line"></div>
       <!-- 颜色预设 -->
       <div class="lighting-container__setting">
         <p style="margin-bottom: 30px">颜色预设:</p>
@@ -122,7 +109,7 @@
                 <div>
                   <img src="@/assets/images/color-more.png" style="width: 100%; height: 100%" />
                 </div>
-                <span style="font-size: 16px">彩色</span>
+                <!-- <span style="font-size: 16px">彩色</span> -->
               </div>
               <div
                 v-else
@@ -143,12 +130,13 @@
                     />
                   </t-config-provider>
                 </div>
-                <span style="font-size: 16px">{{ '灯光' + idx }}</span>
+                <!-- <span style="font-size: 16px">{{ '灯光' + idx }}</span> -->
               </div>
             </template>
           </div>
         </div>
       </div>
+      <div class="line"></div>
       <!-- 灯光的模式选择 -->
       <div class="lighting-container__mode">
         <!-- 动态 -->
@@ -161,11 +149,13 @@
               :class="['dynamic-item', light.mode === idx ? 'checked-dynamic-mode' : '']"
               @click="handleLightDynamicModeChange(idx)"
             >
+              <img :src="getImagePath(idx, 'keyLight')" alt="" />
               {{ item.label }}
             </div>
           </div>
         </div>
         <!-- 静态 -->
+        <div class="line"></div>
         <div class="lighting-container__mode-static">
           <p style="margin-bottom: 30px">自定义颜色:</p>
           <t-color-picker-panel
@@ -223,16 +213,16 @@
               />
             </div>
             <!-- 恢复自定义灯光 -->
-            <div style="margin-top: 10px">
+            <!-- <div style="margin-top: 10px">
               <t-button theme="primary" @click="handleRestoreDefaultLight">
                 {{ t('messages.lightingRestoreDefault') }}
               </t-button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
       <!-- 饱和度 -->
-      <template v-if="isSaturationOpen">
+      <!-- <template v-if="isSaturationOpen">
         <div class="lighting-container__saturation">
           <p>{{ t('messages.lightingSaturation') }}</p>
           <div class="lighting-container__saturation-item">
@@ -266,13 +256,16 @@
             />
           </div>
         </div>
-      </template>
+      </template> -->
     </div>
     <div class="lighting-container" v-else>
       <div class="lighting-container__setting">
         <p style="margin-bottom: 30px">灯效设定:</p>
         <p style="font-size: 16px">色温调整：</p>
-        <div class="setting-sleep-time">重置</div>
+        <div class="setting-sleep-time">
+          重置
+          <img :src="restIcon" />
+        </div>
         <p style="font-size: 16px">红色(R)：</p>
         <div class="setting-brightness">
           <t-slider
@@ -280,7 +273,7 @@
             :max="50"
             :show-tooltip="true"
             :input-number-props="false"
-            @change="handleLuminanceChange"
+            @change="handleSaturationChange"
           />
         </div>
         <p style="font-size: 16px">绿色(G)：</p>
@@ -290,7 +283,7 @@
             :max="50"
             :show-tooltip="true"
             :input-number-props="false"
-            @change="handleSpeedChange"
+            @change="handleSaturationChange"
           />
         </div>
         <p style="font-size: 16px">蓝色(B)：</p>
@@ -300,17 +293,18 @@
             :max="50"
             :show-tooltip="true"
             :input-number-props="false"
-            @change="handleSpeedChange"
+            @change="handleSaturationChange"
           />
         </div>
       </div>
+      <div class="line"></div>
       <div class="lighting-container__setting" v-if="isDoubleLightingView">
         <p style="margin-bottom: 30px; color: #fff; font-weight: bold">灯位控制:</p>
         <div style="display: flex; align-items: center; margin-bottom: 30px" class="lighting-container__lighting">
           <div class="lighting-container__lighting_box">
-            <div class="lighting-container__lighting_warp">
+            <div class="lighting-container__lighting_warp" :class="{ check: upOpen }">
               <div class="lighting-container__lighting_text">上灯位</div>
-              <div>选择</div>
+              <img :src="upOpen ? checkTrue : checkFalse" style="width: 80%; height: 80%" />
             </div>
             <div class="lighting-container__lighting_button">
               <t-switch v-model="upOpen" @change="handleDoubleLight(1)" />
@@ -319,9 +313,9 @@
             </div>
           </div>
           <div class="lighting-container__lighting_box">
-            <div class="lighting-container__lighting_warp">
+            <div class="lighting-container__lighting_warp" :class="{ check: downOpen }">
               <div class="lighting-container__lighting_text">下灯位</div>
-              <div>选择</div>
+              <img :src="downOpen ? checkTrue : checkFalse" style="width: 80%; height: 80%" />
             </div>
             <div class="lighting-container__lighting_button">
               <t-switch v-model="downOpen" @change="handleDoubleLight(0)" />
@@ -370,6 +364,14 @@ import { useLightingBaseHook } from './hooks/useLightingBaseHook';
 import { useVersionHooks } from '@/hooks/version/useVersionHooks';
 
 import services from '@/services/index';
+import { c } from 'vite/dist/node/types.d-aGj9QkWt';
+
+// 预加载键盘灯光图片
+const keyLightImages = import.meta.glob('@/assets/images/dynamic*.svg', { eager: true });
+
+const checkFalse = new URL('@/assets/images/check_false.svg', import.meta.url).href;
+const checkTrue = new URL('@/assets/images/check_true.svg', import.meta.url).href;
+const restIcon = new URL('@/assets/images/rest_icon.svg', import.meta.url).href;
 
 const { isCheckVersion: isCheckVersion1090 } = useVersionHooks('1.0.9.0');
 
@@ -396,7 +398,6 @@ const computedI18n = computed(() => {
 }) as any;
 const { lightingArea, isDoubleLighting } = storeToRefs(globalStore);
 const { area, light, saturation } = storeToRefs(lightingStore);
-console.log('light', saturation.value);
 
 const { isSaturationOpen, handleSaturationChange, handleRestoreDefaultLight } = useSaturationHook();
 const { hexColor, rgb, handleCustomChange, handleUpdateFromRgb, handleHEXUpdateColor, blockDot } =
@@ -436,11 +437,21 @@ const clickHandler = (value: any) => {
   console.log('click', value);
 };
 
+console.log('area', area.value, lightingArea.value);
+
 const lightingEffectModes = computed(() => {
   // 从灯效区域获取当前总数
   const { count } = lightingArea.value[areaIndex.value];
   return LIGHT_DYNAMIC_MODES.slice(0, count);
 });
+
+const getImagePath = (idx, type) => {
+  if (type === 'keyLight') {
+    const key = Object.keys(keyLightImages).find((path) => path.includes(`dynamic${idx + 1}.svg`));
+    console.log('key', key);
+    return key;
+  }
+};
 
 services.on(EVENT.LIGHTINGBASE, async (data: any) => {
   const { area } = data;

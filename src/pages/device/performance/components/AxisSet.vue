@@ -1,5 +1,5 @@
 <template>
-  <div class="device-performance-page__axis">
+  <div class="device-performance-page__axis fade-in">
     <!-- <div class="device-performance-page__axis-left">
       <div
         v-for="(item, index) in getCurrentAxisGroup"
@@ -322,7 +322,7 @@ const selectAxis = async (index, item) => {
       flex-wrap: wrap;
       margin-top: 10px;
       justify-content: space-between;
-      max-height: 330px;
+      max-height: 280px;
       overflow-y: auto;
       scrollbar-width: none;
       ::-webkit-scrollbar {
@@ -364,7 +364,7 @@ const selectAxis = async (index, item) => {
   .line {
     width: 1px;
     background-color: #444444;
-    height: 90%;
+    height: auto;
   }
 }
 </style>

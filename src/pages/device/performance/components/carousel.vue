@@ -340,7 +340,6 @@ const saveConfig = () => {
 .switch-box {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   justify-content: space-between;
 
   p {

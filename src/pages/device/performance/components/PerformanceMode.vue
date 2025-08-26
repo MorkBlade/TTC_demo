@@ -1,8 +1,8 @@
 <template>
-  <div class="device-performance-quick__trigger">
+  <div class="device-performance-quick__trigger fade-in">
     <travelTestCard />
     <performance-dead-zone />
-    <carousel @handleChangeItem="handleChangePreset" @handleSave="handleSavePreset" />
+    <carousel @handleChangeItem="handleChangePreset" />
   </div>
 </template>
 

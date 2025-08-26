@@ -2,6 +2,9 @@
   <div class="travel-test-card-container">
     <div class="travel-test-card-header">
       <p>触发效果演示：</p>
+      <div class="switch-box">
+        <t-switch v-model="testEnabled" size="medium" @change="handleSwitchChange" />
+      </div>
     </div>
     <div class="travel-test-card-content">
       <div class="shaft-img">
@@ -92,6 +95,11 @@ const arrowHeight = computed(() => {
     return Math.max(dynamicHeight.value + 230, 0);
   }
 });
+
+const handleSwitchChange = async (value) => {
+  keyPressTestCount.value++;
+};
+
 const arrowHeightValue = computed(() => {
   if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
     return currentSingleTravel.value.toFixed(2);
@@ -119,8 +127,8 @@ onUnmounted(() => {
     font-size: 16px;
     font-weight: bold;
     padding-left: 8px;
-    flex-direction: column;
     margin-bottom: 25px;
+    justify-content: space-between;
   }
   .travel-test-card-content {
     display: flex;

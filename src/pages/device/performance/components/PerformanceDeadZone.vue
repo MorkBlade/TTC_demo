@@ -318,6 +318,7 @@ watch(
     padding-left: 5px;
     background-image: url('@/assets/images/dead_progress_bg.svg') !important;
     background-repeat: no-repeat;
+    background-size: cover;
     width: 160px;
     height: 30px;
     position: relative;
@@ -328,6 +329,7 @@ watch(
     }
     .t-slider__track {
       background-image: url('@/assets/images/progresss_min.svg') !important;
+      background-size: cover;
       height: 7px;
     }
     .t-slider__button {

@@ -103,6 +103,7 @@
 .lighting-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
 
   &__option {
     display: flex;
@@ -191,7 +192,8 @@
     }
 
     &-dynamic {
-      margin-left: 15px;
+      //margin-left: 15px;
+      margin-right: 40px;
 
       p {
         margin-bottom: 30px;
@@ -202,7 +204,7 @@
         display: flex;
         flex-wrap: wrap;
         box-sizing: border-box;
-        width: 486px;
+        width: 556px;
         padding: 0 10px;
         overflow-y: scroll;
 
@@ -238,14 +240,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 46px;
-        height: 46px;
-        margin: 0 18px 18px 0;
+        flex-wrap: wrap;
+        width: 60px;
+        height: 60px;
+        margin: 0 15px 15px 0;
         color: rgb(204 204 204 / 100%);
         font-size: 14px;
         background: rgb(46 48 51 / 100%);
-        border-radius: 5px;
+        border-radius: 10px;
+        padding: 10px;
         cursor: pointer;
+        img {
+          width: 24px;
+          height: 24px;
+        }
       }
 
       & .dynamic-item:hover {
@@ -258,6 +266,7 @@
       height: 100%;
       margin-right: 10px;
       padding-right: 25px;
+      padding-left: 70px;
 
       /* &::after {
         position: absolute;
@@ -434,6 +443,7 @@
       height: 47px;
       line-height: 47px;
       cursor: pointer;
+      overflow: hidden;
     }
     & .lighting-link {
       background-color: rgb(255 255 255 / 10%);
@@ -457,7 +467,7 @@
     & .color-choose {
       display: flex;
       flex-wrap: wrap;
-      width: 280px;
+      width: 285px;
       //margin-left: 70px;
       // left: 10px;
       .color-choose-inner {
@@ -467,23 +477,19 @@
           border: 2px solid #616161;
           box-sizing: border-box;
           cursor: pointer;
-          margin: 10px;
-          //padding: 5px 15px;
-          width: 60px;
-          height: 60px;
+          margin: 15px;
+          padding: 15px;
           margin-left: 0;
+          margin-top: 0;
           border-radius: 10px;
           background-color: #383838;
           color: #fff;
-          text-align: center;
           &:hover {
             border: 2px solid #09fbd3;
           }
           div {
             width: 23px;
             height: 23px;
-            //margin: 10px;
-            margin: 5px auto;
             overflow: hidden;
             border-radius: 50%;
           }
@@ -491,34 +497,12 @@
         & .is-checked {
           border: 2px solid #09fbd3;
         }
-        /* div {
-          width: 30px;
-          height: 30px;
-          margin: 10px;
-          overflow: hidden;
-          border-radius: 50%;
-        } */
       }
-      /* div {
-        box-sizing: border-box;
-        width: 30px;
-        height: 30px;
-        margin: 10px 35px 10px 0;
-        overflow: hidden;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid #616161;
-      } */
-
-      // & .is-checked {
-      //   border: 2px solid #fff;
-      // }
 
       :deep(.color-picker) {
         box-sizing: border-box;
         width: 30px;
         height: 30px;
-        margin: 10px;
         overflow: hidden;
         border-radius: 50%;
         cursor: pointer;
@@ -528,7 +512,9 @@
         }
       }
     }
-
+    :deep(.t-select-input) {
+      vertical-align: top;
+    }
     p,
     span {
       margin-bottom: 10px;
@@ -564,9 +550,10 @@
     :deep(.t-input__inner) {
       color: #fff;
       text-align: center;
+      font-weight: bold;
     }
 
-    :deep(.t-select__dropdown .t-popup__content) {
+    :deep(·.t-popup__content) {
       background-color: #383838;
     }
 
@@ -615,7 +602,7 @@
         border-radius: 0;
         background-image: url('@/assets/images/light_progress_bg.svg');
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: cover;
       }
 
       :deep(.t-slider__button) {
@@ -655,7 +642,10 @@
       appearance: textfield; /* Firefox */
     }
   }
-
+  .line {
+    width: 1px;
+    background-color: #444444;
+  }
   &__lighting {
     min-width: 80rem;
     background-color: #141414;
@@ -682,7 +672,11 @@
       border-radius: 10px;
       padding: 20px 100px;
       border: 2px solid #616161;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .check {
+      border-color: #09fbd3;
+      color: #09fbd3;
     }
     &_text {
       margin-bottom: 20px;
