@@ -123,7 +123,7 @@ const axisList = computed(() => {
     return ite.brand === currentFactory.value;
   });
 });
-console.log('打印', isAxisStatus.value);
+
 const selectAxis = async (index, item) => {
   currentAxis.value = index;
 
@@ -316,11 +316,18 @@ const selectAxis = async (index, item) => {
   }
   .switch-item-box {
     width: 46%;
+    margin-bottom: 20px;
     .switch-content-box {
       display: flex;
       flex-wrap: wrap;
       margin-top: 10px;
       justify-content: space-between;
+      max-height: 330px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      ::-webkit-scrollbar {
+        display: none;
+      }
       .switch-item {
         width: 43%;
         display: flex;

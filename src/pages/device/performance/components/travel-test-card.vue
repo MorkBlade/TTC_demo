@@ -103,11 +103,6 @@ const arrowHeightValue = computed(() => {
 onUnmounted(() => {
   testEnabled.value = false;
 });
-
-const withTimeout = (promise, ms) => {
-  const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Operation timed out')), ms));
-  return Promise.race([promise, timeout]);
-};
 </script>
 
 <style scoped lang="less">
@@ -151,7 +146,7 @@ const withTimeout = (promise, ms) => {
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  border-right: 1px solid #444;
+  // border-right: 1px solid #444;
 
   .scale-box {
     margin-top: var(--spacing-20);

@@ -73,6 +73,7 @@ const isStart = ref(false);
 const chartRef = ref(null);
 const chartInstance = ref<any>(null);
 const notification = ref(null);
+const isVersion2 = localStorage.getItem('keyboardVersion') === 'v2';
 
 const isCalibrating = ref(false);
 let calibrationTimer: number | null = null;

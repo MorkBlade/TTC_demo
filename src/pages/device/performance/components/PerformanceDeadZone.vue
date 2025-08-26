@@ -274,6 +274,17 @@ const updateReleaseDzBlur = async (value) => {
   await updateReleaseDz();
 };
 
+const updateNormalTravel = async () => {
+  const promises = [];
+  for (let i = 0; i < activeKeys.value.length; i++) {
+    const [row, col] = activeKeys.value[i].split('-').map((item) => Number(item));
+    keyboardLayout.value[row][col].performance.mode = 0;
+    keyboardLayout.value[row][col].performance.normalPress = singleTouchTravel.value;
+    promises.push(performanceStore.setPerformance(keyboardLayout.value[row][col].performance));
+  }
+  await Promise.all(promises);
+};
+
 const updateReleaseDz = async () => {
   const promises = [];
   for (let i = 0; i < activeKeys.value.length; i++) {
