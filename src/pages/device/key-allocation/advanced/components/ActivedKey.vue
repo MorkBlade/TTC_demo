@@ -165,8 +165,6 @@ const addNewRef = ref(null);
 const addMenuRef = ref(null);
 
 const clickHandler = (option, item) => {
-  console.log('dropdown option:', option); // 下拉菜单选项
-  console.log('advanced key item:', item); // 高级键数据
   emit('edit', { option, item });
 };
 
