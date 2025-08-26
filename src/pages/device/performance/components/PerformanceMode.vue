@@ -2,14 +2,21 @@
   <div class="device-performance-quick__trigger">
     <travelTestCard />
     <performance-dead-zone />
-    <performance-trigger />
+    <carousel @handleChangeItem="handleChangePreset" @handleSave="handleSavePreset" />
   </div>
 </template>
 
 <script setup>
+import { PRESET_SETTINGS } from '@/config/constant/index.js';
 import travelTestCard from './travel-test-card.vue';
 import PerformanceDeadZone from './PerformanceDeadZone.vue';
-import PerformanceTrigger from './PerformanceTrigger.vue';
+import carousel from './carousel.vue';
+
+const checkedPreset = ref(PRESET_SETTINGS[3]);
+
+const handleChangePreset = (id) => {
+  checkedPreset.value = PRESET_SETTINGS[id - 1];
+};
 </script>
 
 <style lang="less" scoped>

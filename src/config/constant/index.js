@@ -1,3 +1,9 @@
+const osu = new URL('@/assets/images/osu.svg', import.meta.url).href;
+const lol = new URL('@/assets/images/lol.svg', import.meta.url).href;
+const office = new URL('@/assets/images/key.svg', import.meta.url).href;
+const cs = new URL('@/assets/images/cs.svg', import.meta.url).href;
+import valorant from '@/assets/images/valorant.png';
+
 export const APP_MENU = [
   { key: 'performance', icon: 'adjustment', text: '性能设置' },
   { key: 'customKey', icon: 'keyboard', text: '自定义按键' },
@@ -292,3 +298,57 @@ export const ICON_MAP = {
   screen: new URL('@/assets/images/screen.svg', import.meta.url).href,
   knob: new URL('@/assets/images/knob.svg', import.meta.url).href,
 };
+
+export const PRESET_SETTINGS = [
+  {
+    id: 1,
+    name: '瓦洛兰特',
+    color: 'rgb(255,0,0)',
+    src: valorant,
+    keys: [
+      { key: 26, trigger: 0.2, rt: 0.4 },
+      { key: 4, trigger: 0.2, rt: 0.4 },
+      { key: 22, trigger: 0.2, rt: 0.4 },
+      { key: 7, trigger: 0.2, rt: 0.4 },
+      { key: 225, trigger: 1, rt: 0.2 },
+      { key: 44, trigger: 1, rt: 0.2 },
+      { key: 33, trigger: 1, rt: 0.3 },
+    ],
+    other: { trigger: 1, rt: 0 },
+  },
+  {
+    id: 2,
+    name: '英雄联盟',
+    color: 'rgb(165,214,63)',
+    src: lol,
+    keys: [],
+    other: { trigger: 0.3, rt: 0 },
+  },
+  {
+    id: 3,
+    name: 'CS:GO',
+    color: 'rgb(42,130,228)',
+    src: cs,
+    keys: [],
+    other: { trigger: 1, rt: 0 },
+  },
+  {
+    id: 4,
+    name: 'osu',
+    color: 'rgb(172,51,193)',
+    src: osu,
+    keys: [
+      { key: 29, trigger: 0.4, rt: 0.1 },
+      { key: 27, trigger: 0.4, rt: 0.1 },
+    ],
+    other: { trigger: 1, rt: 0 },
+  },
+  {
+    id: 5,
+    name: '办公',
+    color: 'rgb(172,51,193)',
+    src: office,
+    keys: [],
+    other: { trigger: 2, rt: 0 },
+  },
+];

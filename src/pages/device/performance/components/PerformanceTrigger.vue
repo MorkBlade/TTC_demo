@@ -1,5 +1,5 @@
 <template>
-  <div class="device-performance-page__trigger">
+  <div class="device-performance-page__trigger" style="min-width: 42rem">
     <div class="switch-box">
       <p>{{ t('messages.rapidTriggerRT') }}:</p>
       <t-switch v-model="rtSwitch" :disabled="!slideable" size="medium" @change="onChangeRT" />
@@ -133,6 +133,9 @@
         <p>连续快速触发:</p>
         <t-switch v-model="continuousRTSwitch" :disabled="!slideable" size="medium" @change="onChangeRT" />
       </div>
+      <span style="font-size: 0.75rem; color: #808080; display: block; margin-top: -1.8rem"
+        >启用时，快速触发在完全松开按键时才会终止。禁用时，松开按键到轴体触发行程后终止快速触发。</span
+      >
     </div>
   </div>
 </template>

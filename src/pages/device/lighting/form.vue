@@ -1,13 +1,13 @@
 <template>
   <div class="lighting-setup">
     <div class="lighting-setup__radio-group">
-      <template v-for="(item, index) in lightingArea">
+      <!-- <template v-for="(item, index) in lightingArea">
         <div
           v-if="index === 0"
           :key="index"
           class="lighting-setup__radio-group-item"
           :class="{ 'is-checked': area === 'Keyboard' }"
-          @click="handleRadioGroupChange('Keyboard', index)"
+          @click="handleRadioGroupChange('Keyboard', 0)"
         >
           {{ t('messages.lightingMain') }}
         </div>
@@ -20,16 +20,154 @@
         >
           {{ t('messages.lightingDecorate') }}{{ index }}
         </div>
-      </template>
+      </template> -->
+      <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 0 }" @click="onChangeTab(0)">
+        按键灯效
+      </div>
+      <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 1 }" @click="onChangeTab(1)">
+        自定义灯效
+      </div>
+      <div class="lighting-setup__radio-group-item" :class="{ 'is-checked': nowTab === 2 }" @click="onChangeTab(2)">
+        高级设置
+      </div>
     </div>
     <!-- 灯光 -->
-    <div class="lighting-container">
-      <!-- 拼写修正 -->
+    <div class="lighting-container" v-if="nowTab != 2">
+      <!-- 基础配置 -->
+      <div class="lighting-container__setting">
+        <p style="margin-bottom: 30px">灯效设定:</p>
+        <p style="font-size: 16px">休眠时间：</p>
+        <div class="setting-sleep-time">
+          <t-select
+            v-model="sleepTimeValue"
+            :popup-props="{ overlayClassName: 'select-sleep-time' }"
+            @change="clickHandler"
+          >
+            <t-option v-for="(ite, idx) in sleepTimeOptions" :key="idx" :label="ite.lable" :value="ite.value" />
+          </t-select>
+        </div>
+        <p style="font-size: 16px">{{ t('messages.lightingBrightness') }}：</p>
+        <div class="setting-brightness">
+          <t-slider
+            :value="light.luminance"
+            :max="100"
+            :show-tooltip="true"
+            :input-number-props="false"
+            @change="handleLuminanceChange"
+          />
+          <!-- <input
+            :value="light.luminance"
+            type="number"
+            :min="0"
+            :max="100"
+            @change="(e: Event) => handleLuminanceChange(Number((e.target as HTMLInputElement).value))"
+          /> -->
+        </div>
+        <p style="font-size: 16px">{{ t('messages.lightingSpeed') }}：</p>
+        <div class="setting-speed">
+          <t-slider
+            :value="light.speed"
+            :max="100"
+            :show-tooltip="true"
+            :input-number-props="false"
+            @change="handleSpeedChange"
+          />
+          <!-- <input
+            :value="light.speed"
+            type="number"
+            :min="0"
+            :max="100"
+            @change="(e: Event) => handleSpeedChange(Number((e.target as HTMLInputElement).value))"
+          /> -->
+        </div>
+        <!-- <p style="margin-top: 30px">{{ t('messages.lightingColor') }}</p>
+        <div class="color-choose">
+          <template v-for="(ite, idx) in light.staticColors" :key="idx">
+            <div v-if="idx === 0" :class="{ 'is-checked': idx === light.selectStaticColor }" @click="ChangeColor(idx)">
+              <img src="@/assets/images/color-more.png" style="width: 100%; height: 100%" />
+            </div>
+            <div
+              v-else
+              :class="{ 'is-checked': idx === light.selectStaticColor }"
+              :style="{ backgroundColor: ite }"
+              @click="ChangeColor(idx)"
+            >
+              <t-config-provider :global-config="computedI18n">
+                <t-color-picker
+                  v-model="light.staticColors[idx]"
+                  :recent-colors="null"
+                  :color-modes="['monochrome']"
+                  class="color-picker"
+                  format="HEX"
+                  :show-primary-color-preview="false"
+                  @update:model-value="(val) => handleChangeColorPicker(val, idx)"
+                />
+              </t-config-provider>
+            </div>
+          </template>
+        </div> -->
+      </div>
+      <!-- 颜色预设 -->
+      <div class="lighting-container__setting">
+        <p style="margin-bottom: 30px">颜色预设:</p>
+        <div class="color-choose">
+          <div class="color-choose-inner">
+            <template v-for="(ite, idx) in light.staticColors" :key="idx">
+              <div
+                v-if="idx === 0 && nowTab === 0"
+                @click="ChangeColor(idx)"
+                class="color-choose-item"
+                :class="{ 'is-checked': idx === light.selectStaticColor }"
+              >
+                <div>
+                  <img src="@/assets/images/color-more.png" style="width: 100%; height: 100%" />
+                </div>
+                <span style="font-size: 16px">彩色</span>
+              </div>
+              <div
+                v-else
+                class="color-choose-item"
+                @click="ChangeColor(idx)"
+                :class="{ 'is-checked': idx === light.selectStaticColor }"
+              >
+                <div :style="{ backgroundColor: ite }">
+                  <t-config-provider :global-config="computedI18n">
+                    <t-color-picker
+                      v-model="light.staticColors[idx]"
+                      :recent-colors="null"
+                      :color-modes="['monochrome']"
+                      class="color-picker"
+                      format="HEX"
+                      :show-primary-color-preview="false"
+                      @update:model-value="(val) => handleChangeColorPicker(val, idx)"
+                    />
+                  </t-config-provider>
+                </div>
+                <span style="font-size: 16px">{{ '灯光' + idx }}</span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
       <!-- 灯光的模式选择 -->
       <div class="lighting-container__mode">
+        <!-- 动态 -->
+        <div class="lighting-container__mode-dynamic">
+          <p>灯光效果:</p>
+          <div class="dynamic__render">
+            <div
+              v-for="(item, idx) in lightingEffectModes"
+              :key="item.label"
+              :class="['dynamic-item', light.mode === idx ? 'checked-dynamic-mode' : '']"
+              @click="handleLightDynamicModeChange(idx)"
+            >
+              {{ item.label }}
+            </div>
+          </div>
+        </div>
         <!-- 静态 -->
         <div class="lighting-container__mode-static">
-          <p style="margin-bottom: 30px">{{ t('messages.lightingCustomColor') }}</p>
+          <p style="margin-bottom: 30px">自定义颜色:</p>
           <t-color-picker-panel
             v-model="hexColor"
             format="HEX"
@@ -92,98 +230,6 @@
             </div>
           </div>
         </div>
-        <!-- 动态 -->
-        <div class="lighting-container__mode-dynamic">
-          <p>{{ t('messages.lightingEffectMode') }}</p>
-          <div class="dynamic__render">
-            <div
-              v-for="(item, idx) in lightingEffectModes"
-              :key="item.label"
-              :class="['dynamic-item', light.mode === idx ? 'checked-dynamic-mode' : '']"
-              @click="handleLightDynamicModeChange(idx)"
-            >
-              {{ item.label }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 基础配置 -->
-      <div class="lighting-container__setting">
-        <div style="display: flex; align-items: center; margin-bottom: 30px">
-          <template v-if="isDoubleLightingView">
-            <div class="lighting-container__lighting-title">{{ t('messages.lightingUpSwitch') }}:</div>
-            <t-switch v-model="upOpen" @change="handleDoubleLight(1)" />
-            <div class="lighting-link" :class="{ linked: lightingLinkState }" @click="onLink">
-              <icon-font :name="lightingLinkState ? 'link-1' : 'link-unlink'" />
-            </div>
-            <div class="lighting-container__lighting-title">{{ t('messages.lightingDownSwitch') }}:</div>
-            <t-switch v-model="downOpen" @change="handleDoubleLight(0)" />
-          </template>
-          <template v-else>
-            <div class="lighting-container__lighting-title">{{ t('messages.lightingSwitch') }}:</div>
-            <t-switch v-model="light.open" @change="onChangeLight" />
-          </template>
-        </div>
-        <p>{{ t('messages.lightingBrightness') }}</p>
-        <div class="setting-brightness">
-          <t-slider
-            :value="light.luminance"
-            :max="100"
-            :show-tooltip="true"
-            :input-number-props="false"
-            @change="handleLuminanceChange"
-          />
-          <input
-            :value="light.luminance"
-            type="number"
-            :min="0"
-            :max="100"
-            @change="(e: Event) => handleLuminanceChange(Number((e.target as HTMLInputElement).value))"
-          />
-        </div>
-        <p>{{ t('messages.lightingSpeed') }}</p>
-        <div class="setting-speed">
-          <t-slider
-            :value="light.speed"
-            :max="100"
-            :show-tooltip="true"
-            :input-number-props="false"
-            @change="handleSpeedChange"
-          />
-          <input
-            :value="light.speed"
-            type="number"
-            :min="0"
-            :max="100"
-            @change="(e: Event) => handleSpeedChange(Number((e.target as HTMLInputElement).value))"
-          />
-        </div>
-        <p style="margin-top: 30px">{{ t('messages.lightingColor') }}</p>
-        <div class="color-choose">
-          <template v-for="(ite, idx) in light.staticColors" :key="idx">
-            <div v-if="idx === 0" :class="{ 'is-checked': idx === light.selectStaticColor }" @click="ChangeColor(idx)">
-              <img src="@/assets/images/color-more.png" style="width: 100%; height: 100%" />
-            </div>
-            <div
-              v-else
-              :class="{ 'is-checked': idx === light.selectStaticColor }"
-              :style="{ backgroundColor: ite }"
-              @click="ChangeColor(idx)"
-            >
-              <t-config-provider :global-config="computedI18n">
-                <t-color-picker
-                  v-model="light.staticColors[idx]"
-                  :recent-colors="null"
-                  :color-modes="['monochrome']"
-                  class="color-picker"
-                  format="HEX"
-                  :show-primary-color-preview="false"
-                  @update:model-value="(val) => handleChangeColorPicker(val, idx)"
-                />
-              </t-config-provider>
-            </div>
-          </template>
-        </div>
       </div>
       <!-- 饱和度 -->
       <template v-if="isSaturationOpen">
@@ -222,6 +268,83 @@
         </div>
       </template>
     </div>
+    <div class="lighting-container" v-else>
+      <div class="lighting-container__setting">
+        <p style="margin-bottom: 30px">灯效设定:</p>
+        <p style="font-size: 16px">色温调整：</p>
+        <div class="setting-sleep-time">重置</div>
+        <p style="font-size: 16px">红色(R)：</p>
+        <div class="setting-brightness">
+          <t-slider
+            :value="saturation.R"
+            :max="50"
+            :show-tooltip="true"
+            :input-number-props="false"
+            @change="handleLuminanceChange"
+          />
+        </div>
+        <p style="font-size: 16px">绿色(G)：</p>
+        <div class="setting-speed">
+          <t-slider
+            :value="saturation.G"
+            :max="50"
+            :show-tooltip="true"
+            :input-number-props="false"
+            @change="handleSpeedChange"
+          />
+        </div>
+        <p style="font-size: 16px">蓝色(B)：</p>
+        <div class="setting-sleep">
+          <t-slider
+            :value="saturation.B"
+            :max="50"
+            :show-tooltip="true"
+            :input-number-props="false"
+            @change="handleSpeedChange"
+          />
+        </div>
+      </div>
+      <div class="lighting-container__setting" v-if="isDoubleLightingView">
+        <p style="margin-bottom: 30px; color: #fff; font-weight: bold">灯位控制:</p>
+        <div style="display: flex; align-items: center; margin-bottom: 30px" class="lighting-container__lighting">
+          <div class="lighting-container__lighting_box">
+            <div class="lighting-container__lighting_warp">
+              <div class="lighting-container__lighting_text">上灯位</div>
+              <div>选择</div>
+            </div>
+            <div class="lighting-container__lighting_button">
+              <t-switch v-model="upOpen" @change="handleDoubleLight(1)" />
+              <!-- <span @click="changeLight(1)">开启</span>
+              <span @click="changeLight(1)">关闭</span> -->
+            </div>
+          </div>
+          <div class="lighting-container__lighting_box">
+            <div class="lighting-container__lighting_warp">
+              <div class="lighting-container__lighting_text">下灯位</div>
+              <div>选择</div>
+            </div>
+            <div class="lighting-container__lighting_button">
+              <t-switch v-model="downOpen" @change="handleDoubleLight(0)" />
+              <!-- <span @click="changeLight(0)">开启</span>
+              <span @click="changeLight(0)">关闭</span> -->
+            </div>
+          </div>
+          <!-- <template v-if="isDoubleLightingView">
+            <div class="lighting-container__lighting-title">{{ t('messages.lightingUpSwitch') }}:</div>
+            <t-switch v-model="upOpen" @change="handleDoubleLight(1)" />
+            <div class="lighting-link" :class="{ linked: lightingLinkState }" @click="onLink">
+              <icon-font :name="lightingLinkState ? 'link-1' : 'link-unlink'" />
+            </div>
+            <div class="lighting-container__lighting-title">{{ t('messages.lightingDownSwitch') }}:</div>
+            <t-switch v-model="downOpen" @change="handleDoubleLight(0)" />
+          </template>
+          <template v-else>
+            <div class="lighting-container__lighting-title">{{ t('messages.lightingSwitch') }}:</div>
+            <t-switch v-model="light.open" @change="onChangeLight" />
+          </template> -->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -253,12 +376,27 @@ const { isCheckVersion: isCheckVersion1090 } = useVersionHooks('1.0.9.0');
 const { locale } = useI18n();
 const lightingStore = useLightingStore();
 const globalStore = useGlobalStore();
+const sleepTimeValue = ref('0');
+const nowTab = ref(0);
+
+const sleepTimeOptions = ref([
+  { lable: '1 min', value: '1' },
+  { lable: '5 min', value: '5' },
+  { lable: '10 min', value: '10' },
+  { lable: '30 min', value: '30' },
+  { lable: '永不休眠', value: '0' },
+]);
+
+const onChangeTab = (data) => {
+  nowTab.value = Number(data);
+};
 
 const computedI18n = computed(() => {
   return locale.value === 'zh_CN' ? zhConfig : enConfig;
 }) as any;
 const { lightingArea, isDoubleLighting } = storeToRefs(globalStore);
 const { area, light, saturation } = storeToRefs(lightingStore);
+console.log('light', saturation.value);
 
 const { isSaturationOpen, handleSaturationChange, handleRestoreDefaultLight } = useSaturationHook();
 const { hexColor, rgb, handleCustomChange, handleUpdateFromRgb, handleHEXUpdateColor, blockDot } =
@@ -294,6 +432,10 @@ const isDoubleLightingView = computed(() => {
   return isCheckVersion.value && isDoubleLighting.value && isKeyboard;
 });
 
+const clickHandler = (value: any) => {
+  console.log('click', value);
+};
+
 const lightingEffectModes = computed(() => {
   // 从灯效区域获取当前总数
   const { count } = lightingArea.value[areaIndex.value];
@@ -301,7 +443,6 @@ const lightingEffectModes = computed(() => {
 });
 
 services.on(EVENT.LIGHTINGBASE, async (data: any) => {
-  console.log('lightingBase', data);
   const { area } = data;
   if (isCheckVersion1090.value) {
     if (lightingStore.area === area) {
