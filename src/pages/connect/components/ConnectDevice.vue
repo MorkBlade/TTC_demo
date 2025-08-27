@@ -72,6 +72,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
   background-origin: padding-box; // 控制背景的起始位置
 
   & .section-content {
+    transform: scale(0.9);
     margin-top: 139px;
     margin-bottom: 255px;
     position: relative;
@@ -82,7 +83,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
 
     & .section-title {
       font-family: 'Bold';
-      margin-bottom: 2rem;
+      margin-bottom: 24px;
       font-weight: 700;
       font-size: 48px;
       line-height: 1.1;
@@ -94,22 +95,22 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     }
 
     & .section-description {
-      font-family: 'Medium';
+      font-family: 'Regular';
       padding: 0 1rem;
-      font-size: 1rem;
+      font-size: 20px;
     }
 
     & .section-description {
       max-width: 1000px;
       margin: 0 auto;
-      color: white;
-      font-size: 1.2rem;
+      color: #ccc;
+      font-size: 20px;
       line-height: 1.6;
       opacity: 0.8;
     }
 
     & .keyboard-img {
-      margin-top: 2rem;
+      margin-top: 40px;
       width: 100%;
       height: 386px;
       display: flex;
@@ -124,7 +125,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
 
     & .tip {
       margin-top: 2rem;
-      font-size: 1rem;
+      font-size: 14px;
       color: #525252;
       opacity: 0.8;
     }
@@ -185,10 +186,11 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     .info-item {
       width: 360px;
       height: 80px;
+      padding-left: 20px;
       display: flex;
-      justify-content: center;
+      justify-content: left;
       align-items: center;
-      gap: 40px;
+      gap: 20px;
       background-image: url('@/assets/images/info_bg.svg');
       background-size: 100% 100%;
       cursor: pointer;
@@ -215,10 +217,12 @@ const handleDeviceStoreClick = async (): Promise<void> => {
           font-weight: 600;
           line-height: 20px;
           color: #fff;
+          margin-bottom: 4px;
         }
         .desc {
           font-size: 14px;
           font-family: 'Regular';
+          color: #cccccc;
         }
       }
     }
