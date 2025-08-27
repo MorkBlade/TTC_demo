@@ -22,7 +22,7 @@
           </key-cap>
         </template>
       </template>
-      <div class="tip">
+      <!-- <div class="tip">
         <p>
           <t-icon
             v-px2rem="{
@@ -35,7 +35,7 @@
             style=""
           />{{ t('messages.lightingDecorTip') }}
         </p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
