@@ -68,7 +68,7 @@ const option = {
       showSymbol: false,
       data: [],
       lineStyle: {
-        color: 'rgb(145, 188, 0)', // 线条颜色，这里设置为绿色
+        color: 'rgb(9, 251, 511)', // 线条颜色，这里设置为蓝色
         width: 2, // 线条宽度
         type: 'solid', // 线条类型：'solid'|'dashed'|'dotted'
       },
@@ -77,7 +77,7 @@ const option = {
         color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
           {
             offset: 0,
-            color: 'rgba(145, 188, 0, 0.3)', // 渐变起始颜色，半透明绿色
+            color: 'rgba(9, 251, 211, 0.3)', // 渐变起始颜色，半透明绿色
           },
           {
             offset: 1,

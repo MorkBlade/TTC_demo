@@ -129,13 +129,12 @@ onUnmounted(() => {
   flex-direction: column;
   .travel-test-card-header {
     width: 100%;
-    height: 100%;
     display: flex;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
     padding-left: 8px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     justify-content: space-between;
   }
   .travel-test-card-content {

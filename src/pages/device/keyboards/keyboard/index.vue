@@ -95,10 +95,16 @@
         v-if="['performance'].includes(currentPageName) && performanceTab !== 4"
         class="device-keyboard-container__sidebar"
       >
-        <div class="select-btn" @click="onCheckKey('WASD')">WASD</div>
-        <div class="select-btn" @click="onCheckKey('all')">{{ t('messages.keyboardSelectAll') }}</div>
-        <div class="select-btn" @click="onCheckKey('reverse')">{{ t('messages.keyboardSelectReverse') }}</div>
-        <div class="select-btn" @click="onCheckKey('cancel')">{{ t('messages.keyboardSelectCancel') }}</div>
+        <div class="select-btn" :class="{ active: indexbtn === 0 }" @click="onCheckKey('WASD')">WASD</div>
+        <div class="select-btn" :class="{ active: indexbtn === 1 }" @click="onCheckKey('all')">
+          {{ t('messages.keyboardSelectAll') }}
+        </div>
+        <div class="select-btn" :class="{ active: indexbtn === 2 }" @click="onCheckKey('reverse')">
+          {{ t('messages.keyboardSelectReverse') }}
+        </div>
+        <div class="select-btn" :class="{ active: indexbtn === 3 }" @click="onCheckKey('cancel')">
+          {{ t('messages.keyboardSelectCancel') }}
+        </div>
       </div>
       <!-- <div
         v-if="['customKey', 'highLevelKey', 'macro', 'performance'].includes(currentPageName)"
@@ -167,6 +173,7 @@ const currentPageName = ref<string>('performance');
 const { performanceTab } = storeToRefs(performanceStore);
 const visible = ref<boolean>(false);
 const idx1 = ref<number>(0);
+const indexbtn = ref<number>(5);
 const SYSTEM_MAP: SystemItem[] = [
   { name: 'WIN', value: 'WIN' },
   { name: 'MAC', value: 'MAC' },
@@ -289,12 +296,16 @@ const handleSwitchSystem = async (): Promise<void> => {
 
 const onCheckKey = (value: string): void => {
   if (value === 'WASD') {
+    indexbtn.value = 0;
     keyboardStore.selectWasdKey();
   } else if (value === 'all') {
+    indexbtn.value = 1;
     keyboardStore.selectAllKey();
   } else if (value === 'reverse') {
+    indexbtn.value = 2;
     keyboardStore.selectReverseKey();
   } else if (value === 'cancel') {
+    indexbtn.value = 3;
     keyboardStore.cancelSelectKey();
   }
 };

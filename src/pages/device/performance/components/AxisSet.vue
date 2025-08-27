@@ -13,7 +13,7 @@
     </div> -->
     <div class="device-performance-page__axis-right">
       <div class="switch-item-box">
-        <h3>当前已选：</h3>
+        <h3>可适配轴体：</h3>
         <span class="select-switch-num">1个按键</span>
         <div class="switch-content-box">
           <div
@@ -30,7 +30,7 @@
       </div>
       <div class="line"></div>
       <div class="switch-item-box">
-        <h3>轴体列表:</h3>
+        <h3>绑定列表:</h3>
         <span class="select-switch-num">已绑定类型：TTC万磁王、万磁王RGB、天王轴</span>
         <div class="switch-content-box">
           <div

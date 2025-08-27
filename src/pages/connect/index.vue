@@ -21,7 +21,7 @@ defineOptions({ name: 'ConnectIndex' });
 import ConnectDevice from './components/ConnectDevice.vue';
 import MultiLanguage from '@/pages/device/components/multi-language.vue';
 
-const logoUrl = new URL('@/assets/images/logo_ttc.svg', import.meta.url).href;
+const logoUrl = new URL('@/assets/images/logo1.png', import.meta.url).href;
 </script>
 
 <style scoped lang="less">

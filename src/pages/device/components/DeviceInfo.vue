@@ -29,7 +29,7 @@ const { device, connectDeviceStatus, info } = storeToRefs(deviceStore);
   //box-sizing: border-box;
   //text-align: center;
   //border-radius: 8px;
-  background-color: #262626;
+  background-color: #000;
 
   & > img {
     width: 80px;
