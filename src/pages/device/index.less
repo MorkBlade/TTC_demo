@@ -65,4 +65,36 @@
     background-position: center;
     background-attachment: fixed;
   }
+  :deep(.t-dialog) {
+    width: 460px;
+    height: 200px;
+    border: none;
+    background-color: transparent;
+    background-image: url('@/assets/images/t-dialog_bg.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    .t-dialog__header {
+      color: #fff;
+    }
+    .t-dialog__body {
+      color: #fff;
+    }
+    .t-button {
+      width: 112px;
+      height: 34px;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      background-image: url('@/assets/images/unselect.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+      &:hover {
+        background-image: url('@/assets/images/select_hover.png');
+        color: #09fbd3;
+      }
+    }
+  }
 }
