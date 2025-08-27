@@ -478,7 +478,6 @@ watch(
       resetSlider();
       return;
     }
-    console.log('newKey', newKey);
     const [row, col] = newKey.split('-').map((item) => Number(item));
     rtSwitch.value = keyboardLayout.value[row][col].performance.mode === 1;
     if (rtSwitch.value) {

@@ -22,7 +22,7 @@
               />
             </div>
           </div>
-          <div class="arrow-nums" :style="{ transform: `translateY(${testEnabled ? arrowHeight : 0}px)` }">
+          <div class="arrow-nums" :style="{ transform: `translateY(${currentSingleTravel * 70}px)` }">
             <img class="arrow-left" :src="arrowLeft" />
             <p>{{ arrowHeightValue }}mm</p>
           </div>
@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { usePerformanceStore, useKeyboardStore } from '@/store';
 
 const shaftImg = new URL('@/assets/images/shaft_img.svg', import.meta.url).href;
@@ -41,6 +41,7 @@ const arrowLeft = new URL('@/assets/images/arrow_left.svg', import.meta.url).hre
 
 const keyboardStore = useKeyboardStore();
 const performanceStore = usePerformanceStore();
+const { keyboardLayout } = storeToRefs(keyboardStore);
 
 const props = defineProps({
   sliderVal: {
@@ -53,7 +54,6 @@ const testEnabled = ref(false); // 默认开启
 const maxMM = ref(0);
 const keyPressTestCount = ref(0);
 const currentSingleTravel = ref(props.sliderVal);
-const isVersion2 = localStorage.getItem('keyboardVersion') === 'v2';
 // const sliderHeight = computed(() => {
 //   return getComputedStyle(document.documentElement).getPropertyValue('--slider-height').trim();
 // });
@@ -65,15 +65,20 @@ onMounted(() => {
 
 watch(keyPressTestCount, async () => {
   if (testEnabled.value) {
-    if (isVersion2) {
-      // const { max } = await performanceStore.getRm6X21CalibrationV2(keyboardStore.keyboards);
-      const { max } = await performanceStore.getRm6X21Travel(keyboardStore.keyboards, isVersion2);
-      maxMM.value = max;
-    } else {
-      const { max } = await performanceStore.getRm6X21Travel();
-      maxMM.value = max;
+    const rowCount = keyboardLayout.value.length;
+    const travels: number[][] = [];
+    for (let row = 0; row < rowCount; row++) {
+      for (let col = 0; col < keyboardLayout.value[row].length; col++) {
+        const key = keyboardLayout.value[row][col].performance;
+        console.log('key', key);
+        key.travels = travels[row][col];
+      }
     }
-    keyPressTestCount.value++;
+    // const { max } = await performanceStore.getRm6X21Calibration();
+    const { max } = performanceStore.getMaxPressTravel([], travels);
+    maxMM.value = max;
+    console.log('maxMM', maxMM.value);
+    //keyPressTestCount.value++;
   }
 });
 
