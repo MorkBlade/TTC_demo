@@ -11,7 +11,7 @@
       </div>
       <div
         class="device-performance-title"
-        :data-id="1"
+        :data-id="2"
         :class="{ 'is-active': performanceTab === 2, 'is-disabled': isCalibrating }"
         @click="!isCalibrating && onChangeTab(2)"
       >

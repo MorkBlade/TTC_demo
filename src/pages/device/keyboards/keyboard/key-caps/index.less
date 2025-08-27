@@ -88,12 +88,16 @@
     font-size: 9px;
     letter-spacing: 0;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &-center {
       &_top {
-        position: relative;
-        top: -3px;
+        //position: relative;
+        //top: -3px;
         color: red;
+        margin-top: 25px;
       }
     }
 
@@ -102,6 +106,14 @@
       top: -3px;
       left: 3px;
       color: #0ff;
+    }
+
+    &-center {
+      //position: absolute;
+      //bottom: 0;
+      //left: 50%;
+      color: #00c3ff;
+      margin-top: 25px;
     }
 
     &-right {
@@ -115,14 +127,14 @@
       position: absolute;
       bottom: -3px;
       left: 3px;
-      color: #ff4500;
+      color: #fff;
     }
 
     &-right_bottom {
       position: absolute;
       right: 3px;
       bottom: -3px;
-      color: #ffa500;
+      color: #fff;
     }
   }
 
@@ -149,6 +161,15 @@
       font-size: 12px;
       margin-left: 2px;
       margin-top: 6px;
+
+      span {
+        border-radius: 3px;
+        display: inline-block;
+        width: 23px;
+        height: 8px;
+        margin-top: 33px;
+        margin-left: -5px;
+      }
     }
   }
 
