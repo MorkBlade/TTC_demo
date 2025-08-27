@@ -2,9 +2,9 @@
   <div class="travel-test-card-container">
     <div class="travel-test-card-header">
       <p>触发效果演示：</p>
-      <div class="switch-box">
+      <!-- <div class="switch-box">
         <t-switch v-model="testEnabled" size="medium" @change="handleSwitchChange" />
-      </div>
+      </div> -->
     </div>
     <div class="travel-test-card-content">
       <div class="shaft-img">
@@ -32,8 +32,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { usePerformanceStore, useKeyboardStore } from '@/store';
+import services from '@/services/index';
 
 const shaftImg = new URL('@/assets/images/shaft_img.svg', import.meta.url).href;
 const progress = new URL('@/assets/images/progress.svg', import.meta.url).href;
@@ -41,7 +42,6 @@ const arrowLeft = new URL('@/assets/images/arrow_left.svg', import.meta.url).hre
 
 const keyboardStore = useKeyboardStore();
 const performanceStore = usePerformanceStore();
-const { keyboardLayout } = storeToRefs(keyboardStore);
 
 const props = defineProps({
   sliderVal: {
@@ -65,20 +65,11 @@ onMounted(() => {
 
 watch(keyPressTestCount, async () => {
   if (testEnabled.value) {
-    const rowCount = keyboardLayout.value.length;
-    const travels: number[][] = [];
-    for (let row = 0; row < rowCount; row++) {
-      for (let col = 0; col < keyboardLayout.value[row].length; col++) {
-        const key = keyboardLayout.value[row][col].performance;
-        console.log('key', key);
-        key.travels = travels[row][col];
-      }
-    }
-    // const { max } = await performanceStore.getRm6X21Calibration();
-    const { max } = performanceStore.getMaxPressTravel([], travels);
-    maxMM.value = max;
-    console.log('maxMM', maxMM.value);
-    //keyPressTestCount.value++;
+    /* console.log('keyboardStore', keyboardStore);
+    const { max } = await performanceStore.getRm6X21Travel(keyboardStore.keyboards, true);
+    maxMM.value = max; */
+    getRouteData(3);
+    // keyPressTestCount.value++;
   }
 });
 
@@ -92,6 +83,18 @@ const dynamicHeight = computed(() => {
   // 限制最大高度
   return Math.min(Math.max(height, -baseHeight), 0);
 });
+
+const getRouteData = async (row) => {
+  try {
+    const result = await services.getRoute({ row: row });
+    console.log('路由数据:', result);
+    console.log('行号:', result.row);
+    console.log('路由值:', result.route);
+    console.log('数据:', result.data);
+  } catch (error) {
+    console.error('获取路由数据失败:', error);
+  }
+};
 
 const arrowHeight = computed(() => {
   if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
