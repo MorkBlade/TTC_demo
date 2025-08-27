@@ -26,6 +26,7 @@ const { isStart } = defineProps({
 });
 const echartsBg = new URL('@/assets/images/echarts_bg.svg', import.meta.url).href;
 const enabled = ref(false);
+const isVersion2 = ref(false);
 const chartRef = ref(null);
 const chartInstance = ref(null);
 const keyPressTestCount = ref(0);
@@ -95,9 +96,18 @@ onMounted(() => {
   }
 });
 
-const handleEnabledChange = async () => {
-  performanceStore.isTravelTest = false;
-  performanceStore.calibrationEnd();
+emitter.on('versionChange', (flag) => {
+  if (flag) {
+    setTimeout(() => {
+      isVersion2.value = localStorage.getItem('keyboardVersion') === 'v2';
+    }, 240);
+  }
+});
+
+const handleEnabledChange = async (value) => {
+  if (value) {
+    isVersion2.value ? performanceStore.calibrationStartV2() : performanceStore.calibrationStart();
+  }
   keyPressTestCount.value++;
 };
 
@@ -115,8 +125,14 @@ watch(
 watch(keyPressTestCount, async () => {
   if (isStart) {
     let mmBuff = 0;
-    const { max } = await performanceStore.getRm6X21Calibration(keyboardStore.keyboards);
-    mmBuff = max;
+    if (isVersion2.value) {
+      performanceStore.isTravelTest = true;
+      const { max } = await performanceStore.getRm6X21CalibrationV2(keyboardStore.keyboards);
+      mmBuff = max;
+    } else {
+      const { max } = await performanceStore.getRm6X21Calibration(keyboardStore.keyboards);
+      mmBuff = max;
+    }
     option.series[0].data.push([count.value, mmBuff]);
 
     if (count.value > 200) {
@@ -140,7 +156,7 @@ watch(keyPressTestCount, async () => {
 onUnmounted(() => {
   enabled.value = false;
   if (isStart) {
-    performanceStore.calibrationEnd();
+    isVersion2.value ? performanceStore.calibrationEndV2() : performanceStore.calibrationEnd();
   }
 });
 </script>

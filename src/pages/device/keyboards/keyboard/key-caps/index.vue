@@ -13,6 +13,7 @@
           styles: () => ({ ...keyBorder }),
         }"
         class="key-border"
+        :style="{ borderColor: performanceTab == 4 ? calibrationStatus.color : '' }"
       ></div>
 
       <div
@@ -21,8 +22,22 @@
           styles: () => ({ ...keyBorder2Cover }),
         }"
       ></div>
-
-      <t-tooltip>
+      <template>
+        <template v-if="!noShowTooltip">
+          <div v-for="(line, idx) in tipInfo" :key="idx">{{ line }}</div>
+        </template>
+        <div v-if="keyTip && noShowTooltip">{{ keyTip }}</div>
+      </template>
+      <div v-px2rem="{ styles: () => ({ ...keyLabels }) }" variant="outline" class="key-labels">
+        <template v-if="isIcon">
+          <img v-if="svgPath" draggable="false" :src="svgPath" class="key-icon" />
+          <span v-else>{{ keyCode }}</span>
+        </template>
+        <template v-else>
+          {{ keyCode }}
+        </template>
+      </div>
+      <!-- <t-tooltip>
         <template #content>
           <template v-if="!noShowTooltip">
             <div v-for="(line, idx) in tipInfo" :key="idx">{{ line }}</div>
@@ -38,7 +53,7 @@
             {{ keyCode }}
           </template>
         </div>
-      </t-tooltip>
+      </t-tooltip> -->
       <!-- 自定义按键的数据 -->
       <div
         v-if="currentPageName === 'customKey' && isCheckVersion"
@@ -67,7 +82,7 @@
         }"
         class="key-travel"
       >
-        <span v-if="singleTravel !== null && !isRTMode" class="key-travel-left">
+        <span v-if="singleTravel !== null && !isRTMode" class="key-travel-center">
           {{ singleTravel }}
         </span>
         <template v-if="isRTMode">
@@ -82,7 +97,7 @@
           </span>
         </template>
         <template v-if="performanceTab === 2">
-          <span v-if="pressDeadTravel !== null" class="key-travel-left_bottom">
+          <span v-if="pressDeadTravel !== null" class="key-travel-left">
             {{ pressDeadTravel }}
           </span>
           <span v-if="releaseDead !== null" class="key-travel-right_bottom">
@@ -90,15 +105,15 @@
           </span>
         </template>
         <template v-if="performanceTab === 4">
-          <span v-if="calibrationData !== null" class="key-travel-left_bottom">
+          <!-- <span v-if="calibrationData !== null" class="key-travel-left_bottom">
             {{ calibrationData }}
-          </span>
+          </span> -->
           <!-- <span v-if="travels !== null" class="key-travel-right_bottom">
             {{ travels }}
           </span> -->
-          <span class="key-travel-center_top" :style="`color:${calibrationStatus.color}`">
+          <!-- <span class="key-travel-center_top" :style="`color:${calibrationStatus.color}`">
             {{ calibrationStatus.text }}
-          </span>
+          </span> -->
         </template>
       </div>
       <!-- 性能模式下的校准 -->
@@ -127,7 +142,8 @@
               }),
             }"
           >
-            <p>{{ axisVal?.axis_name }}</p>
+            <!-- <p>{{ axisVal?.axis_name }}</p> -->
+            <span :style="{ background: axisVal?.axis_color }"></span>
           </div>
         </div>
       </template>

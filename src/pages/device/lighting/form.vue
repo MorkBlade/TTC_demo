@@ -149,7 +149,7 @@
               :class="['dynamic-item', light.mode === idx ? 'checked-dynamic-mode' : '']"
               @click="handleLightDynamicModeChange(idx)"
             >
-              <img :src="getImagePath(idx, 'keyLight')" alt="" />
+              <img :src="getImagePath(idx)" alt="" />
               {{ item.label }}
             </div>
           </div>
@@ -445,12 +445,9 @@ const lightingEffectModes = computed(() => {
   return LIGHT_DYNAMIC_MODES.slice(0, count);
 });
 
-const getImagePath = (idx, type) => {
-  if (type === 'keyLight') {
-    const key = Object.keys(keyLightImages).find((path) => path.includes(`dynamic${idx + 1}.svg`));
-    console.log('key', key);
-    return key;
-  }
+const getImagePath = (idx) => {
+  const key = Object.keys(keyLightImages).find((path) => path.includes(`dynamic${idx + 1}.svg`));
+  return key;
 };
 
 services.on(EVENT.LIGHTINGBASE, async (data: any) => {
