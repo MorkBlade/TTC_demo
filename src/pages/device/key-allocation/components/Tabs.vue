@@ -48,6 +48,7 @@ const changeTabMenu = (idx) => {
       background-position: center;
       color: #fff;
       margin-right: 30px;
+      font-family: 'Bold';
       display: flex;
       justify-content: center;
       align-items: center;

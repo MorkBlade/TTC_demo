@@ -3,6 +3,7 @@
   // height: 100%; /* 子元素高度充满容器 */
   display: flex;
   justify-content: center;
+  font-family: 'Bold';
 
   &-container {
     position: relative;
@@ -83,10 +84,10 @@
     &__sidebar-left {
       position: absolute;
       top: 0;
-      left: -123px;
+      left: -240px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      // justify-content: center;
       height: 100%;
 
       & .select-btn {
@@ -209,4 +210,112 @@
       }
     }
   }
+}
+
+// 配置下拉框样式
+.config-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  color: #fff;
+  background-image: url('@/assets/images/mysetting_bg.png');
+  background-size: 100% 100%;
+
+  .dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 120px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+
+    .dropdown-arrow {
+      width: 17px;
+      height: 10px;
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+      color: #ccc;
+      background-image: url('@/assets/images/setting_arrow.svg');
+      background-size: 100% 100%;
+
+      &.dropdown-arrow-up {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:hover {
+      .dropdown-arrow {
+        color: #0de7c4;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 99999;
+    overflow: hidden;
+    margin-top: 4px;
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      background-image: url('@/assets/images/unselect.png');
+      background-size: 100% 100%;
+      margin-top: 4px;
+      text-align: center;
+      font-family: 'Bold';
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #525252;
+        color: #0de7c4;
+      }
+
+      &.active {
+        background-image: url('@/assets/images/mysetting_bg.png');
+        background-size: 100% 100%;
+        color: #fff;
+      }
+      &:hover {
+        background-image: url('@/assets/images/select_hover.png');
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
+
+// 下拉框动画
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.dropdown-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.dropdown-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.dropdown-fade-enter-to,
+.dropdown-fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
 }

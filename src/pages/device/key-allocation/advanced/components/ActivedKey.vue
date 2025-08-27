@@ -229,6 +229,7 @@ onUnmounted(() => {
     color: #fff;
     cursor: pointer;
     overflow: visible; /* 确保菜单不被裁剪 */
+    font-family: 'Bold';
     &:hover {
       color: #0de7c4;
       background-image: url('@/assets/images/advancedKeyBottomFrame_hover.svg');
@@ -253,6 +254,7 @@ onUnmounted(() => {
       word-break: break-all;
       overflow-wrap: break-word;
       line-height: 16px;
+      font-family: 'Bold';
     }
     .content {
       flex: 1;
@@ -261,8 +263,19 @@ onUnmounted(() => {
       flex-direction: column;
       justify-content: center;
       margin-left: 10px;
+      font-family: 'Bold';
+      .title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: 'Bold';
+      }
+
       .desc {
         color: #8b8b8b;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Regular';
       }
     }
     .edit-icon {
@@ -321,12 +334,14 @@ onUnmounted(() => {
       font-weight: 500;
       color: #ffffff;
       margin-bottom: 8px;
+      font-family: 'Bold';
     }
 
     .desc {
       font-size: 14px;
       line-height: 1.4;
       color: #999999;
+      font-family: 'Regular';
     }
 
     &:hover {

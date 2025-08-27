@@ -12,21 +12,21 @@
       </button>
       <div class="info">
         <div class="info-item">
-          <div class="icon"></div>
+          <div class="icon icon-manual"></div>
           <div class="text">
             <div class="title">查看使用说明书</div>
             <div class="desc">查看指导手册，了解操作方法。</div>
           </div>
         </div>
         <div class="info-item">
-          <div class="icon"></div>
+          <div class="icon icon-community"></div>
           <div class="text">
             <div class="title">访问我们的社群</div>
             <div class="desc">与其他用户互动交流、获取支持及技巧。</div>
           </div>
         </div>
         <div class="info-item">
-          <div class="icon"></div>
+          <div class="icon icon-website"></div>
           <div class="text">
             <div class="title">访问我们的官网</div>
             <div class="desc">获取最新产品动态与权威服务信息。</div>
@@ -81,9 +81,10 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     text-align: center;
 
     & .section-title {
+      font-family: 'Bold';
       margin-bottom: 2rem;
       font-weight: 700;
-      font-size: 3vw;
+      font-size: 48px;
       line-height: 1.1;
       letter-spacing: -2px;
       color: #fff;
@@ -93,6 +94,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     }
 
     & .section-description {
+      font-family: 'Medium';
       padding: 0 1rem;
       font-size: 1rem;
     }
@@ -146,6 +148,7 @@ const handleDeviceStoreClick = async (): Promise<void> => {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     margin-bottom: 108px;
+    font-family: 'Bold';
 
     .connect-device__container-stars {
       position: absolute;
@@ -185,23 +188,37 @@ const handleDeviceStoreClick = async (): Promise<void> => {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 40px;
       background-image: url('@/assets/images/info_bg.svg');
       background-size: 100% 100%;
       cursor: pointer;
       .icon {
         width: 36px;
         height: 36px;
-        background-image: url('@/assets/images/what.svg');
         background-size: 100% 100%;
+      }
+      .icon-manual {
+        background-image: url('@/assets/images/what.svg');
+      }
+      .icon-community {
+        background-image: url('@/assets/images/community.svg');
+      }
+      .icon-website {
+        background-image: url('@/assets/images/website.svg');
       }
       .text {
         color: #fff;
         .title {
-          font-size: 14px;
-          font-weight: 700;
+          font-family: 'Medium';
+          text-align: left;
+          font-size: 16px;
+          font-weight: 600;
           line-height: 20px;
           color: #fff;
+        }
+        .desc {
+          font-size: 14px;
+          font-family: 'Regular';
         }
       }
     }

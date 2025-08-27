@@ -103,36 +103,37 @@ const advancedKeyMenu = computed(() => [
 ]);
 
 const addMenuItems = [
-  {
-    title: '双效点击(MT)',
-    desc: '单个按键实现2种功能：单击按键为一种， 长按按键为一种',
-    value: 'mt',
-  },
-  {
-    title: '动态键程(DKS)',
-    desc: '单个按键实现四种功能，根据按压程度绑定按键功能',
-    value: 'dks',
-  },
+  // {
+  //   title: '双效点击(MT)',
+  //   desc: '单个按键实现2种功能：单击按键为一种， 长按按键为一种',
+  //   value: 'mt',
+  // },
   {
     title: '同时触发(SOCD)',
     desc: '绑定两个按键，并根据您的设置决定他们如何触发',
     value: 'socd',
   },
+
   {
-    title: '多点触发(MPT)',
-    desc: '单个按键实现绑定的三种功能',
-    value: 'mpt',
+    title: '动态键程(DKS)',
+    desc: '单个按键实现四种功能，根据按压程度绑定按键功能',
+    value: 'dks',
   },
-  {
-    title: '切换开关(TGL)',
-    desc: '单击按键可开关持续触发，按住案件则为正常触发行为',
-    value: 'tgl',
-  },
-  {
-    title: '松开触发(END)',
-    desc: '松开触发是指在松开一个键的同时，触发另一个键的功能',
-    value: 'end',
-  },
+  // {
+  //   title: '多点触发(MPT)',
+  //   desc: '单个按键实现绑定的三种功能',
+  //   value: 'mpt',
+  // },
+  // {
+  //   title: '切换开关(TGL)',
+  //   desc: '单击按键可开关持续触发，按住案件则为正常触发行为',
+  //   value: 'tgl',
+  // },
+  // {
+  //   title: '松开触发(END)',
+  //   desc: '松开触发是指在松开一个键的同时，触发另一个键的功能',
+  //   value: 'end',
+  // },
 ];
 const TYPE_MAPPING = {
   1: 'dks',
@@ -355,6 +356,7 @@ const handleCancelClick = () => {
   flex-direction: row;
   gap: 20px;
   margin-top: 20px;
+  font-family: 'Bold';
   .tab {
     width: 100%;
     display: flex;
@@ -439,11 +441,13 @@ const handleCancelClick = () => {
         font-size: 18px;
         font-weight: bold;
         color: #fff;
+        font-family: 'Bold';
       }
       .desc {
         font-size: 14px;
         font-weight: 400;
         color: #999999;
+        font-family: 'Regular';
       }
     }
   }

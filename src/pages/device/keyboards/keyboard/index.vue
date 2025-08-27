@@ -34,6 +34,28 @@
             {{ ite.name }}
           </div>
         </template> -->
+        <!-- 配置选择下拉框 -->
+        <template v-if="currentPageName !== 'lighting'">
+          <div ref="configDropdownRef" class="config-dropdown">
+            <div class="dropdown-trigger" @click="toggleConfigDropdown">
+              {{ configNames[activeIndex] }}
+              <span class="dropdown-arrow" :class="{ 'dropdown-arrow-up': isConfigDropdownOpen }"></span>
+            </div>
+            <transition name="dropdown-fade">
+              <div v-if="isConfigDropdownOpen" class="dropdown-menu">
+                <div
+                  v-for="(item, idx) in configList.length"
+                  :key="idx"
+                  class="dropdown-item"
+                  :class="{ active: idx === activeIndex }"
+                  @click="handleConfigSelect(idx)"
+                >
+                  {{ configNames[idx] }}
+                </div>
+              </div>
+            </transition>
+          </div>
+        </template>
       </div>
       <template v-for="(row, rowIndex) in layout" :key="rowIndex">
         <template v-for="(column, colIndex) in row" :key="`${rowIndex}-${colIndex}`">
@@ -156,15 +178,59 @@ import { filterAdvancedKeyByPosition } from '@/utils/filter-key';
 import KeyCap from './key-caps/index.vue';
 
 import { useKeyboardStyle } from '../hooks/useKeyboardStyle';
+
+// 配置下拉框相关数据
+const globalStore = useGlobalStore();
+const { configList, currentConfig, configNames } = storeToRefs(globalStore);
+const configDropdownRef = ref<HTMLElement>();
+const isConfigDropdownOpen = ref(false);
+// const selectedConfig = ref({ name: '我的配置', value: 'my-config' });
+const activeIndex = computed(() => {
+  // return currentConfig.value.replace('Config', '') - 1;
+  return configList.value.indexOf(currentConfig.value);
+});
+
+// 切换下拉框显示状态
+const toggleConfigDropdown = () => {
+  isConfigDropdownOpen.value = !isConfigDropdownOpen.value;
+};
+
+// 处理配置选择
+const handleConfigSelect = async (idx: number) => {
+  if (idx === activeIndex.value) return;
+
+  const configValue = `Config${idx + 1}`;
+  globalStore.updateCurrentConfig(configValue);
+  await globalStore.setConfig();
+  await keyboardStore.getKeyLayout({ layer: 0 });
+  // activeIndex是计算属性,不能直接赋值,需要通过修改源数据来更新
+  isConfigDropdownOpen.value = false;
+  MessagePlugin.success(t('messages.configSwitchSuccess') + configNames.value[idx]);
+};
+
+// 点击外部关闭下拉框
+const handleClickOutside = (event: Event) => {
+  if (configDropdownRef.value && !configDropdownRef.value.contains(event.target as Node)) {
+    isConfigDropdownOpen.value = false;
+  }
+};
+
+// 监听点击外部事件
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 import { t } from '@/locales';
 
 const props = defineProps<{ propsVisible: boolean }>();
 const { layout, containerDimensions } = useKeyboardStyle();
 const keyboardStore = useKeyboardStore();
-const globalStore = useGlobalStore();
 const performanceStore = usePerformanceStore();
 const { fnLayer } = storeToRefs(keyboardStore);
-const { system } = storeToRefs(globalStore);
+// const { system } = storeToRefs(globalStore);
 const { isCheckVersion } = useVersionHooks('1.0.6.0');
 const isMultipleSelect = ref<boolean>(false);
 const highLevelKey = ref<string>('socd');
@@ -279,10 +345,10 @@ const resetKeyboard = async (): Promise<void> => {
   });
 };
 
-const handleSystemChange = async (idx: number): Promise<void> => {
-  visible.value = true;
-  idx1.value = idx;
-};
+// const handleSystemChange = async (idx: number): Promise<void> => {
+//   visible.value = true;
+//   idx1.value = idx;
+// };
 
 const handleSwitchSystem = async (): Promise<void> => {
   globalStore.updateSystem(SYSTEM_MAP[idx1.value].value);

@@ -11,7 +11,7 @@ export const APP_MENU = [
   { key: 'lighting', icon: 'lightbulb', text: '灯光设置' },
   // { key: 'macro', icon: 'git-pull-request', text: '宏设置' },
   // { key: 'checkKey', icon: 'chart-line', text: '键盘校准' },
-  { key: 'config', icon: 'setting-1', text: '我的配置' },
+  // { key: 'config', icon: 'setting-1', text: '我的配置' },
   { key: 'screen', icon: 'screencast', text: '我的屏幕' },
   // { key: 'update', icon: 'refresh', text: '更新/恢复出厂' },
   // { key: 'info', icon: 'help-circle', text: '关于' },

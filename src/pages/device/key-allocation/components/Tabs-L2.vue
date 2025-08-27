@@ -65,11 +65,13 @@ const changeTabMenu = (val: number | string) => {
       justify-content: center;
       align-items: center;
       border-radius: 8px;
-      color: #fff;
+      color: #cccccc;
       background: #383838;
       border: 2px solid #616161;
       cursor: pointer;
       white-space: nowrap;
+      font-family: 'Bold';
+      font-size: 14px;
 
       &:hover {
         color: #09fbd3;

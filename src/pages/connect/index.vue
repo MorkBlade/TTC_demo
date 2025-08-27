@@ -2,7 +2,7 @@
   <div class="connect-page">
     <div class="multi-language-float">
       <img :src="logoUrl" alt="logo_ttc" />
-      <multi-language />
+      <!-- <multi-language /> -->
     </div>
     <!-- <nav-bar-logo /> -->
     <connect-device></connect-device>

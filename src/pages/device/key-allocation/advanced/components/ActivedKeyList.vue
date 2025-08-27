@@ -238,6 +238,7 @@ onUnmounted(() => {
     cursor: pointer;
     overflow: visible;
     margin-bottom: 16px;
+    font-family: 'Bold';
 
     &:hover {
       color: #0de7c4;
@@ -262,6 +263,7 @@ onUnmounted(() => {
       word-break: break-all;
       overflow-wrap: break-word;
       line-height: 16px;
+      font-family: 'Bold';
     }
 
     .content {
@@ -271,9 +273,19 @@ onUnmounted(() => {
       flex-direction: column;
       justify-content: center;
       margin-left: 10px;
+      font-family: 'Bold';
+      .title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: 'Bold';
+      }
 
       .desc {
         color: #8b8b8b;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Regular';
       }
     }
 
