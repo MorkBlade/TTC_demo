@@ -68,7 +68,7 @@ watch(keyPressTestCount, async () => {
     /* console.log('keyboardStore', keyboardStore);
     const { max } = await performanceStore.getRm6X21Travel(keyboardStore.keyboards, true);
     maxMM.value = max; */
-    getRouteData(3);
+    // getRouteData(3);
     // keyPressTestCount.value++;
   }
 });
@@ -84,7 +84,7 @@ const dynamicHeight = computed(() => {
   return Math.min(Math.max(height, -baseHeight), 0);
 });
 
-const getRouteData = async (row) => {
+/* const getRouteData = async (row) => {
   try {
     const result = await services.getRoute({ row: row });
     console.log('路由数据:', result);
@@ -94,27 +94,23 @@ const getRouteData = async (row) => {
   } catch (error) {
     console.error('获取路由数据失败:', error);
   }
-};
+}; */
 
-const arrowHeight = computed(() => {
+/* const arrowHeight = computed(() => {
   if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
     return Math.max(dynamicHeight.value + 230, (currentSingleTravel.value + 415) / 4.0);
   } else {
     return Math.max(dynamicHeight.value + 230, 0);
   }
-});
+}); */
 
-const handleSwitchChange = async (value) => {
-  keyPressTestCount.value++;
-};
-
-const arrowHeightValue = computed(() => {
+/* const arrowHeightValue = computed(() => {
   if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
     return currentSingleTravel.value.toFixed(2);
   } else {
     return maxMM.value.toFixed(2);
   }
-});
+}); */
 // 组件销毁
 onUnmounted(() => {
   testEnabled.value = false;
@@ -239,7 +235,7 @@ onUnmounted(() => {
     }
   }
 
-  .switch-box {
+  /* .switch-box {
     width: var(--size-170);
     height: var(--size-36);
     line-height: var(--size-34);
@@ -276,6 +272,6 @@ onUnmounted(() => {
       border-radius: var(--spacing-10);
       height: var(--size-20) !important;
     }
-  }
+  } */
 }
 </style>
