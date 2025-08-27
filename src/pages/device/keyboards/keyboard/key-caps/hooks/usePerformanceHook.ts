@@ -42,9 +42,9 @@ export function usePerformanceHook(rowIndex, colIndex, currentPageName: Ref<stri
   });
 
   const calibrationStatus = computed<CalibrationStatus>(() => {
-    if (performanceData.value?.calibrate === 0) return { color: 'red', text: t('messages.uncalibrated') };
-    if (performanceData.value?.calibrate === 1) return { color: '#699ef5', text: t('messages.calibrated') };
-    if (performanceData.value?.calibrate === 2) return { color: 'green', text: t('messages.newCalibration') };
+    if (performanceData.value?.calibrate === 0) return { color: '#616161', text: t('messages.uncalibrated') };
+    if (performanceData.value?.calibrate === 1) return { color: '#09fbd3', text: t('messages.calibrated') };
+    if (performanceData.value?.calibrate === 2) return { color: '#616161', text: t('messages.newCalibration') };
     return { color: '', text: '' };
   });
 
