@@ -13,10 +13,14 @@ import { ref } from 'vue';
 import StandardKey from './standard/index.vue';
 import AdvancedKey from './advanced/index.vue';
 import Tabs from './components/Tabs.vue';
+import { useKeyboardStore } from '@/store';
+
+const keyboardStore = useKeyboardStore();
 
 const menu = ['标准按键', '高级按键'];
 const clickItem = ref(0);
 const changeMenu = (idx) => {
+  keyboardStore.cancelSelectKey();
   clickItem.value = idx;
 };
 </script>

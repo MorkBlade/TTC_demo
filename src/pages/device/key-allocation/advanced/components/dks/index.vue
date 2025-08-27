@@ -8,11 +8,11 @@
       <h3>按下</h3>
       <div :style="{ display: 'flex' }">
         <div class="press-box">
-          <p @click="setTravelDialog = true">0.01mm</p>
+          <p>1.50mm</p>
           <div class="icon icon-down"></div>
         </div>
         <div class="press-box">
-          <p @click="setTravelDialog2 = true">3.30mm</p>
+          <p>3.30mm</p>
           <div class="icon icon-down-top"></div>
         </div>
       </div>
@@ -21,11 +21,11 @@
       <h3>抬起</h3>
       <div :style="{ display: 'flex' }">
         <div class="press-box">
-          <p @click="setTravelDialog2 = true">0.01mm</p>
+          <p>1.50mm</p>
           <div class="icon icon-up"></div>
         </div>
         <div class="press-box">
-          <p @click="setTravelDialog = true">3.30mm</p>
+          <p>3.30mm</p>
           <div class="icon icon-up-top"></div>
         </div>
       </div>
@@ -72,37 +72,15 @@
         </div>
       </div>
     </div>
-    <!-- delaySlider db1 -->
-    <delaySlider
-      v-model:is-show="setTravelDialog"
-      :delay="dksInfo.db"
-      :title="t('messages.dksMinTravel')"
-      :min="0.1"
-      :max="3.3"
-      :step="0.1"
-      @change-delay="changeDksDelay1"
-    >
-    </delaySlider>
-    <!-- delaySlider db2 -->
-    <delaySlider
-      v-model:is-show="setTravelDialog2"
-      :delay="dksInfo.db2"
-      :min="0.1"
-      :max="3.3"
-      :step="0.1"
-      :title="t('messages.dksMaxTravel')"
-      @change-delay="changeDksDelay2"
-    >
-    </delaySlider>
   </div>
 </template>
 
 <script setup>
-import delaySlider from '@/components/delay-slider/index.vue';
+// import delaySlider from '@/components/delay-slider/index.vue';
 import { keyboardMap } from '@/config/byte-to-key/keyboard-map';
 import { useHigherKeyStore, useKeyboardStore } from '@/store';
 import { filterAdvancedKey } from '@/utils/filter-key.ts';
-import { t } from '@/locales';
+// import { t } from '@/locales';
 
 const dksInfo = defineModel('dksInfo', {
   type: Object,
@@ -116,9 +94,6 @@ const { edit, editKey } = defineProps({
 
 const keyboardStore = useKeyboardStore();
 const highLevelKeyStore = useHigherKeyStore();
-
-const setTravelDialog = ref(false);
-const setTravelDialog2 = ref(false);
 
 const isDragStates = reactive({ 0: false, 1: false, 2: false, 3: false });
 const widths = reactive({}); // 存储每个 span 的宽度
@@ -206,14 +181,6 @@ const onDelKey = (idx) => {
 
 const roundClicked = (row, col) => {
   clickData[row][col] = !clickData[row][col];
-};
-
-const changeDksDelay1 = (delay) => {
-  dksInfo.value.db = delay;
-};
-
-const changeDksDelay2 = (delay) => {
-  dksInfo.value.db2 = delay;
 };
 
 const save = async () => {

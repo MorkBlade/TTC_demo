@@ -53,8 +53,8 @@ export function useStyleKeyCapsHook(rowIndex, colIndex, { shapeScale, location }
   const locationComputed = computed<LocationComputed>(() => {
     const { y, x, y2, x2 } = location;
     const { width, height } = shape;
-    const keyBorderTop = y * Number(width);
-    const keyBorderLeft = x * Number(height);
+    const keyBorderTop = y * Number(width) + 1;
+    const keyBorderLeft = x * Number(height) + 1;
 
     const keyBorderTop2 = y2 * Number(width);
     const keyBorderLeft2 = x2 * Number(height);

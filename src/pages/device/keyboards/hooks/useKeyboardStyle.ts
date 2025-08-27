@@ -12,9 +12,9 @@ export function useKeyboardStyle() {
     3: { w: 1.5, h: 1 },
     4: { w: 1.75, h: 1 },
     5: { w: 2, h: 1 },
-    6: { w: 2.25, h: 1 },
+    6: { w: 2.3, h: 1 },
     7: { w: 2.5, h: 1 },
-    8: { w: 2.75, h: 1 },
+    8: { w: 2.8, h: 1 },
     9: { w: 6.25, h: 1 },
     10: { w: 1, h: 2 },
     11: { w: 1.5, w2: 1.25, h: 1, h2: 2, x: -0.25, x2: 0.25 },
@@ -48,10 +48,31 @@ export function useKeyboardStyle() {
               layout[rowIndex][colIndex].location.y2 = y + rowIndex * 0.05 - offsetY;
               layout[rowIndex][colIndex].location.row = rowIndex;
               layout[rowIndex][colIndex].location.col = colIndex;
-            } else {
+            } else if (ratio === 9) {
+              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w + 0.3;
+              layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
+              layout[rowIndex][colIndex].location.x = x + colIndex * 0.03;
+              layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
+              layout[rowIndex][colIndex].location.row = rowIndex;
+              layout[rowIndex][colIndex].location.col = colIndex;
+            } else if (ratio === 6) {
+              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w;
+              layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
+              layout[rowIndex][colIndex].location.x = x + colIndex * 0.052;
+              layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
+              layout[rowIndex][colIndex].location.row = rowIndex;
+              layout[rowIndex][colIndex].location.col = colIndex;
+            } else if (ratio === 8) {
               layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w;
               layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
               layout[rowIndex][colIndex].location.x = x + colIndex * 0.05;
+              layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
+              layout[rowIndex][colIndex].location.row = rowIndex;
+              layout[rowIndex][colIndex].location.col = colIndex;
+            } else {
+              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w;
+              layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
+              layout[rowIndex][colIndex].location.x = x + colIndex * 0.055;
               layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
               layout[rowIndex][colIndex].location.row = rowIndex;
               layout[rowIndex][colIndex].location.col = colIndex;
@@ -66,7 +87,7 @@ export function useKeyboardStyle() {
     return layout;
   });
 
-  const UNIT = 54; // 单位宽度/高度（单位：px）
+  const UNIT = 53; // 单位宽度/高度（单位：px）
 
   const containerDimensions = computed<KeyboardLayoutParams>(() => {
     // 默认尺寸
@@ -88,8 +109,8 @@ export function useKeyboardStyle() {
 
         if (typeof w !== 'number' || typeof h !== 'number' || w === 0 || h === 0) return;
 
-        const rightEdge = (x + w) * UNIT;
-        const bottomEdge = (y + h) * UNIT;
+        const rightEdge = (x + w) * UNIT + 1;
+        const bottomEdge = (y + h) * UNIT - 5;
 
         maxX = Math.max(maxX, rightEdge);
         maxY = Math.max(maxY, bottomEdge);

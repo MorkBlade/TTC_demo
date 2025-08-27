@@ -311,7 +311,6 @@ const toAdd = (value: string) => {
 
 // 编辑
 const edit = (value: { option: any; item: any }) => {
-  console.log('edit', value);
   const { option, item } = value;
   if (option.value === 3) {
     // 判断是否是SOCD
@@ -329,6 +328,7 @@ const edit = (value: { option: any; item: any }) => {
 
 // 添加对于新值
 const activeAddNew = () => {
+  keyboardStore.cancelSelectKey();
   isEdit.value = true;
 };
 // 计算当前选择的高级键
