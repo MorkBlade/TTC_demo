@@ -307,6 +307,8 @@ const onChangeTab = (val: number | string) => {
 };
 
 const toAdd = (value: string) => {
+  keyboardStore.cancelSelectKey();
+  isEdit.value = true;
   tabItem.value = value;
 };
 
