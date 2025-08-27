@@ -21,22 +21,8 @@
           styles: () => ({ ...keyBorder2Cover }),
         }"
       ></div>
-      <template>
-        <template v-if="!noShowTooltip">
-          <div v-for="(line, idx) in tipInfo" :key="idx">{{ line }}</div>
-        </template>
-        <div v-if="keyTip && noShowTooltip">{{ keyTip }}</div>
-      </template>
-      <div v-px2rem="{ styles: () => ({ ...keyLabels }) }" variant="outline" class="key-labels">
-        <template v-if="isIcon">
-          <img v-if="svgPath" draggable="false" :src="svgPath" class="key-icon" />
-          <span v-else>{{ keyCode }}</span>
-        </template>
-        <template v-else>
-          {{ keyCode }}
-        </template>
-      </div>
-      <!-- <t-tooltip>
+
+      <t-tooltip>
         <template #content>
           <template v-if="!noShowTooltip">
             <div v-for="(line, idx) in tipInfo" :key="idx">{{ line }}</div>
@@ -52,7 +38,7 @@
             {{ keyCode }}
           </template>
         </div>
-      </t-tooltip> -->
+      </t-tooltip>
       <!-- 自定义按键的数据 -->
       <div
         v-if="currentPageName === 'customKey' && isCheckVersion"
@@ -81,7 +67,7 @@
         }"
         class="key-travel"
       >
-        <span v-if="singleTravel !== null && !isRTMode" class="key-travel-center">
+        <span v-if="singleTravel !== null && !isRTMode" class="key-travel-left">
           {{ singleTravel }}
         </span>
         <template v-if="isRTMode">
@@ -96,7 +82,7 @@
           </span>
         </template>
         <template v-if="performanceTab === 2">
-          <span v-if="pressDeadTravel !== null" class="key-travel-left">
+          <span v-if="pressDeadTravel !== null" class="key-travel-left_bottom">
             {{ pressDeadTravel }}
           </span>
           <span v-if="releaseDead !== null" class="key-travel-right_bottom">
@@ -104,9 +90,9 @@
           </span>
         </template>
         <template v-if="performanceTab === 4">
-          <!-- <span v-if="calibrationData !== null" class="key-travel-left_bottom">
+          <span v-if="calibrationData !== null" class="key-travel-left_bottom">
             {{ calibrationData }}
-          </span> -->
+          </span>
           <!-- <span v-if="travels !== null" class="key-travel-right_bottom">
             {{ travels }}
           </span> -->
@@ -141,8 +127,7 @@
               }),
             }"
           >
-            <!-- <p>{{ axisVal?.axis_name }}</p> -->
-            <span :style="{ background: axisVal?.axis_color }"></span>
+            <p>{{ axisVal?.axis_name }}</p>
           </div>
         </div>
       </template>
