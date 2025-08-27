@@ -313,7 +313,7 @@ const onCheckKey = (value: string): void => {
 const restoreDefaultLayout = async (): Promise<void> => {
   const loading = LoadingPlugin({
     text: t('messages.restoreing'),
-    loading: true,
+    // loading: true,
   });
 
   await keyboardStore.restoreDefaultLayout();
