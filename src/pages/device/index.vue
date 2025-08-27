@@ -56,11 +56,10 @@
     </t-layout>
     <t-dialog
       v-model:visible="visible"
-      theme="warning"
       :header="t('messages.calibrationDialogTitle')"
       :body="t('messages.calibrationDialogBody')"
-      :close-btn="true"
-      :confirm-btn="t('common.confirm')"
+      :close-btn="false"
+      confirm-btn="开始校准"
       :cancel-btn="t('common.cancel')"
       @confirm="gotoCalibration"
       @close="closeCalibration"

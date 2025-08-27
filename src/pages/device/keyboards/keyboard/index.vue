@@ -3,7 +3,7 @@
     <div v-px2rem="{ styles: () => styles }" class="device-keyboard-container">
       <!-- 键盘操作 -->
       <div class="device-keyboard-container__sidebar-left">
-        <template v-if="currentPageName === 'customKey' || currentPageName === 'macro'">
+        <!-- <template v-if="currentPageName === 'customKey' || currentPageName === 'macro'">
           <div
             v-for="(ite, idx) in 4"
             :key="ite"
@@ -33,7 +33,7 @@
           >
             {{ ite.name }}
           </div>
-        </template>
+        </template> -->
       </div>
       <template v-for="(row, rowIndex) in layout" :key="rowIndex">
         <template v-for="(column, colIndex) in row" :key="`${rowIndex}-${colIndex}`">
@@ -58,7 +58,38 @@
       </template>
       <!-- 侧边 -->
       <div v-if="['customKey'].includes(currentPageName) && isCheckVersion" class="device-keyboard-container__sidebar">
-        <div class="select-btn-custom" @click="restoreDefaultLayout">{{ t('messages.restoreDefaultLayout') }}</div>
+        <div class="select-btn-custom" @click="restoreDefaultLayout">恢复默认</div>
+        <template v-if="currentPageName === 'customKey' || currentPageName === 'macro'">
+          <div
+            v-for="(ite, idx) in 4"
+            :key="ite"
+            class="select-btn"
+            :class="{ active: idx === fnLayer }"
+            :data-idx="idx"
+            @click.capture="handleFnChange(idx)"
+          >
+            <span>
+              {{
+                idx === 0
+                  ? t('messages.keyboardMainLayer')
+                  : t('messages.keyboardFnLayer') + idx + t('messages.FnLayer')
+              }}
+            </span>
+          </div>
+        </template>
+        <!-- <template v-if="currentPageName === 'customKey'">
+          <div class="select-btn-line"></div>
+          <div
+            v-for="(ite, idx) in SYSTEM_MAP"
+            :key="ite.value"
+            class="select-btn"
+            :class="{ active: ite.value === system }"
+            :data-idx="idx"
+            @click.capture="handleSystemChange(idx)"
+          >
+            {{ ite.name }}
+          </div>
+        </template> -->
       </div>
       <div
         v-if="['performance'].includes(currentPageName) && performanceTab !== 4"

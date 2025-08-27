@@ -8,11 +8,11 @@ export function useKeyboardStyle() {
   const ratioMap: Record<RatioKey, RatioValue> = {
     0: { w: 0, h: 0 },
     1: { w: 1, h: 1 },
-    2: { w: 1.25, h: 1 },
+    2: { w: 1.28, h: 1 },
     3: { w: 1.5, h: 1 },
     4: { w: 1.75, h: 1 },
     5: { w: 2, h: 1 },
-    6: { w: 2.3, h: 1 },
+    6: { w: 2.28, h: 1 },
     7: { w: 2.5, h: 1 },
     8: { w: 2.8, h: 1 },
     9: { w: 6.25, h: 1 },
@@ -51,19 +51,19 @@ export function useKeyboardStyle() {
             } else if (ratio === 9) {
               layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w + 0.3;
               layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
-              layout[rowIndex][colIndex].location.x = x + colIndex * 0.03;
+              layout[rowIndex][colIndex].location.x = x + colIndex * 0.032;
               layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
               layout[rowIndex][colIndex].location.row = rowIndex;
               layout[rowIndex][colIndex].location.col = colIndex;
             } else if (ratio === 6) {
-              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w;
+              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w + 0.05;
               layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
-              layout[rowIndex][colIndex].location.x = x + colIndex * 0.052;
+              layout[rowIndex][colIndex].location.x = x + colIndex * 0.05;
               layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
               layout[rowIndex][colIndex].location.row = rowIndex;
               layout[rowIndex][colIndex].location.col = colIndex;
             } else if (ratio === 8) {
-              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w;
+              layout[rowIndex][colIndex].shapeScale.w = ratioMap[ratio].w + 0.05;
               layout[rowIndex][colIndex].shapeScale.h = ratioMap[ratio].h;
               layout[rowIndex][colIndex].location.x = x + colIndex * 0.05;
               layout[rowIndex][colIndex].location.y = y + rowIndex * 0.05 - offsetY;
