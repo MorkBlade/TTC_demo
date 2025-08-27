@@ -127,3 +127,41 @@
 // body .t-input.t-is-readonly .t-input__inner {
 //   color: #fff !important;
 // }
+
+// 覆盖 MessagePlugin 样式
+.t-message {
+  // 透明度
+  opacity: 0 !important;
+
+  // 修改背景色
+  background-color: #fff !important;
+
+  // 修改文字颜色
+  color: #fff !important;
+
+  // 修改边框
+  border: 1px solid #fff !important;
+
+  // 修改圆角
+  border-radius: 8px !important;
+
+  // 修改阴影
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+// 针对不同类型的消息
+.t-message--success {
+  background-color: #52c41a !important;
+}
+
+.t-message--error {
+  background-color: #ff4d4f !important;
+}
+
+.t-message--warning {
+  background-color: #faad14 !important;
+}
+
+.t-message--info {
+  background-color: #1890ff !important;
+}
