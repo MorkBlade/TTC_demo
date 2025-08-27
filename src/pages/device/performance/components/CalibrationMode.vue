@@ -106,7 +106,7 @@ emitter.on('versionChange', (flag) => {
 
 const handleEnabledChange = async (value) => {
   if (value) {
-    isVersion2.value ? performanceStore.calibrationStartV2() : performanceStore.calibrationStart();
+    performanceStore.calibrationStart();
   }
   keyPressTestCount.value++;
 };
@@ -156,7 +156,7 @@ watch(keyPressTestCount, async () => {
 onUnmounted(() => {
   enabled.value = false;
   if (isStart) {
-    isVersion2.value ? performanceStore.calibrationEndV2() : performanceStore.calibrationEnd();
+    performanceStore.calibrationEnd();
   }
 });
 </script>

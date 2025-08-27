@@ -161,7 +161,7 @@ onMounted(() => {
 const onStart = () => {
   isStart.value = !isStart.value;
   if (!isStart.value) {
-    isVersion2.value ? performanceStore.calibrationEndV2() : performanceStore.calibrationEnd();
+    performanceStore.calibrationEnd();
   }
   isAct.value = false;
 };
