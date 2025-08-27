@@ -149,7 +149,7 @@
               :class="['dynamic-item', light.mode === idx ? 'checked-dynamic-mode' : '']"
               @click="handleLightDynamicModeChange(idx)"
             >
-              <img :src="getImagePath(idx)" alt="" />
+              <img :src="dynamicArry[idx]" alt="" />
               {{ item.label }}
             </div>
           </div>
@@ -372,6 +372,49 @@ const keyLightImages = import.meta.glob('@/assets/images/dynamic*.svg', { eager:
 const checkFalse = new URL('@/assets/images/check_false.svg', import.meta.url).href;
 const checkTrue = new URL('@/assets/images/check_true.svg', import.meta.url).href;
 const restIcon = new URL('@/assets/images/rest_icon.svg', import.meta.url).href;
+
+const dynamic1 = new URL('@/assets/images/dynamic1.svg', import.meta.url).href;
+const dynamic2 = new URL('@/assets/images/dynamic2.svg', import.meta.url).href;
+const dynamic3 = new URL('@/assets/images/dynamic3.svg', import.meta.url).href;
+const dynamic4 = new URL('@/assets/images/dynamic4.svg', import.meta.url).href;
+const dynamic5 = new URL('@/assets/images/dynamic5.svg', import.meta.url).href;
+const dynamic6 = new URL('@/assets/images/dynamic6.svg', import.meta.url).href;
+const dynamic7 = new URL('@/assets/images/dynamic7.svg', import.meta.url).href;
+const dynamic8 = new URL('@/assets/images/dynamic8.svg', import.meta.url).href;
+const dynamic9 = new URL('@/assets/images/dynamic9.svg', import.meta.url).href;
+const dynamic10 = new URL('@/assets/images/dynamic10.svg', import.meta.url).href;
+const dynamic11 = new URL('@/assets/images/dynamic11.svg', import.meta.url).href;
+const dynamic12 = new URL('@/assets/images/dynamic12.svg', import.meta.url).href;
+const dynamic13 = new URL('@/assets/images/dynamic13.svg', import.meta.url).href;
+const dynamic14 = new URL('@/assets/images/dynamic14.svg', import.meta.url).href;
+const dynamic15 = new URL('@/assets/images/dynamic15.svg', import.meta.url).href;
+const dynamic16 = new URL('@/assets/images/dynamic16.svg', import.meta.url).href;
+const dynamic17 = new URL('@/assets/images/dynamic17.svg', import.meta.url).href;
+const dynamic18 = new URL('@/assets/images/dynamic18.svg', import.meta.url).href;
+const dynamic19 = new URL('@/assets/images/dynamic19.svg', import.meta.url).href;
+const dynamic20 = new URL('@/assets/images/dynamic20.svg', import.meta.url).href;
+const dynamicArry = [
+  dynamic1,
+  dynamic2,
+  dynamic3,
+  dynamic4,
+  dynamic5,
+  dynamic6,
+  dynamic7,
+  dynamic8,
+  dynamic9,
+  dynamic10,
+  dynamic11,
+  dynamic12,
+  dynamic13,
+  dynamic14,
+  dynamic15,
+  dynamic16,
+  dynamic17,
+  dynamic18,
+  dynamic19,
+  dynamic20,
+];
 
 const { isCheckVersion: isCheckVersion1090 } = useVersionHooks('1.0.9.0');
 
