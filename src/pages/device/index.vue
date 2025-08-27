@@ -54,7 +54,7 @@
         </template>
       </t-layout>
     </t-layout>
-    <t-dialog
+    <!-- <t-dialog
       v-model:visible="visible"
       :header="t('messages.calibrationDialogTitle')"
       :body="t('messages.calibrationDialogBody')"
@@ -64,7 +64,7 @@
       @confirm="gotoCalibration"
       @close="closeCalibration"
     >
-    </t-dialog>
+    </t-dialog> -->
   </div>
 </template>
 
@@ -171,7 +171,7 @@ const loading = ref(false);
 const apiDebounce = async () => {
   if (isApiDebounceRunning.value) return;
   isApiDebounceRunning.value = true;
-  loading.value = true;
+  // loading.value = true;
   try {
     // 先获取键盘数据，因为其他操作可能依赖它
     await regainKeyboardData();

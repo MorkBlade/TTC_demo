@@ -14,7 +14,7 @@ import { t } from '@/locales';
 export async function useInitPageHook(params?: { noConfig?: boolean }) {
   const loading = LoadingPlugin({
     text: t('messages.loadingData'),
-    loading: true,
+    loading: false,
   });
   const macroStore = useMacroStore();
   const deviceStore = useDeviceStore();
