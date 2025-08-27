@@ -182,6 +182,7 @@ export const usePerformanceStore = defineStore('performance', {
       return result;
     },
     async getRm6X21Travel(keyboards, isVersion2) {
+      console.log('isVersion2', isVersion2);
       if (isVersion2) {
         let max = 0;
         for (let i = 0; i < keyboards.length; i++) {
@@ -231,6 +232,7 @@ export const usePerformanceStore = defineStore('performance', {
       }
 
       const { max } = this.getMaxPressTravel([], travels);
+      console.log('max', max);
       return { max: max / 1000 };
     },
 
