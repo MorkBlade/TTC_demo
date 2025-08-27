@@ -31,7 +31,7 @@
       <div class="line"></div>
       <div class="switch-item-box">
         <h3>绑定列表:</h3>
-        <span class="select-switch-num">已绑定类型：TTC万磁王、万磁王RGB、天王轴</span>
+        <span class="select-switch-num">已绑定类型：万磁王RGB</span>
         <div class="switch-content-box">
           <div
             v-for="(item, index) in axisList"

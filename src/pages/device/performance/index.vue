@@ -9,14 +9,14 @@
       >
         {{ t('messages.triggerSetting') }}
       </div>
-      <div
+      <!-- <div
         class="device-performance-title"
         :data-id="2"
         :class="{ 'is-active': performanceTab === 2, 'is-disabled': isCalibrating }"
         @click="!isCalibrating && onChangeTab(2)"
       >
         机械模式
-      </div>
+      </div> -->
       <!-- <div
         class="device-performance-title"
         :data-id="2"
