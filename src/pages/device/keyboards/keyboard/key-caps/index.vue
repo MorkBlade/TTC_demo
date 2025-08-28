@@ -28,6 +28,7 @@
         </template>
         <div v-if="keyTip && noShowTooltip">{{ keyTip }}</div>
       </template>
+
       <div v-px2rem="{ styles: () => ({ ...keyLabels }) }" variant="outline" class="key-labels">
         <template v-if="isIcon">
           <img v-if="svgPath" draggable="false" :src="svgPath" class="key-icon" />
