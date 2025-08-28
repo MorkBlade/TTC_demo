@@ -191,7 +191,6 @@ const currentAxisList = computed(() => {
         .filter(Boolean),
     ),
   ];
-  console.log('轴体', axisV2Ids);
   // 筛选轴体
   // 根据轴体ID匹配对应的轴体信息
   return performanceStore.axisList
