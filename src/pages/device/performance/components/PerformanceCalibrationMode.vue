@@ -28,9 +28,18 @@
         <div style="width: 100%">
           <p>3.查看校准结果。</p>
           <div style="display: flex; justify-content: space-around">
-            <img :src="UnBtn" alt="" />
-            <img :src="SucBtn" alt="" />
-            <img :src="ErroBtn" alt="" draggable="false" />
+            <div style="display: flex; flex-direction: column; align-items: center">
+              <img :src="UnBtn" alt="" />
+              <span style="font-size: 14px; margin-top: 10px">未校准</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center">
+              <img :src="SucBtn" alt="" />
+              <span style="font-size: 14px; margin-top: 10px">校准成功</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center">
+              <img :src="ErroBtn" alt="" />
+              <span style="font-size: 14px; margin-top: 10px">校准失败</span>
+            </div>
           </div>
         </div>
       </div>
