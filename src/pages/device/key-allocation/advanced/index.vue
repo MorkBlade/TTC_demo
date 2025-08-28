@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-box">
+  <div class="tabs-box fade-in">
     <div class="tab">
       <div class="tab-list">
         <tabs-l2 :tabMenu="advancedKeyMenu" v-model="tabItem" @change="onChangeTab" />
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div class="content">
+  <div class="content fade-in">
     <!-- 已激活高级键 -->
     <template v-if="tabItem === 0">
       <actived-key :advancedData="advancedItems" @toAdd="toAdd" @edit="edit" :addMenuItems="addMenuItems" />
@@ -406,7 +406,7 @@ const handleCancelClick = () => {
   .setting-box {
     width: 400px;
     height: 340px;
-    overflow: auto;
+    overflow-y: auto;
     margin-top: 28px;
     margin-left: 60px;
     border-left: 2px solid #404040;

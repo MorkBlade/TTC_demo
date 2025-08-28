@@ -337,9 +337,11 @@ const selectAxis = async (index, item) => {
         background-repeat: no-repeat;
         margin: 15px 0;
         padding: 5px 10px;
+        transition: transform 0.3s ease;
         cursor: pointer;
         &:hover {
           background-image: url('@/assets/images/select_axis_switch.svg');
+          transform: scaleY(1.2);
         }
         .switch-button {
           color: #fff;

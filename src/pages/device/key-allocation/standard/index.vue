@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-box">
+  <div class="tabs-box fade-in">
     <div class="tab">
       <tabs-l2 :tabMenu="menu" @change="onChangeTab" />
     </div>
@@ -11,7 +11,7 @@
       </div>
     </div> -->
   </div>
-  <div class="tab-content">
+  <div class="tab-content fade-in">
     <div class="device-custom-key__body">
       <div v-if="checkedTab === 0" class="device-custom-key__body-global device-custom-key">
         <div class="one-section">
