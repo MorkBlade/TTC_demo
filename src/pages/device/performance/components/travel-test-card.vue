@@ -18,11 +18,11 @@
               <img
                 class="progress"
                 :src="progress"
-                :style="{ transform: `translateY(${testEnabled ? dynamicHeight : -400}px)` }"
+                :style="{ transform: `translateY(${testEnabled ? dynamicHeight : -400}em)` }"
               />
             </div>
           </div>
-          <div class="arrow-nums" :style="{ transform: `translateY(${currentSingleTravel * 70}px)` }">
+          <div class="arrow-nums" :style="{ transform: `translateY(${dynamicHeight}em)` }">
             <img class="arrow-left" :src="arrowLeft" />
             <p>{{ arrowHeightValue }}mm</p>
           </div>
@@ -41,6 +41,8 @@ const progress = new URL('@/assets/images/progress.svg', import.meta.url).href;
 const arrowLeft = new URL('@/assets/images/arrow_left.svg', import.meta.url).href;
 
 const keyboardStore = useKeyboardStore();
+const { activeKeys } = storeToRefs(keyboardStore);
+const { keyboardLayout } = storeToRefs(keyboardStore);
 const performanceStore = usePerformanceStore();
 
 const props = defineProps({
@@ -63,54 +65,59 @@ onMounted(() => {
   keyPressTestCount.value++;
 });
 
-watch(keyPressTestCount, async () => {
-  if (testEnabled.value) {
-    /* console.log('keyboardStore', keyboardStore);
-    const { max } = await performanceStore.getRm6X21Travel(keyboardStore.keyboards, true);
-    maxMM.value = max; */
-    // getRouteData(3);
-    // keyPressTestCount.value++;
-  }
+// watch(keyPressTestCount, async () => {
+//   if (testEnabled.value) {
+//     console.log('keyboardStore', keyboardStore);
+//     const { max } = await performanceStore.getRm6X21Travel(keyboardStore.keyboards, true);
+//     maxMM.value = max;
+//     getRouteData(3);
+//     keyPressTestCount.value++;
+//   }
+// });
+
+/* watch(
+  () => activeKeys.value[activeKeys.value.length - 1],
+  (newKey) => {
+    if (!newKey) {
+      resetSlider();
+      return;
+    }
+    console.log('newKey', newKey);
+    const [row, col] = newKey.split('-').map((item) => Number(item));
+    singleTouchTravel.value = keyboardLayout.value[row][col].performance.normalPress;
+  },
+  { immediate: true },
+); */
+
+// const dynamicHeight = computed(() => {
+//   // 使用 CSS 变量获取基准值
+//   const baseValue = getComputedStyle(document.documentElement).getPropertyValue('--size-200');
+//   const baseHeight = parseInt(baseValue) || 190;
+
+//   // 计算动态高度
+//   const height = -baseHeight + (maxMM.value / 4.0) * ((baseHeight * baseHeight) / 190);
+//   // 限制最大高度
+//   return Math.min(Math.max(height, -baseHeight), 0);
+// });
+
+const arrowHeightValue = computed(() => {
+  if (activeKeys.value.length === 0) return 0;
+  const newKey = activeKeys.value[activeKeys.value.length - 1];
+  const [row, col] = newKey.split('-').map((item) => Number(item));
+  return keyboardLayout.value[row][col].performance.normalPress;
 });
 
 const dynamicHeight = computed(() => {
   // 使用 CSS 变量获取基准值
   const baseValue = getComputedStyle(document.documentElement).getPropertyValue('--size-200');
-  const baseHeight = parseInt(baseValue) || 190;
-
+  const baseHeight = parseInt(baseValue) || 10;
   // 计算动态高度
-  const height = -baseHeight + (maxMM.value / 4.0) * ((baseHeight * baseHeight) / 190);
+  const height = (arrowHeightValue.value / 2.0) * baseHeight;
+  console.log('baseHeight', height);
   // 限制最大高度
-  return Math.min(Math.max(height, -baseHeight), 0);
+  return height;
 });
 
-/* const getRouteData = async (row) => {
-  try {
-    const result = await services.getRoute({ row: row });
-    console.log('路由数据:', result);
-    console.log('行号:', result.row);
-    console.log('路由值:', result.route);
-    console.log('数据:', result.data);
-  } catch (error) {
-    console.error('获取路由数据失败:', error);
-  }
-}; */
-
-/* const arrowHeight = computed(() => {
-  if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
-    return Math.max(dynamicHeight.value + 230, (currentSingleTravel.value + 415) / 4.0);
-  } else {
-    return Math.max(dynamicHeight.value + 230, 0);
-  }
-}); */
-
-/* const arrowHeightValue = computed(() => {
-  if (currentSingleTravel.value && maxMM.value < currentSingleTravel.value) {
-    return currentSingleTravel.value.toFixed(2);
-  } else {
-    return maxMM.value.toFixed(2);
-  }
-}); */
 // 组件销毁
 onUnmounted(() => {
   testEnabled.value = false;
