@@ -14,7 +14,7 @@
     <div class="device-performance-page__axis-right">
       <div class="switch-item-box">
         <h3>可适配轴体：</h3>
-        <span class="select-switch-num">1个按键</span>
+        <span class="select-switch-num">{{ activeKeys.length }}个按键</span>
         <div class="switch-content-box">
           <div
             v-for="(item, index) in axisList"
@@ -31,17 +31,16 @@
       <div class="line"></div>
       <div class="switch-item-box">
         <h3>绑定列表:</h3>
-        <span class="select-switch-num">已绑定类型：万磁王RGB</span>
+        <span class="select-switch-num"
+          >已绑定类型：{{ currentAxisList.map((item) => item.axis_name).join('、') }}</span
+        >
         <div class="switch-content-box">
-          <div
-            v-for="(item, index) in axisList"
-            :key="item.axis_id"
-            class="switch-item"
-            @click="selectAxis(index, item)"
-          >
-            <div :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
-            <p style="font-size: 16px">{{ item.axis_name }}</p>
-            <span class="switch-button" :selected-id="item.axis_id">替换轴体</span>
+          <div v-for="(item, index) in currentAxisList" :key="item.axis_id" class="current-axis-item">
+            <div class="axis-num" :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
+            <div class="content">
+              <div class="title">{{ item.axis_name }}</div>
+              <div class="desc" :selected-id="item.axis_id">已绑定</div>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +68,6 @@ const keyboardStore = useKeyboardStore();
 const performanceStore = usePerformanceStore();
 const { keyboardLayout, activeKeys } = storeToRefs(keyboardStore);
 const { getCurrentAxisGroup, isAxisStatus } = storeToRefs(performanceStore);
-
 const currentAxis = ref(0);
 const currentFactory = ref('TTC');
 const axisObj = computed(() => {
@@ -179,8 +177,32 @@ const selectAxis = async (index, item) => {
       promises.push(performanceStore.setPerformance(params));
     }
     await Promise.all(promises);
+    keyboardStore.cancelSelectKey();
   }
 };
+
+// 当前键盘中已经设置的轴体
+const currentAxisList = computed(() => {
+  // 获取当前键盘中所有键中的所有轴体
+  const axisV2Ids = [
+    ...new Set(
+      keyboardLayout.value
+        .flatMap((row, rowIndex) => row.map((col, colIndex) => col?.performance?.axisV2Id))
+        .filter(Boolean),
+    ),
+  ];
+  console.log('轴体', axisV2Ids);
+  // 筛选轴体
+  // 根据轴体ID匹配对应的轴体信息
+  return performanceStore.axisList
+    .filter((axis) => axisV2Ids.includes(axis.aixsDetail[0].axis_id))
+    .map((axis) => ({
+      axis_id: axis.aixsDetail[0].axis_id,
+      axis_name: axis.axis_name,
+      axis_color: axis.axis_color || '#fff',
+      brand: axis.brand,
+    }));
+});
 </script>
 
 <style scoped lang="less">
@@ -317,11 +339,12 @@ const selectAxis = async (index, item) => {
   .switch-item-box {
     width: 46%;
     margin-bottom: 20px;
+    font-family: 'Bold';
     .switch-content-box {
       display: flex;
       flex-wrap: wrap;
       margin-top: 10px;
-      justify-content: space-between;
+      justify-content: left;
       max-height: 280px;
       overflow-y: auto;
       scrollbar-width: none;
@@ -339,9 +362,11 @@ const selectAxis = async (index, item) => {
         padding: 5px 10px;
         transition: transform 0.3s ease;
         cursor: pointer;
+        font-size: 16px;
+        margin-right: 50px;
         &:hover {
           background-image: url('@/assets/images/select_axis_switch.svg');
-          transform: scaleY(1.2);
+          // transform: scaleY(1.2);
         }
         .switch-button {
           color: #fff;
@@ -360,6 +385,49 @@ const selectAxis = async (index, item) => {
           padding: 0 5px;
           color: #000;
         }
+      }
+    }
+    .current-axis-item {
+      width: 220px;
+      height: 60px;
+      background-image: url('@/assets/images/current-axis.svg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-left: 10px;
+      margin-right: 40px;
+      margin-bottom: 30px;
+      .axis-num {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+      }
+      .content {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 16px;
+        .title {
+          font-size: 16px;
+        }
+        .desc {
+          font-size: 12px;
+          font-weight: bold;
+          color: #7f7f7f;
+        }
+      }
+      &:hover {
+        background-image: url('@/assets/images/current-axis_hover.svg');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        transform: none;
       }
     }
   }

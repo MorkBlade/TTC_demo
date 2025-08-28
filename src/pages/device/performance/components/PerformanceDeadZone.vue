@@ -5,7 +5,9 @@
       <span style="font-size: 0.75rem; color: #808080">触发的键程越短，响应越快，但会增加误触的风险。</span>
       <br />
       <span style="font-size: 0.75rem; margin-top: 20px; display: block">当前已选：</span>
-      <span style="color: #00c3ff; font-size: 0.75rem; display: block; margin-bottom: 15px">1个按键</span>
+      <span style="color: #00c3ff; font-size: 0.75rem; display: block; margin-bottom: 15px"
+        >{{ activeKeys.length }}个按键</span
+      >
       <div class="trigger-slider trigger_slider_rail">
         <t-slider
           v-model="singleTouchTravel"
