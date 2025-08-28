@@ -37,22 +37,27 @@ app.mount('#app');
 
 const updateSW = registerSW({
   async onNeedRefresh() {
-    const dialog = DialogPlugin.confirm({
-      header: '新版本已发布',
-      body: '检测到新版本，是否立即刷新？',
-      onConfirm: () => {
-        updateSW(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 500); // 延迟刷新，确保缓存切换完成
-        dialog.destroy();
-      },
-      onClose: () => {
-        dialog.destroy();
-      },
-    });
+    updateSW(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 500); // 延迟刷新，确保缓存切换完成
+    // const dialog = DialogPlugin.confirm({
+    //   header: '发现新版本',
+    //   body: '新版本已发布，是否立即刷新？',
+    //   className: 'custom-update-dialog', // 添加自定义类名
+    //   onConfirm: () => {
+    //     updateSW(true);
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 500); // 延迟刷新，确保缓存切换完成
+    //     dialog.destroy();
+    //   },
+    //   onClose: () => {
+    //     dialog.destroy();
+    //   },
+    // });
   },
   onOfflineReady() {
-    console.log('应用已准备好离线使用。');
+    // console.log('应用已准备好离线使用。');
   },
 });
