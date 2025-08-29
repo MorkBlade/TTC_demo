@@ -39,7 +39,7 @@
             <div class="axis-num" :style="{ backgroundColor: item.axis_color || '#fff' }">{{ 'T' + index }}</div>
             <div class="content">
               <div class="title">{{ item.axis_name }}</div>
-              <div class="desc" :selected-id="item.axis_id">已绑定</div>
+              <div class="desc" :selected-id="item.axis_id">已绑定{{ item.axis_num }}个键</div>
             </div>
           </div>
         </div>
@@ -185,14 +185,17 @@ const selectAxis = async (index, item) => {
 const currentAxisList = computed(() => {
   // 获取当前键盘中所有键中的所有轴体
   const axisV2Ids = [
-    ...new Set(
-      keyboardLayout.value
-        .flatMap((row, rowIndex) => row.map((col, colIndex) => col?.performance?.axisV2Id))
-        .filter(Boolean),
-    ),
+    ...new Set(keyboardLayout.value.flatMap((row) => row.map((col) => col?.performance?.axisV2Id)).filter(Boolean)),
   ];
+  const count = keyboardLayout.value.flatMap((row) => row.map((col) => col?.performance?.axisV2Id));
+  // 统计选中的每个轴体的数量
+  for (let j = 0; j < axisV2Ids.length; j++) {
+    const num = count.filter((id) => id === axisV2Ids[j]).length;
+    performanceStore.axisList.find((axis) => axis.aixsDetail[0].axis_id === axisV2Ids[j]).axis_num = num;
+  }
   // 筛选轴体
   // 根据轴体ID匹配对应的轴体信息
+  console.log('countNum', performanceStore.axisList);
   return performanceStore.axisList
     .filter((axis) => axisV2Ids.includes(axis.aixsDetail[0].axis_id))
     .map((axis) => ({
@@ -200,6 +203,7 @@ const currentAxisList = computed(() => {
       axis_name: axis.axis_name,
       axis_color: axis.axis_color || '#fff',
       brand: axis.brand,
+      axis_num: axis.axis_num || 0,
     }));
 });
 </script>

@@ -121,7 +121,6 @@ export const usePerformanceStore = defineStore('performance', {
     async setPerformance(performanceItem: IPerformanceData): Promise<any> {
       // const performance = this.performanceData[row][col];
       // TODO:v2新增轴体的判断
-      console.log('performanceItem11111', performanceItem);
       const result = await services.setPerformance({ ...performanceItem, calibrate: 0 });
       return result;
     },
