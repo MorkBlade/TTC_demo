@@ -193,14 +193,7 @@ const currentAxisList = computed(() => {
   ];
   // 筛选轴体
   // 根据轴体ID匹配对应的轴体信息
-  return performanceStore.axisList
-    .filter((axis) => axisV2Ids.includes(axis.aixsDetail[0].axis_id))
-    .map((axis) => ({
-      axis_id: axis.aixsDetail[0].axis_id,
-      axis_name: axis.axis_name,
-      axis_color: axis.axis_color || '#fff',
-      brand: axis.brand,
-    }));
+  return performanceStore.axisList;
 });
 </script>
 
