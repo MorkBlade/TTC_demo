@@ -121,6 +121,7 @@ export const usePerformanceStore = defineStore('performance', {
     async setPerformance(performanceItem: IPerformanceData): Promise<any> {
       // const performance = this.performanceData[row][col];
       // TODO:v2新增轴体的判断
+      console.log('performanceItem', performanceItem);
       const result = await services.setPerformance({ ...performanceItem, calibrate: 0 });
       return result;
     },
@@ -153,7 +154,7 @@ export const usePerformanceStore = defineStore('performance', {
 
     async getAxisVersion(): Promise<number[]> {
       const result = await services.getAxisList();
-      console.log('result', result);
+      console.log('getAxisList', result);
       const { list } = result;
       // TODO：根据list 查询allAxisList 中是否存在 按顺序显示
       this.isAxisStatus = list.length === 0 ? 'v2' : 'v1';

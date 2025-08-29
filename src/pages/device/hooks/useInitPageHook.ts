@@ -86,6 +86,7 @@ export async function useInitPageHook(params?: { noConfig?: boolean }) {
   if (performanceStore.axisList.length === 0) {
     try {
       await performanceStore.getAxisList();
+      console.log('performanceStore.axisList', performanceStore.axisList);
     } catch (error) {
       console.error('错误:', error.response || error);
     }
