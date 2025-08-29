@@ -184,18 +184,45 @@ const selectAxis = async (index, item) => {
 // 当前键盘中已经设置的轴体
 const currentAxisList = computed(() => {
   // 获取当前键盘中所有键中的所有轴体
+  console.log('keyboardLayout', keyboardLayout.value);
   const axisV2Ids = [
-    ...new Set(keyboardLayout.value.flatMap((row) => row.map((col) => col?.performance?.axisV2Id)).filter(Boolean)),
+    ...new Set(
+      keyboardLayout.value
+        .flatMap((row) =>
+          row.map((col) => {
+            console.log('col', col);
+            return col?.performance?.axis;
+          }),
+        )
+        .filter(Boolean),
+    ),
   ];
-  const count = keyboardLayout.value.flatMap((row) => row.map((col) => col?.performance?.axisV2Id));
+  const count = keyboardLayout.value.flatMap((row) => row.map((col) => col?.performance?.axis));
   // 统计选中的每个轴体的数量
-  for (let j = 0; j < axisV2Ids.length; j++) {
-    const num = count.filter((id) => id === axisV2Ids[j]).length;
-    performanceStore.axisList.find((axis) => axis.aixsDetail[0].axis_id === axisV2Ids[j]).axis_num = num;
-  }
+  // for (let j = 0; j < axisV2Ids.length; j++) {
+  //   const num = count.filter((id) => id === axisV2Ids[j]).length;
+  //   performanceStore.axisList.find((axis) => axis.axis_id === axisV2Ids[j]).axis_num = num;
+  // }
   // 筛选轴体
   // 根据轴体ID匹配对应的轴体信息
-  return performanceStore.axisList;
+  console.log('axisV2Ids', axisV2Ids, axisList.value);
+  // 找出轴列表中包含axisV2Ids的轴体
+  const list = axisList.value
+    .filter((axis) => axisV2Ids.includes(axis.axisIndex))
+    .map((axis) => {
+      console.log('axis', axis);
+      // 统计每个轴体被使用的次数
+      const axisCount = keyboardLayout.value
+        .flatMap((row) => row.map((col) => col?.performance?.axis))
+        .filter((id) => id === axis.axisIndex).length;
+
+      return {
+        ...axis,
+        axis_num: axisCount, // 添加使用次数属性
+      };
+    });
+  console.log('axisV2Ids', list);
+  return list;
 });
 </script>
 
